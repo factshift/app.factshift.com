@@ -7,7 +7,7 @@ export default defineConfig(
     base:      '/',
     publicDir: path.resolve(__dirname, 'public'),
     build:     {
-      outDir:        path.resolve(__dirname, '_site'),
+      outDir:        path.resolve(__dirname, 'dist'),
       emptyOutDir:   true,
       sourcemap:     true,
       rollupOptions: {

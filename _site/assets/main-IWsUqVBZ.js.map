@@ -1,1 +1,0 @@
-{"version":3,"file":"main-IWsUqVBZ.js","sources":["../../src/index.html?html-proxy&index=0.js"],"sourcesContent":["\n      import {app} from \"./js\";\n\n      app()\n    "],"names":["app"],"mappings":"mCAGMA,EAAG"}

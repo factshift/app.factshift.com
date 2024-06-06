@@ -7,7 +7,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "serve -l 5050 _site"
+    "serve": "serve -l 5050 dist"
   },
   "dependencies": {
     "ace-builds": "^1.31.2",
