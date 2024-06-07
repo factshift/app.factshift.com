@@ -43,7 +43,9 @@ export function initSite(site) {
       window.spwashi.parameters.defaultName = 'node';
       break;
     case 'localhost':
+    default:
       setSite("localhost")
+      window.spwashi.parameters.defaultName = '[ item ]';
       break;
   }
 }

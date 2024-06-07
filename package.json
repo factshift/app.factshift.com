@@ -1,6 +1,6 @@
 {
-  "name": "simulation",
-  "version": "1.0.0",
+  "name": "app",
+  "version": "0.0.1",
   "main": "index.html",
   "repository": "git@github.com:spwashi/D3v7.git",
   "license": "MIT",

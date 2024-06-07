@@ -27,7 +27,7 @@ export function makeText(g) {
             }))
 
   text.selectAll('tspan')
-      .data(d => getNodeText(d).split('\n').map((line, i) => ({node: d, i: i, text: line})))
+      .data(d => getNodeText(d)?.split('\n').map((line, i) => ({node: d, i: i, text: line})))
       .join(
         enter => enter
           .append('tspan')
@@ -50,10 +50,10 @@ export function updateNodeTextSvg(g) {
   const text = a.select('text');
   text
     .attr('x', d => (d.x || 0) + (d.text.fx || 0))
-    .attr('y', d => (d.y || 0) + (d.text.fy || 0) - (getNodeText(d).split('\n').length * d.r) / 2)
+    .attr('y', d => (d.y || 0) + (d.text.fy || 0) - (getNodeText(d)?.split('\n').length * d.r) / 2)
     .attr('font-size', d => d.text.fontSize || d.r)
     .selectAll('tspan')
-    .data(d => getNodeText(d).split('\n').map((line, i) => ({node: d, i: i, text: line})))
+    .data(d => getNodeText(d)?.split('\n').map((line, i) => ({node: d, i: i, text: line})))
     .text(d => (d.text))
     .attr('fill', d => d.node.text.color || 'var(--text-color)')
     .attr('x', d => (d.node.x || 0) + (d.node.text.fx || 0))

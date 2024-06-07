@@ -14,5 +14,5 @@ const colors                    = [
   'var(--node-color-12)',
 ];
 export const getNodeColor       = d => colors[(d.colorindex || 0) % (colors.length)];
-export const getNodeText        = d => d.name;
+export const getNodeText        = d => `${d.name}`;
 export const getNodeStrokeColor = d => colors[((d.colorindex || 0) + 5) % colors.length];

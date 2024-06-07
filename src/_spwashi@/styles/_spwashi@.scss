@@ -10,19 +10,19 @@ html {
 }
 
 body {
-  --node-color-0: #{color.mix(#089892, #004646, 100% - ((0/13)*1%))};
-  --node-color-1: #{color.mix(#089892, #004646, 100% - ((1/13)*1%))};
-  --node-color-2: #{color.mix(#089892, #004646, 100% - ((2/13)*1%))};
-  --node-color-3: #{color.mix(#089892, #004646, 100% - ((3/13)*1%))};
-  --node-color-4: #{color.mix(#089892, #004646, 100% - ((4/13)*1%))};
-  --node-color-5: #{color.mix(#089892, #004646, 100% - ((5/13)*1%))};
-  --node-color-6: #{color.mix(#089892, #004646, 100% - ((6/13)*1%))};
-  --node-color-7: #{color.mix(#089892, #004646, 100% - ((7/13)*1%))};
-  --node-color-8: #{color.mix(#089892, #004646, 100% - ((8/13)*1%))};
-  --node-color-9: #{color.mix(#089892, #004646, 100% - ((9/13)*1%))};
-  --node-color-10: #{color.mix(#089892, #004646, 100% - ((10/13)*1%))};
-  --node-color-11: #{color.mix(#089892, #004646, 100% - ((11/13)*1%))};
-  --node-color-12: #{color.mix(#089892, #004646, 100% - ((12/13)*1%))};
+  --node-color-0: #{color.mix(#089892, #004646, 100% - (calc(0/13*1%)))};
+  --node-color-1: #{color.mix(#089892, #004646, 100% - (calc(1/13*1%)))};
+  --node-color-2: #{color.mix(#089892, #004646, 100% - (calc(2/13*1%)))};
+  --node-color-3: #{color.mix(#089892, #004646, 100% - (calc(3/13*1%)))};
+  --node-color-4: #{color.mix(#089892, #004646, 100% - (calc(4/13*1%)))};
+  --node-color-5: #{color.mix(#089892, #004646, 100% - (calc(5/13*1%)))};
+  --node-color-6: #{color.mix(#089892, #004646, 100% - (calc(6/13*1%)))};
+  --node-color-7: #{color.mix(#089892, #004646, 100% - (calc(7/13*1%)))};
+  --node-color-8: #{color.mix(#089892, #004646, 100% - (calc(8/13*1%)))};
+  --node-color-9: #{color.mix(#089892, #004646, 100% - (calc(9/13*1%)))};
+  --node-color-10: #{color.mix(#089892, #004646, 100% - (calc(10/13*1%)))};
+  --node-color-11: #{color.mix(#089892, #004646, 100% - (calc(11/13*1%)))};
+  --node-color-12: #{color.mix(#089892, #004646, 100% - (calc(12/13*1%)))};
 }
 @keyframes html-background {
   from { background-color: var(--bg-start); }
