@@ -1,7 +1,12 @@
+function isLocalhost() {
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+}
+
 export function initWebsocket() {
   const connectWebSocket = () => {
     const host = window.location.host;
-    const socket = new WebSocket("ws://" + host + "/ws");
+    const protocol = isLocalhost() ? "ws://" : "wss://";
+    const socket = new WebSocket(protocol + host + "/ws");
 
     socket.onopen = () => {
       console.log("WebSocket connection established");
