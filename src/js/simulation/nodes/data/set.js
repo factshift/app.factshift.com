@@ -3,20 +3,6 @@ export function setNodeData(activeNodes) {
 }
 
 export function removeAllNodes() {
-  window.spwashi.nodes.forEach(node => {
-    // send delete request to server
-    fetch('/api/nodes/' + node.id, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(data => {
-        filterNodes(dd => dd.id !== node.id);
-        window.spwashi.reinit();
-      })
-      .catch(error => console.error('Error:', error));
-  })
   window.spwashi.nodes = [];
 }
 

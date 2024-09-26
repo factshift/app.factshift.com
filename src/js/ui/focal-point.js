@@ -102,6 +102,7 @@ export function initFocalSquare() {
   focalPointElement.onfocus = (e) => {
     focalPoint.onFocus();
   }
+
   return focalPointElement;
 }
 

@@ -13,120 +13,124 @@
     </script>
 </head>
 <body data-mode="nothing" data-interface-depth="standard">
-    <button id="main-wonder-button">?</button>
-    <h1>&lt;concept&gt;</h1>
-    <a id="title-md5"></a>
-    <main>
-        <div id="content">
-            <svg id="simulation">
-                <g class="simulation-content">
-                    <g class="rects"></g>
-                    <g class="edges"></g>
-                    <g class="nodes"></g>
-                </g>
-            </svg>
+<button id="main-wonder-button">?</button>
+<h1>&lt;concept&gt;</h1>
+<section id="main-websocket-container">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <factshift-websocket-container></factshift-websocket-container>
+</section>
+<a id="title-md5"></a>
+<main>
+    <div id="content">
+        <svg id="simulation">
+            <g class="simulation-content">
+                <g class="rects"></g>
+                <g class="edges"></g>
+                <g class="nodes"></g>
+            </g>
+        </svg>
+    </div>
+</main>
+<aside id="main-log">
+    <ul class="events-log"></ul>
+</aside>
+<section id="main-image-container"></section>
+<button id="focal-square" data-focal-status="inactive"></button>
+<aside id="mode-container">
+    <section id="spw-mode-container">
+        <div id="spw-container">
+            <label>
+                <span>input</span>
+                <textarea id="spw-parse-field"></textarea>
+            </label>
+            <button id="parse-spw">parse</button>
         </div>
-    </main>
-    <aside id="main-log">
-        <ul class="events-log"></ul>
-    </aside>
-    <section id="main-image-container"></section>
-    <button id="focal-square" data-focal-status="inactive"></button>
-    <aside id="mode-container">
-        <section id="spw-mode-container">
-            <div id="spw-container">
-                <label>
-                    <span>input</span>
-                    <textarea id="spw-parse-field"></textarea>
-                </label>
-                <button id="parse-spw">parse</button>
+    </section>
+    <section id="story-mode-container">
+        <div class="button-container"></div>
+    </section>
+    <section id="map-mode-container">
+        <div id="node-mapper" class="code-editor"></div>
+        <button id="submit-node-mapper">submit</button>
+    </section>
+    <section id="filter-mode-container">
+        <div id="node-filter" class="code-editor"></div>
+        <button id="submit-node-filter">submit</button>
+    </section>
+    <section id="querymod-mode-container">
+        <div id="query-parameters">
+            <label>
+                <span>Query Parameters</span>
+                <textarea class="value"></textarea>
+            </label>
+            <button class="go">go</button>
+        </div>
+    </section>
+    <section id="node-mode-container">
+        <div id="node-input-container">
+            <label><span>Nodes Input</span><input id="nodes-input"/></label>
+            <div class="button-container">
+                <button class="replace">replace</button>
+                <button class="add">add</button>
             </div>
-        </section>
-        <section id="story-mode-container">
-            <div class="button-container"></div>
-        </section>
-        <section id="map-mode-container">
-            <div id="node-mapper" class="code-editor"></div>
-            <button id="submit-node-mapper">submit</button>
-        </section>
-        <section id="filter-mode-container">
-            <div id="node-filter" class="code-editor"></div>
-            <button id="submit-node-filter">submit</button>
-        </section>
-        <section id="querymod-mode-container">
-            <div id="query-parameters">
-                <label>
-                    <span>Query Parameters</span>
-                    <textarea class="value"></textarea>
-                </label>
-                <button class="go">go</button>
-            </div>
-        </section>
-        <section id="node-mode-container">
-            <div id="node-input-container">
-                <label><span>Nodes Input</span><input id="nodes-input"/></label>
-                <div class="button-container">
-                    <button class="replace">replace</button>
-                    <button class="add">add</button>
-                </div>
-            </div>
-            <div id="controls">
-                <section>
-                    <label>
-                        <span>Data Buttons</span>
-                    </label>
-                    <div class="button-container">
-                        <button class="save-nodes">save</button>
-                        <button class="generate-nodes">generate</button>
-                        <button class="clear-saved-nodes">clear</button>
-                        <button class="read-nodes">read</button>
-                        <button class="clear-fixed-positions">free</button>
-                    </div>
-                </section>
-                <section>
-                    <label>
-                        <span>Simulation Buttons</span>
-                    </label>
-                    <div class="button-container">
-                        <button class="stop">stop</button>
-                        <button class="tick">tick</button>
-                        <button class="start">start</button>
-                        <button class="reinit">reinit</button>
-                    </div>
-                </section>
-            </div>
-        </section>
-        <section id="color-mode-container">
-            <section id="colors">
-                <button data-dataindex="spwashi-datum-0" class="color cls-0"></button>
-                <button data-dataindex="spwashi-datum-1" class="color cls-1"></button>
-                <button data-dataindex="spwashi-datum-2" class="color cls-2"></button>
-                <button data-dataindex="spwashi-datum-3" class="color cls-3"></button>
-                <button data-dataindex="spwashi-datum-4" class="color cls-4"></button>
-                <button data-dataindex="spwashi-datum-5" class="color cls-5"></button>
-                <button data-dataindex="spwashi-datum-6" class="color cls-6"></button>
-                <button data-dataindex="spwashi-datum-7" class="color cls-7"></button>
-                <button data-dataindex="spwashi-datum-8" class="color cls-8"></button>
-                <button data-dataindex="spwashi-datum-9" class="color cls-9"></button>
-                <button data-dataindex="spwashi-datum-10" class="color cls-10"></button>
-                <button data-dataindex="spwashi-datum-11" class="color cls-11"></button>
-                <button data-dataindex="spwashi-datum-12" class="color cls-12"></button>
-            </section>
-        </section>
-        <section id="reflex-mode-container">
-            <section id="reflexes"></section>
-        </section>
-        <section id="debug-mode-container">
+        </div>
+        <div id="controls">
             <section>
-                <output id="output"></output>
+                <label>
+                    <span>Data Buttons</span>
+                </label>
+                <div class="button-container">
+                    <button class="save-nodes">save</button>
+                    <button class="generate-nodes">generate</button>
+                    <button class="clear-saved-nodes">clear</button>
+                    <button class="read-nodes">read</button>
+                    <button class="clear-fixed-positions">free</button>
+                </div>
             </section>
+            <section>
+                <label>
+                    <span>Simulation Buttons</span>
+                </label>
+                <div class="button-container">
+                    <button class="stop">stop</button>
+                    <button class="tick">tick</button>
+                    <button class="start">start</button>
+                    <button class="reinit">reinit</button>
+                </div>
+            </section>
+        </div>
+    </section>
+    <section id="color-mode-container">
+        <section id="colors">
+            <button data-dataindex="spwashi-datum-0" class="color cls-0"></button>
+            <button data-dataindex="spwashi-datum-1" class="color cls-1"></button>
+            <button data-dataindex="spwashi-datum-2" class="color cls-2"></button>
+            <button data-dataindex="spwashi-datum-3" class="color cls-3"></button>
+            <button data-dataindex="spwashi-datum-4" class="color cls-4"></button>
+            <button data-dataindex="spwashi-datum-5" class="color cls-5"></button>
+            <button data-dataindex="spwashi-datum-6" class="color cls-6"></button>
+            <button data-dataindex="spwashi-datum-7" class="color cls-7"></button>
+            <button data-dataindex="spwashi-datum-8" class="color cls-8"></button>
+            <button data-dataindex="spwashi-datum-9" class="color cls-9"></button>
+            <button data-dataindex="spwashi-datum-10" class="color cls-10"></button>
+            <button data-dataindex="spwashi-datum-11" class="color cls-11"></button>
+            <button data-dataindex="spwashi-datum-12" class="color cls-12"></button>
         </section>
-    </aside>
-    <section id="mainmenu-shortcuts">
-        <ol></ol>
     </section>
-    <button id="hotkey-menu-toggle">[...]</button>
-    <section id="hotkey-container" data-interface-element="hotkey-menu">
-        <section id="keystroke-options"></section>
+    <section id="reflex-mode-container">
+        <section id="reflexes"></section>
     </section>
+    <section id="debug-mode-container">
+        <section>
+            <output id="output"></output>
+        </section>
+    </section>
+</aside>
+<section id="mainmenu-shortcuts">
+    <ol></ol>
+</section>
+<button id="hotkey-menu-toggle">[...]</button>
+<section id="hotkey-container" data-interface-element="hotkey-menu">
+    <section id="keystroke-options"></section>
+</section>
 </body>

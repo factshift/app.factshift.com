@@ -9,8 +9,7 @@ import {loadParameters} from "./init/parameters/read";
 import {initSite} from "./init/site";
 import {initWebsocket} from "./init/websocket";
 import {initAnalytics} from "./meta/analytics";
-import {filterNodes, setNodeData} from "./simulation/nodes/data/set";
-import {NODE_MANAGER} from "./simulation/nodes/nodes";
+import {initWebSocketContainer} from "./ui/websocket-container";
 
 const versions = {
   'v0.0.1': {
@@ -54,44 +53,12 @@ export async function app() {
 
   // progressive enhancement
   initUi(window.spwashi.initialMode);
+  initWebSocketContainer();
 
   return Promise.all([serviceWorkerRegistered])
     .then(() => {
       setTimeout(() => {
-        let pathname = window.location.pathname;
-        pathname = pathname.split('/').filter(Boolean).join('/');
-        fetch('/api/node_lists/[route]:' + pathname + '/nodes', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }).then(response => response.json())
-          .then(data => {
-            NODE_MANAGER.initNodes(data.map(node => ({
-              id: node.node_id,
-              name: node.node_name,
-              x: node.x_coordinate,
-              y: node.y_coordinate,
-              callbacks: {
-                click: (e, d) => {
-                  // send delete request to server
-                  fetch('/api/nodes/' + d.id, {
-                    method: 'DELETE',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                  })
-                    .then(data => {
-                      filterNodes(dd => dd.id !== d.id);
-                      window.spwashi.reinit();
-                    })
-                    .catch(error => console.error('Error:', error));
-                }
-              }
-            })))
-            window.spwashi.reinit();
-          })
-          .catch(error => console.error('Error:', error));
+        console.log('app is ready');
       }, 1000);
     });
 }
