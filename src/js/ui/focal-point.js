@@ -1,132 +1,128 @@
-import {setDocumentMode} from "../modes";
+import { setDocumentMode } from "../modes";
 
 let focalPointElement;
 
 const focalPointMeta = {
-  ready: true,
+    ready: true,
 };
 
-export const focalPoint =
-               {
-                 x:            0,
-                 y:            0,
-                 queuedAction: () => {
-                   const mode = window.spwashi.getItem('mode', 'focal.root');
-                   setDocumentMode(mode);
-                 },
-                 onFocus:      () => {}
-               };
+export const focalPoint = {
+    x: 0,
+    y: 0,
+    queuedAction: () => {
+        const mode = window.spwashi.getItem('mode', 'focal.root');
+        setDocumentMode(mode);
+    },
+    onFocus: () => {},
+};
 
-function initiateInterest(focalPointElement, timeout = 500) {
-  focalPointElement.classList.add('consent-to-engage');
+function consentEngagement(timeout, onInterest, onRevoke) {
+    focalPointElement.classList.add('consent-to-engage');
 
-  const consent = {
-    interested: null,
-    revoke:     revokeEngagement
-  };
+    const consent = { interested: null };
+    const timer = setTimeout(() => {
+        focalPointElement.classList.replace('consent-to-engage', 'consented-to-engage');
+        consent.interested = true;
+        if (onInterest) onInterest();
+    }, timeout);
 
-  const initiationTimer =
-          setTimeout(() => {
-            focalPointElement.classList.remove('consent-to-engage');
-            focalPointElement.classList.add('consented-to-engage');
-            consent.interested = true;
-          }, timeout);
+    consent.revoke = () => {
+        clearTimeout(timer);
+        focalPointElement.classList.remove('consented-to-engage', 'consent-to-engage');
+        consent.interested = false;
+        if (onRevoke) onRevoke();
+    };
 
-  function revokeEngagement() {
-    clearTimeout(initiationTimer);
-    focalPointElement.classList.remove('consented-to-engage');
-    focalPointElement.classList.remove('consent-to-engage');
-    consent.interested = false;
-  }
+    return consent;
+}
 
-  return consent;
+function onMouseDownHandler(e) {
+    e.preventDefault();
+    const consent = consentEngagement(100);
+
+    const onMouseMove = (e) => {
+        if (!consent.interested) return;
+        e.preventDefault();
+        updateFocalPoint({ x: e.x, y: e.y }, true);
+    };
+
+    const onMouseUp = (e) => {
+        e.preventDefault();
+        consent.revoke();
+        focalPointMeta.ready = true;
+        removeMouseHandlers(onMouseMove, onMouseUp);
+    };
+
+    document.documentElement.onmousemove = onMouseMove;
+    document.documentElement.onmouseup = onMouseUp;
+}
+
+function onTouchStartHandler(e) {
+    e.preventDefault();
+    const consent = consentEngagement(300);
+
+    const onTouchMove = (e) => {
+        if (!consent.interested) return;
+        e.preventDefault();
+        updateFocalPoint({ x: e.touches[0].clientX, y: e.touches[0].clientY }, true);
+    };
+
+    const onTouchEnd = (e) => {
+        e.preventDefault();
+        if (!consent.interested) focalPointMeta.ready = true;
+        consent.revoke();
+        removeTouchHandlers(onTouchMove, onTouchEnd);
+    };
+
+    document.documentElement.ontouchmove = onTouchMove;
+    document.documentElement.ontouchend = onTouchEnd;
+}
+
+function removeMouseHandlers(onMouseMove, onMouseUp) {
+    document.documentElement.onmousemove = null;
+    document.documentElement.onmouseup = null;
+}
+
+function removeTouchHandlers(onTouchMove, onTouchEnd) {
+    document.documentElement.ontouchmove = null;
+    document.documentElement.ontouchend = null;
 }
 
 export function initFocalSquare() {
-  if (!focalPointElement) {
-    focalPointElement = document.querySelector('#focal-square');
-    if (!focalPointElement) return;
-    const prevFocalPoint = window.spwashi.getItem('focalPoint', 'focal.root');
-    if (prevFocalPoint) {
-      Object.assign(focalPoint, prevFocalPoint);
-      setFocalPoint(focalPoint, true);
-    }
-    focalPointElement.onmousedown  = (e) => {
-      e.preventDefault();
-      const consent                        = initiateInterest(focalPointElement, 100);
-      document.documentElement.onmousemove = (e) => {
-        if (!consent.interested) return
-        e.preventDefault();
-        focalPointMeta.ready = false;
-        setFocalPoint({x: e.x, y: e.y}, true);
-      }
-      document.documentElement.onmouseup   = (e) => {
-        e.preventDefault();
-        consent.revoke()
-        if (!focalPointMeta.ready) {
-          setTimeout(() => focalPointMeta.ready = true, 100);
-        }
-        document.documentElement.onmousemove = null;
-        document.documentElement.onmouseup   = null;
-      }
-    }
-    focalPointElement.ontouchstart = (e) => {
-      e.preventDefault();
-      const consent = initiateInterest(focalPointElement, 300);
+    if (!focalPointElement) {
+        focalPointElement = document.querySelector('#focal-square');
+        if (!focalPointElement) return;
 
-      document.documentElement.ontouchmove = (e) => {
-        e.preventDefault();
-        if (!consent.interested) return;
-        focalPointMeta.ready = false;
-        setFocalPoint({x: e.touches[0].clientX, y: e.touches[0].clientY}, true);
-      }
-      document.documentElement.ontouchend  = (e) => {
-        e.preventDefault();
-        if (!consent.interested) {
-          focalPointMeta.ready = true;
-          focalPointElement.onclick(e);
-        }
-        consent.revoke()
-        if (!focalPointMeta.ready) {
-          setTimeout(() => focalPointMeta.ready = true, 100);
-        }
-        document.documentElement.ontouchmove = null;
-        document.documentElement.ontouchend  = null;
-      }
-    }
-  }
-  focalPointElement.onclick = (e) => {
-    if (!focalPointMeta.ready) return;
-    focalPoint.queuedAction();
-  }
-  focalPointElement.onfocus = (e) => {
-    focalPoint.onFocus();
-  }
+        const prevFocalPoint = window.spwashi.getItem('focalPoint', 'focal.root');
+        if (prevFocalPoint) updateFocalPoint(prevFocalPoint, true);
 
-  return focalPointElement;
+        focalPointElement.onmousedown = onMouseDownHandler;
+        focalPointElement.ontouchstart = onTouchStartHandler;
+        focalPointElement.onclick = () => {
+            if (!focalPointMeta.ready) return;
+            focalPoint.queuedAction();
+        };
+        focalPointElement.onfocus = () => focalPoint.onFocus();
+    }
 }
 
-export function setFocalPoint({x, y}, fix = false) {
-  focalPoint.x = x;
-  focalPoint.y = y;
-  if (fix) {
-    focalPoint.fx = x;
-    focalPoint.fy = y;
-  }
-  document.documentElement.style.setProperty('--focal-x', x + 'px');
-  document.documentElement.style.setProperty('--focal-y', y + 'px');
-  window.spwashi.setItem('focalPoint', {x, y, fx: x, fy: y}, 'focal.root');
+export function updateFocalPoint({ x, y }, fix = false) {
+    focalPoint.x = x;
+    focalPoint.y = y;
+    if (fix) {
+        focalPoint.fx = x;
+        focalPoint.fy = y;
+    }
+    document.documentElement.style.setProperty('--focal-x', `${x}px`);
+    document.documentElement.style.setProperty('--focal-y', `${y}px`);
+    window.spwashi.setItem('focalPoint', { x, y, fx: x, fy: y }, 'focal.root');
 }
 
-document.documentElement.style.setProperty('--focal-y-basis', document.documentElement.getBoundingClientRect().height + 'px');
-
-export function attachFocalPointToElementPosition(button) {
-  const x        = button.getBoundingClientRect().x;
-  const y        = button.getBoundingClientRect().y;
-  const w        = button.getBoundingClientRect().width;
-  const h        = button.getBoundingClientRect().height;
-  const focalX   = x + w;
-  const focalY   = y + h;
-  const notFixed = focalPoint.fx === undefined || focalPoint.fy === undefined;
-  notFixed && setFocalPoint({x: focalX, y: focalY});
+export function attachFocalPointToElementPosition(element) {
+    const { x, y, width, height } = element.getBoundingClientRect();
+    const focalX = x + width;
+    const focalY = y + height;
+    if (focalPoint.fx === undefined || focalPoint.fy === undefined) {
+        updateFocalPoint({ x: focalX, y: focalY });
+    }
 }

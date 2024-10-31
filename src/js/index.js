@@ -7,17 +7,19 @@ import {simulationElements} from "./simulation/basic";
 import {initParameters} from "./init/parameters/init";
 import {loadParameters} from "./init/parameters/read";
 import {initSite} from "./init/site";
-import {initWebsocket} from "./init/websocket";
 import {initAnalytics} from "./meta/analytics";
 import {initWebSocketContainer} from "./ui/websocket-container";
 
 const versions = {
   'v0.0.1': {
     assetPath: 'v0.0.1',
+  },
+  'v0.0.2': {
+    assetPath: 'v0.0.2-alpha'
   }
 }
 
-async function registerServiceWorker(version = 'v0.0.1') {
+async function registerServiceWorker(version = 'v0.0.2') {
   if (!('serviceWorker' in navigator)) {
     return;
   }
@@ -41,7 +43,6 @@ export async function app() {
   initParameters();
   initRoot();
   initSite();
-  initWebsocket();
 
   // initialize context-sensitive parameters
   loadParameters(new URLSearchParams(window.location.search));

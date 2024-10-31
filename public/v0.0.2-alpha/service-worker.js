@@ -1,27 +1,14 @@
-const appVersion = 'v0.0.2-alpha';
+const appVersion = 'v0.0.1';
 const cacheName  = `serviceworker@${appVersion}`;
 
-const staticAssets = [
-  './',
-];
-
-// Cache all JS and CSS files from the current version
-async function cacheAssets() {
-  const assetsToCache = staticAssets;
-
-  // Fetch all JS and CSS files in the document
-  const links = Array.from(document.querySelectorAll('link[rel="stylesheet"], script[src]'))
-      .map(el => el.href || el.src);
-
-  // Add JS and CSS files to the static assets to be cached
-  assetsToCache.push(...links);
-
-  const cache = await caches.open(cacheName);
-  await cache.addAll(assetsToCache);
-}
+const staticAssets =
+        [
+          './',
+        ];
 
 self.addEventListener('install', async event => {
-  event.waitUntil(cacheAssets());
+  const cache = await caches.open(cacheName);
+  await cache.addAll(staticAssets);
 });
 
 self.addEventListener('fetch', event => {

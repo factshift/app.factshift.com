@@ -1,77 +1,95 @@
-import {initDocumentMousedown}                                                         from "./initDocumentMousedown";
-import {attachFocalPointToElementPosition, focalPoint, initFocalSquare, setFocalPoint} from "../../ui/focal-point";
-import {onReflexModeStart}                                                             from "../../modes/reflex/mode-reflex";
-import {onColorModeStart}                                                              from "../../modes/dataindex/mode-dataindex";
+import { initDocumentMousedown } from "./initDocumentMousedown";
+import { attachFocalPointToElementPosition, focalPoint, initFocalSquare, updateFocalPoint } from "../../ui/focal-point";
+import { onReflexModeStart } from "../../modes/reflex/mode-reflex";
+import { onColorModeStart } from "../../modes/dataindex/mode-dataindex";
 
 function resetArrows() {
-  const noop                          = () => {};
-  window.spwashi.callbacks.arrowUp    = noop;
-  window.spwashi.callbacks.arrowDown  = noop;
-  window.spwashi.callbacks.arrowLeft  = noop;
+  const noop = () => {};
+  window.spwashi.callbacks.arrowUp = noop;
+  window.spwashi.callbacks.arrowDown = noop;
+  window.spwashi.callbacks.arrowLeft = noop;
   window.spwashi.callbacks.arrowRight = noop;
 }
 
 function resetInterfaceDepth() {
-  document.body.dataset.interfaceDepth = 'standard'
+  document.body.dataset.interfaceDepth = 'standard';
 }
+
+// Helper function to set tab index and focus
+function setFocus(container, direct) {
+  if (container) {
+    container.tabIndex = 0;
+    direct && container.focus();
+    container.onfocus = () => container.tabIndex = 0;
+  }
+}
+
+// Helper function to initialize the focal point
+function initializeFocalPoint(button) {
+  initFocalSquare();
+  if (document.body.dataset.interfaceDepth === 'main-menu') {
+    attachFocalPointToElementPosition(button);
+  } else {
+    if (!focalPoint.fx) {
+      updateFocalPoint({
+        x: window.innerWidth * 0.2,
+        y: window.innerHeight * 0.75,
+      });
+    }
+  }
+}
+
+// Map of mode-specific actions
+const modeActions = {
+  spw: () => {
+    const container = document.querySelector('#spw-mode-container');
+    setFocus(container, true);
+  },
+  reflex: onReflexModeStart,
+  color: onColorModeStart,
+  story: () => {
+    const container = document.querySelector('#story-mode-container .button-container button');
+    setFocus(container, true);
+  },
+  node: () => {
+    const container = document.querySelector('#node-input-container');
+    setFocus(container, true);
+  },
+  map: () => window.spwashi.callbacks.onMapMode?.(),
+  filter: () => window.spwashi.callbacks.onFilterMode?.()
+};
 
 export function initListeners() {
   initDocumentMousedown();
 
-  window.spwashi.onModeChange      = (mode, direct = false) => {
+  window.spwashi.onModeChange = (mode, direct = false) => {
     if (mode) {
       window.spwashi.setItem('mode', mode, 'focal.root');
     }
+
+    // Deselect the currently selected mode
     document.querySelector('[data-mode-action] [aria-selected="true"]')?.setAttribute('aria-selected', 'false');
+
+    // Select the new mode button and initialize the focal point
     const button = document.querySelector(`#mode-selector--${mode}`);
     if (button) {
       button.setAttribute('aria-selected', 'true');
-      initFocalSquare();
-      if (document.body.dataset.interfaceDepth === 'main-menu') {
-        attachFocalPointToElementPosition(button);
-      } else {
-        if (!focalPoint.fx) {
-          setFocalPoint({
-                          x: window.innerWidth * 0.2,
-                          y: window.innerHeight * 0.75,
-                        });
-        }
-      }
+      initializeFocalPoint(button);
     }
+
+    // Reset arrow callbacks
     resetArrows();
-    switch (mode) {
-      case 'spw':
-        const spwModeContainer    = document.querySelector('#spw-mode-container');
-        spwModeContainer.tabIndex = 0;
-        direct && spwModeContainer.focus();
-        break;
-      case 'reflex':
-        onReflexModeStart();
-        break;
-      case 'color':
-        onColorModeStart()
-        break;
-      case 'story':
-        const storyModeContainer = document.querySelector('#story-mode-container');
-        const buttonContainer    = storyModeContainer.querySelector('.button-container button');
-        buttonContainer.focus();
-        buttonContainer.onfocus = () => buttonContainer.tabIndex = 0;
-        break;
-      case 'node':
-        const nodeInputContainer    = document.querySelector('#node-input-container');
-        nodeInputContainer.tabIndex = 0;
-        nodeInputContainer.focus();
-        nodeInputContainer.onfocus = () => nodeInputContainer.tabIndex = 0;
-        break;
-      case 'map':
-        window.spwashi.callbacks.onMapMode?.();
-        break;
-      case 'filter':
-        window.spwashi.callbacks.onFilterMode?.();
-        break;
+
+    // Execute the mode-specific action if it exists
+    if (modeActions[mode]) {
+      modeActions[mode](direct);
     }
+
+    // Reset the interface depth
     resetInterfaceDepth();
-  }
+  };
+
   window.spwashi.onDataIndexChange = (dataindex) => {
+    // Placeholder for future implementation
   };
 }
