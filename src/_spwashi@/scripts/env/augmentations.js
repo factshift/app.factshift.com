@@ -1,4 +1,4 @@
-import {boonConcept, boonNode} from "../../../js/modes/spw/commands/boon";
+import {boonConcept, boonNode} from "../../../js/input-modes/spw/commands/boon";
 
 boonConcept['@node'] = (index, batchSize) => {
   const currentDayIndex = (new Date()).getDay();

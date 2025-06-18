@@ -1,7 +1,7 @@
-import "../../stylesheets/main.scss";
+import "../../js/ui/styles/main.scss";
 import "../styles/_spwashi@.scss";
-import {app}             from '../../js'
-import {processSpwInput} from "../../js/modes/spw/process-spw-input";
+import {app}             from '../../js/main.js'
+import {processSpwInput} from "../../js/input-modes/spw/process-spw-input";
 import {mainLoop}        from "./loop/head";
 import {gameState}       from "./state/state";
 import "./env/augmentations";
