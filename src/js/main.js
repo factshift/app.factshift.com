@@ -1,12 +1,5 @@
-import {hydrateUi} from "./bootstrap/hydrate-ui";
-import {initRoot} from "./bootstrap/root";
-import {initSvgEvents} from "./simulation/events";
-import {simulationElements} from "./simulation/basic";
-import {initParameters} from "./bootstrap/parameters/init";
-import {loadParameters} from "./bootstrap/parameters/read";
-import {initSite} from "./bootstrap/site";
-import {initAnalytics} from "./meta/analytics";
-import {addInitSteps, runInitPipeline} from "./bootstrap/init-pipeline";
+import { addInitSteps, runInitPipeline } from "./bootstrap/init-pipeline";
+import { defaultInitSteps } from "./bootstrap/init-steps";
 
 const versions = {
   'v0.0.1': {
@@ -37,18 +30,7 @@ export async function app() {
 
   window.spwashi = {};
 
-  addInitSteps([
-    ['analytics', initAnalytics],
-    ['parameters', initParameters],
-    ['root', initRoot],
-    ['site', initSite],
-    [
-      'queryParams',
-      () => loadParameters(new URLSearchParams(window.location.search)),
-    ],
-    ['svg', () => initSvgEvents(simulationElements.svg)],
-    ['ui', () => hydrateUi(window.spwashi.initialMode)],
-  ]);
+  addInitSteps(defaultInitSteps);
 
   await runInitPipeline();
 
