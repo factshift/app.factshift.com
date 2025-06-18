@@ -1,6 +1,9 @@
 import { ModeHandler } from './base.js';
 
 export class PassiveModeHandler extends ModeHandler {
+  fallback() {
+    return `<div class="passive-loading">Loading Passive...</div>`;
+  }
   render() {
     return `<div class="passive-message">Passive mode active. Waiting for updates…</div>`;
   }
