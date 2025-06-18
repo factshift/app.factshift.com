@@ -1,6 +1,4 @@
-import {initFocalSquare} from "./ui/focal-point";
-import {initH1} from "./ui/h1";
-import {initUi} from "./init/ui";
+import {hydrateUi} from "./init/hydrate-ui";
 import {initRoot} from "./init/root";
 import {initSvgEvents} from "./simulation/events";
 import {simulationElements} from "./simulation/basic";
@@ -8,8 +6,6 @@ import {initParameters} from "./init/parameters/init";
 import {loadParameters} from "./init/parameters/read";
 import {initSite} from "./init/site";
 import {initAnalytics} from "./meta/analytics";
-import {initStreamContainer} from "./ui/stream-container";
-import {initStreamConfig} from "./ui/stream-config";
 
 const versions = {
   'v0.0.1': {
@@ -50,13 +46,9 @@ export async function app() {
 
   // primary interactive elements
   initSvgEvents(simulationElements.svg);
-  initFocalSquare();
-  initH1();
 
   // progressive enhancement
-  initUi(window.spwashi.initialMode);
-  initStreamContainer();
-  initStreamConfig();
+  hydrateUi(window.spwashi.initialMode);
 
   return Promise.all([serviceWorkerRegistered])
     .then(() => {
