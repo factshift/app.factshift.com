@@ -58,9 +58,9 @@ element to override the system preference.
 
 ## Responsive Design
 
-Viewport specific overrides live under `styles/scss/form-factors`. The
-`style.css` file now contains rules for mobile (`max-width: 600px`),
-tablet (`601px`‑`900px`) and desktop screens. These breakpoints hide or
-resize certain UI elements to keep the interface usable across a range
-of devices.
+Viewport specific overrides live under `styles/scss/form-factors`.
+`style.scss` imports separate files for `mobile`, `tablet`, and `desktop`
+rules. Additional tweaks in `orientation.scss` adjust layouts when a
+device switches between portrait and landscape. These breakpoints keep
+the interface usable across a range of devices.
 
