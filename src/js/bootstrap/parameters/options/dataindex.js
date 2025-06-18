@@ -1,4 +1,4 @@
-import {getDataIndexForNumber, setDocumentDataIndex} from "../../../input-modes/dataindex/util";
+import {getDataIndexForNumber, setDocumentDataIndex} from "../../../modes/input/dataindex/util";
 
 export function dataindex(searchParameters) {
   if (searchParameters.has('dataindex')) {

@@ -1,4 +1,4 @@
-import {setDocumentMode} from "../../../input-modes";
+import {setDocumentMode} from "../../../modes/input";
 
 export function mode(searchParameters) {
   let mode;
