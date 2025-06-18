@@ -1,4 +1,4 @@
-import {setDocumentMode}    from "../../modes";
+import {setDocumentMode}    from "../../modes/input";
 import { initHotkeyButtons } from "../../ui/components/hotkey-buttons";
 import {processPastedText}  from "./handlers/pasted-text";
 

@@ -1,8 +1,8 @@
 import { removeAllNodes, removeAllLinks } from "../../simulation/nodes/data/set";
-import { duplicateNode } from "../../modes/direct/mode-direct";
+import { duplicateNode } from "../../modes/input/direct/mode-direct";
 import { getAllNodes } from "../../simulation/nodes/data/selectors/multiple";
 import { getAllLinks } from "../../simulation/edges/data/select";
-import { setDocumentMode } from "../../modes";
+import { setDocumentMode } from "../../modes/input";
 import { toggleFocalPoint } from "./handlers/toggle-focal-point";
 import { clearCachedNodes } from "./handlers/clear-cached-nodes";
 import { clearFixedPositions } from "./handlers/clear-fixed-positions";

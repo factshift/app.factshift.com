@@ -1,4 +1,4 @@
-import {processRawInputAsJson} from "../../../modes/direct/mode-direct";
+import {processRawInputAsJson} from "../../../modes/input/direct/mode-direct";
 import {NODE_MANAGER}          from "../../../simulation/nodes/nodes";
 import {pushNode}              from "../../../simulation/nodes/data/operate";
 import {EDGE_MANAGER}          from "../../../simulation/edges/edges";
