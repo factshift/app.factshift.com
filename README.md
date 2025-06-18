@@ -4,10 +4,10 @@ This repository contains the front‑end code for **app.factshift.com**. The pro
 
 ## Installation
 
-Use `npm` to install dependencies:
+Use `yarn` to install dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
 ## Development
@@ -15,7 +15,7 @@ npm install
 Start a local development server:
 
 ```bash
-npm start
+yarn start
 ```
 
 ## Building
@@ -23,13 +23,13 @@ npm start
 Create a production build:
 
 ```bash
-npm run build
+yarn build
 ```
 
 Preview the built files locally:
 
 ```bash
-npm run serve
+yarn serve
 ```
 
 ## Initialization
