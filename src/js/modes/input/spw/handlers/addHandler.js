@@ -1,6 +1,6 @@
-import {NODE_MANAGER} from "../../../simulation/nodes/nodes";
-import {processNode}  from "../../../simulation/nodes/data/process";
-import {pushNode}     from "../../../simulation/nodes/data/operate";
+import {NODE_MANAGER} from "../../../../simulation/nodes/nodes";
+import {processNode}  from "../../../../simulation/nodes/data/process";
+import {pushNode}     from "../../../../simulation/nodes/data/operate";
 
 export const addHandler = {
   regex:   /^add=(-?\d+)/,

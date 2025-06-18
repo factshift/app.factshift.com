@@ -1,0 +1,20 @@
+#main-menu-toggle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #222;
+  color: var(--accent-color-main);
+  border: thin solid var(--standard-outline);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-family);
+}
+
+body[data-phase="boot"] {
+  #main-menu-toggle { opacity: .5; }
+}
+body[data-phase="ui"] {
+  #main-menu-toggle { opacity: 1; }
+}
+[data-interface-depth="minimalism"] {
+  #main-menu-toggle { display: none; }
+}

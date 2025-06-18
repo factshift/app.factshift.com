@@ -1,4 +1,4 @@
-import {loadParameters} from "../../bootstrap/parameters/read";
+import {loadParameters} from "../../../bootstrap/parameters/read";
 
 export function initializeQuerystringMode() {
   const element     = document.querySelector('#query-parameters .value');

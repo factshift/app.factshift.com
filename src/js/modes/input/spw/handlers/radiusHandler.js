@@ -1,4 +1,4 @@
-import {forEachNode} from "../../../simulation/nodes/data/operate";
+import {forEachNode} from "../../../../simulation/nodes/data/operate";
 
 export const radiusHandler = {
   regex:   /^r=(\d+)/,

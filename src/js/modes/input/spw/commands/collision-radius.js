@@ -1,4 +1,4 @@
-import {forEachNode} from "../../../simulation/nodes/data/operate";
+import {forEachNode} from "../../../../simulation/nodes/data/operate";
 
 export function runCollisionRadiusCommand(sideEffects) {
   const valueString = sideEffects.valueStrings[0];

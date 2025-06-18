@@ -1,5 +1,5 @@
-import {setNodeHash} from "../../../simulation/nodes/data/process";
-import {getAllNodes} from "../../../simulation/nodes/data/selectors/multiple";
+import {setNodeHash} from "../../../../simulation/nodes/data/process";
+import {getAllNodes} from "../../../../simulation/nodes/data/selectors/multiple";
 
 export const nameHandler = {
   regex:   /^name=(.+)/,

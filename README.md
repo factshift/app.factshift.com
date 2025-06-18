@@ -63,4 +63,8 @@ Viewport specific overrides live under `styles/scss/form-factors`.
 rules. Additional tweaks in `orientation.scss` adjust layouts when a
 device switches between portrait and landscape. These breakpoints keep
 the interface usable across a range of devices.
+Additional styles respond to modern accessibility APIs. The stylesheet
+now recognizes `prefers-contrast` and `prefers-reduced-transparency`
+media queries to accommodate users that request extra contrast or minimal
+translucency.
 

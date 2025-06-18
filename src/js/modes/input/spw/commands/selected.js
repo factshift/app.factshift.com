@@ -1,4 +1,4 @@
-import {getSelectedNodes} from "../../../simulation/nodes/data/selectors/multiple";
+import {getSelectedNodes} from "../../../../simulation/nodes/data/selectors/multiple";
 
 export function runSelectedCommand(sideEffects) {
   const selected = getSelectedNodes().map(node => node.id).join('\n');

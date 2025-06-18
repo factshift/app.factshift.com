@@ -1,7 +1,7 @@
-import {getAllNodes}     from "../../../simulation/nodes/data/selectors/multiple";
-import {pushNode}        from "../../../simulation/nodes/data/operate";
-import {pushLink}        from "../../../simulation/edges/data/pushLink";
-import {processNode}     from "../../../simulation/nodes/data/process";
+import {getAllNodes}     from "../../../../simulation/nodes/data/selectors/multiple";
+import {pushNode}        from "../../../../simulation/nodes/data/operate";
+import {pushLink}        from "../../../../simulation/edges/data/pushLink";
+import {processNode}     from "../../../../simulation/nodes/data/process";
 import {processSpwInput} from "../process-spw-input";
 
 const groupNodeMap = {};

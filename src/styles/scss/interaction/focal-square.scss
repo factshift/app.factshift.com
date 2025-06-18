@@ -10,6 +10,7 @@
 }
 #focal-square[data-focal-status=active] {
   background: rgba(245, 222, 179, .2);
+  animation: pulse 1.5s infinite;
 }
 #focal-square:disabled, #focal-square[data-focal-status=inactive] {
   animation: none;
