@@ -3,6 +3,7 @@
 import { NODE_MANAGER } from '../../simulation/nodes/nodes';
 import { DataManager } from '../../services/data-manager.js';
 import { MODE_DOCS } from '../config/mode-docs.js';
+import { registerComponent } from '../component-registry.js';
 import { BoofModeHandler } from '../../modes/stream/boof.js';
 import { BoonModeHandler } from '../../modes/stream/boon.js';
 import { BaneModeHandler } from '../../modes/stream/bane.js';
@@ -435,3 +436,6 @@ export function initStreamContainer() {
       }
     });
 }
+
+registerComponent('stream-container', { init: initStreamContainer });
+

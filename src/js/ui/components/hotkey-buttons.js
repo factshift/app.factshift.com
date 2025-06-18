@@ -1,4 +1,5 @@
 import {toggleHotkeyMenu} from "../ui/hotkeys/handlers/toggle-hotkey-menu";
+import { registerComponent } from "../component-registry";
 
 export function initHotkeyButtons() {
   const keystrokeOptions     = document.querySelector('#keystroke-options');
@@ -30,3 +31,8 @@ export function initHotkeyButtons() {
           kbd.innerHTML    = `ctrl + <strong>${shortcutName || shortcut}</strong>`;
         });
 }
+
+registerComponent('hotkey-buttons', {
+  init: initHotkeyButtons
+});
+

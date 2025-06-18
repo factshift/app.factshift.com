@@ -5,6 +5,7 @@ import {getIdentityPath} from "../simulation/nodes/data/process";
 import md5                      from "md5";
 import {processPastedText}      from "../ui/hotkeys/handlers/pasted-text";
 import {getNextUrlSearchParams} from "../util/next-url";
+import { registerComponent } from "../component-registry";
 
 function getHeaderSideEffects(input, sideEffects = {}) {
   const text                                          = input.value;
@@ -154,3 +155,5 @@ export function initH1() {
     return input;
   }
 }
+
+registerComponent('h1', { init: initH1 });
