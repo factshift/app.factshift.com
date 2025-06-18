@@ -56,3 +56,11 @@ preferences for reduced motion and light or dark color schemes. Set
 `data-theme="high-contrast"` or `data-theme="dark"` on the `<body>`
 element to override the system preference.
 
+## Responsive Design
+
+Viewport specific overrides live under `styles/scss/form-factors`. The
+`style.css` file now contains rules for mobile (`max-width: 600px`),
+tablet (`601px`‑`900px`) and desktop screens. These breakpoints hide or
+resize certain UI elements to keep the interface usable across a range
+of devices.
+
