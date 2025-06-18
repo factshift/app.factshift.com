@@ -3,7 +3,7 @@ import md5 from "md5";
 window.md5 = md5;
 
 import {getNextUrlSearchParams} from "../../../util/next-url";
-import {getDocumentDataIndex}   from "../../../modes/dataindex/util";
+import {getDocumentDataIndex}   from "../../../input-modes/dataindex/util";
 
 function getLastKind(node) {
   return node.kind?.trim().split(' + ').reverse()[0];
