@@ -41,6 +41,8 @@ class SpwashiStreamContainer extends HTMLElement {
   constructor() {
     super();
     this.currentMode = 'boon';
+    this.loading = true;
+    this.error = null;
     this.initDataManager();
     this.modeHandlers = {
       boof: BoofModeHandler,
@@ -123,8 +125,18 @@ class SpwashiStreamContainer extends HTMLElement {
     const docsLink = docInfo.url || docInfo.file || '';
 
     let modeSpecificHtml = '';
-    if (this.modeHandlers[this.currentMode]) {
-      modeSpecificHtml = this.modeHandlers[this.currentMode].prototype.render();
+    const Handler = this.modeHandlers[this.currentMode];
+    if (Handler) {
+      const proto = Handler.prototype;
+      if (this.loading) {
+        if (typeof proto.fallback === 'function') {
+          modeSpecificHtml = proto.fallback();
+        }
+      } else if (this.error) {
+        modeSpecificHtml = `<div class="mode-error">Failed to load data.</div>`;
+      } else {
+        modeSpecificHtml = proto.render();
+      }
     }
 
     return `
@@ -254,6 +266,8 @@ class SpwashiStreamContainer extends HTMLElement {
         ? window.spwashi.streamStrategy
         : cfg.strategy;
     this.dataManager = new DataManager({ mode: this.currentMode, ...cfg, strategy });
+    this.loading = true;
+    this.error = null;
   }
 
   /**
@@ -290,6 +304,7 @@ class SpwashiStreamContainer extends HTMLElement {
 
   handleStreamStrategyChange() {
     this.initDataManager();
+    this.render();
   }
 
   /**
@@ -374,6 +389,22 @@ class SpwashiStreamContainer extends HTMLElement {
     this.messageContainer.appendChild(messageElement);
     // Scroll to the bottom to show the latest message
     this.messageContainer.scrollTop = this.messageContainer.scrollHeight;
+  }
+
+  startLoading() {
+    this.loading = true;
+  }
+
+  finishLoading() {
+    this.loading = false;
+    this.render();
+  }
+
+  setLoadError(err) {
+    this.error = err;
+    this.loading = false;
+    console.error(err);
+    this.render();
   }
 }
 

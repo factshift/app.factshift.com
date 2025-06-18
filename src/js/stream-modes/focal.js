@@ -2,6 +2,9 @@ import { ModeHandler } from './base.js';
 import { focalPoint, initFocalSquare } from '../focal-point.js';
 
 export class FocalModeHandler extends ModeHandler {
+  fallback() {
+    return `<div class="focal-loading">Loading Focal...</div>`;
+  }
   render() {
     return `
       <button class="focal-submit">Set Focal Point</button>

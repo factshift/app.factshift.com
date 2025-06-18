@@ -5,6 +5,14 @@
  * Methods may return a value or a Promise for that value.
  */
 export class DataSource {
+  constructor() {
+    /** @type {boolean} */
+    this.loading = true;
+    /** @type {?Error} */
+    this.error = null;
+    /** @type {boolean} */
+    this.loaded = false;
+  }
   /** Fetch all items: may be sync or async */
   fetchAll() { throw new Error('fetchAll not implemented'); }
   /** Fetch a single item by ID or index */
@@ -22,7 +30,17 @@ export class StaticDataSource extends DataSource {
     this.items = items;
   }
   fetchAll() {
-    return this.items;
+    this.loading = true;
+    try {
+      const result = this.items;
+      this.loading = false;
+      this.loaded = true;
+      return result;
+    } catch (err) {
+      this.error = err;
+      this.loading = false;
+      throw err;
+    }
   }
   fetchOne(id) {
     return this.items.find(item => item.id === id);
@@ -45,14 +63,22 @@ export class LiveDataSource extends DataSource {
   }
 
   async fetchAll() {
-    return new Promise((resolve) => {
+    this.loading = true;
+    return new Promise((resolve, reject) => {
       this.ws.onopen = () => {
         this.ws.send(JSON.stringify({ type: 'get-all' }));
         this.ws.onmessage = (event) => {
           const data = JSON.parse(event.data);
           if (data.type === 'all-items') {
+            this.loading = false;
+            this.loaded = true;
             resolve(data.items);
           }
+        };
+        this.ws.onerror = (err) => {
+          this.error = err;
+          this.loading = false;
+          reject(err);
         };
       };
     });

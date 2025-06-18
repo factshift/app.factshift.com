@@ -3,15 +3,33 @@ export class ModeHandler {
     this.container = container;
   }
 
+  fallback() {
+    return `<div class="mode-loading">Loading...</div>`;
+  }
+
   setupDataManager() {
     if (!this.container.dataManager) return;
-    this.container.dataManager
-      .getAll()
-      .then((items) => {
+    if (!this.container.dataManager.loaded) {
+      this.container.startLoading();
+      Promise.resolve(this.container.dataManager.getAll())
+        .then((items) => {
+          if (typeof this.renderItems === 'function') {
+            this.renderItems(items);
+          }
+        })
+        .catch((err) => {
+          this.container.setLoadError(err);
+        })
+        .finally(() => {
+          this.container.finishLoading();
+        });
+    } else {
+      Promise.resolve(this.container.dataManager.getAll()).then((items) => {
         if (typeof this.renderItems === 'function') {
           this.renderItems(items);
         }
       });
+    }
     if (typeof this.container.dataManager.onUpdate === 'function') {
       this.updateCb = (item) => {
         if (typeof this.renderItem === 'function') {
