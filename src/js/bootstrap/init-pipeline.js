@@ -1,4 +1,5 @@
 const initSteps = [];
+const map = new Map();
 
 export function addInitStep(step) {
   if (!step) return;
@@ -6,7 +7,12 @@ export function addInitStep(step) {
   if (!id || typeof init !== 'function') {
     throw new Error('init step requires {id, init}');
   }
-  initSteps.push({ id, init, priority, dependsOn });
+  if (map.has(id)) {
+    throw new Error(`init step with id "${id}" already exists`);
+  }
+  const entry = { id, init, priority, dependsOn };
+  map.set(id, entry);
+  initSteps.push(entry);
 }
 
 export function addInitSteps(steps) {
@@ -25,26 +31,39 @@ export function addInitSteps(steps) {
   }
 }
 
-export async function runInitPipeline() {
-  const stepsMap = new Map(initSteps.map(s => [s.id, s]));
-  const sorted = [...initSteps].sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
+export function sortSteps(steps) {
+  const stepsMap = new Map(steps.map(s => [s.id, s]));
   const ordered = [];
-  const added = new Set();
+  const visited = new Set();
+  const visiting = new Set();
+  const path = [];
 
-  function addStep(step) {
-    if (added.has(step.id)) return;
+  function visit(step) {
+    if (visited.has(step.id)) return;
+    if (visiting.has(step.id)) {
+      const cycleStart = path.indexOf(step.id);
+      const cyclePath = path.slice(cycleStart).concat(step.id).join(' -> ');
+      throw new Error(`circular dependency detected: ${cyclePath}`);
+    }
+    visiting.add(step.id);
+    path.push(step.id);
     (step.dependsOn || []).forEach(dep => {
       const depStep = stepsMap.get(dep);
-      if (depStep) addStep(depStep);
+      if (depStep) visit(depStep);
     });
-    if (!added.has(step.id)) {
-      ordered.push(step);
-      added.add(step.id);
-    }
+    visiting.delete(step.id);
+    path.pop();
+    visited.add(step.id);
+    ordered.push(step);
   }
 
-  sorted.forEach(addStep);
+  const sorted = [...steps].sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
+  sorted.forEach(visit);
+  return ordered;
+}
 
+export async function runInitPipeline() {
+  const ordered = sortSteps(initSteps);
   for (const { init } of ordered) {
     await init();
   }
@@ -52,4 +71,5 @@ export async function runInitPipeline() {
 
 export function clearInitPipeline() {
   initSteps.length = 0;
+  map.clear();
 }
