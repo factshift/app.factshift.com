@@ -1,0 +1,12 @@
+.code-editor {
+  width: 20rem;
+  height: 15rem;
+  margin-bottom: 1rem;
+  border: thin solid var(--standard-outline);
+  font-family: monospace;
+}
+
+.code-editor.ace_editor {
+  background: var(--mainmenu-background);
+  color: var(--mainmenu-text-color);
+}
