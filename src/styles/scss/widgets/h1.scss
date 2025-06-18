@@ -36,3 +36,15 @@ h1 {
 #h1-input:focus, #h1-input + button:focus {
   outline: thick solid var(--accent-color-main);
 }
+
+body[data-phase="boot"] {
+  h1 {
+    opacity: .5;
+  }
+}
+
+body[data-phase="ui"] {
+  h1 {
+    opacity: 1;
+  }
+}

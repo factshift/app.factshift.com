@@ -14,3 +14,15 @@
   line-height: 1.5rem;
   font-family: monospace;
 }
+
+body[data-phase="boot"] {
+  #main-wonder-button {
+    opacity: .5;
+  }
+}
+
+body[data-phase="ui"] {
+  #main-wonder-button {
+    opacity: 1;
+  }
+}
