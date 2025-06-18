@@ -20,7 +20,7 @@ export function initUi(mode) {
   initializeDataindexMode();
   initializeStoryMode();
 
-  import("../modes/mapfilter/mode-mapfilter")
+  import("../modes/input/mapfilter/mode-mapfilter")
     .then(({initializeMapFilterMode}) => {
       initializeMapFilterMode();
     })
