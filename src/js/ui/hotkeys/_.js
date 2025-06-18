@@ -1,6 +1,5 @@
 import {setDocumentMode}    from "../../modes";
-import {initMainMenuToggle} from "../../ui/components/main-menu-toggle";
-import {initHotkeyButtons}  from "../../ui/components/hotkey-buttons";
+import { initHotkeyButtons } from "../../ui/components/hotkey-buttons";
 import {processPastedText}  from "./handlers/pasted-text";
 
 function initKeystrokeHandlers(options) {
@@ -9,7 +8,6 @@ function initKeystrokeHandlers(options) {
 
 
 export function initKeystrokes() {
-  initMainMenuToggle();
   window.spwashi.keystrokeRevealOrder = window.spwashi.keystrokeRevealOrder || 0;
 
   function plainKeyHandler(key, e) {
