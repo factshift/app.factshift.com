@@ -7,6 +7,7 @@ import { loadParameters } from '../bootstrap/parameters/read';
 import { initSvgEvents } from '../simulation/events';
 import { getSimulationElements } from '../simulation/basic';
 import { hydrateUi } from '../bootstrap/hydrate-ui';
+import { initRouter } from '../../services/router';
 
 export const analyticsStep = {
   id: 'analytics',
@@ -53,6 +54,13 @@ export const uiStep = {
   phase: InitPhase.UI,
   dependsOn: [svgStep, parametersStep],
 };
+export const routerStep = {
+  id: 'router',
+  init: initRouter,
+  priority: 7,
+  phase: InitPhase.REFRESH,
+  dependsOn: [uiStep],
+};
 
 export const stepsById = {
   analytics: analyticsStep,
@@ -62,6 +70,7 @@ export const stepsById = {
   queryParams: queryParamsStep,
   svg: svgStep,
   ui: uiStep,
+  router: routerStep,
 };
 
 export const defaultInitSteps = Object.values(stepsById);
