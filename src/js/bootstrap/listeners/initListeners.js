@@ -1,7 +1,7 @@
 import { initDocumentMousedown } from "./initDocumentMousedown";
 import { attachFocalPointToElementPosition, focalPoint, initFocalSquare, updateFocalPoint } from "../../ui/components/focal-point";
-import { onReflexModeStart } from "../../modes/reflex/mode-reflex";
-import { onColorModeStart } from "../../modes/dataindex/mode-dataindex";
+import { onReflexModeStart } from "../../modes/input/reflex/mode-reflex";
+import { onColorModeStart } from "../../modes/input/dataindex/mode-dataindex";
 
 function resetArrows() {
   const noop = () => {};

@@ -1,11 +1,11 @@
-import {initializeDirectMode}              from "../modes/direct/mode-direct";
-import {initializeQuerystringMode}         from "../modes/querystring/mode-querystring";
-import {initializeReflexMode}              from "../modes/reflex/mode-reflex";
-import {initializeStoryMode}               from "../modes/story/mode-story";
-import {initializeModeSelection}           from "../modes";
-import {initializeDataindexMode}           from "../modes/dataindex/mode-dataindex";
+import {initializeDirectMode}              from "../modes/input/direct/mode-direct";
+import {initializeQuerystringMode}         from "../modes/input/querystring/mode-querystring";
+import {initializeReflexMode}              from "../modes/input/reflex/mode-reflex";
+import {initializeStoryMode}               from "../modes/input/story/mode-story";
+import {initializeModeSelection}           from "../modes/input";
+import {initializeDataindexMode}           from "../modes/input/dataindex/mode-dataindex";
 import {initKeystrokes}                    from "./hotkeys/_";
-import {initializeSpwParseField}           from "../modes/spw/mode-spw";
+import {initializeSpwParseField}           from "../modes/input/spw/mode-spw";
 
 
 export function initUi(mode) {
