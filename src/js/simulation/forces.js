@@ -1,6 +1,6 @@
-import { getAllNodes } from "./nodes/data/selectors/multiple";
-import { forceCenter, forceCollide, forceLink, forceManyBody } from "d3";
-import { isForceEnabled } from "./active-forces";
+import { getAllNodes } from './nodes/data/selectors/multiple';
+import { forceCenter, forceCollide, forceLink, forceManyBody } from 'd3';
+import { registerForce, applyRegisteredForces } from './force-registry';
 
 // Fetch simulation parameters with fallbacks for magic constants
 function getAlpha() {
@@ -42,7 +42,7 @@ function boundingBoxForce(nodes, alpha) {
     alphaMultiplier: 0.1,
   };
 
-  for (let i = 0, n = nodes.length, k = alpha * alphaMultiplier; i < n; ++i) {
+  for (let i = 0, n = nodes.length; i < n; ++i) {
     const node = nodes[i];
     if (node.x > width) {
       node.x = width;
@@ -61,52 +61,44 @@ function boundingBoxForce(nodes, alpha) {
   }
 }
 
+function registerDefaultForces() {
+  const links = window.spwashi.links;
+  registerForce('link', () =>
+    forceLink()
+      .links(links)
+      .id(d => d.id)
+      .strength(l => l.strength ?? 1)
+  );
+
+  registerForce('collide', () =>
+    forceCollide(d => d.collisionRadius ?? d.r)
+  );
+
+  registerForce('charge', () =>
+    forceManyBody().strength(getChargeStrength)
+  );
+
+  registerForce('center', () =>
+    forceCenter(...getCenterPosition()).strength(getCenterStrength())
+  );
+
+  registerForce(
+    'boundingBox',
+    () => {
+      const nodes = getAllNodes();
+      return alpha => boundingBoxForce(nodes, alpha);
+    },
+    { enabled: false }
+  );
+}
+
 export function initializeForces() {
   const simulation = window.spwashi.simulation;
-  const links = window.spwashi.links;
-  const nodes = getAllNodes();
-
   simulation.alpha(getAlpha());
   simulation.alphaTarget(getAlphaTarget());
   simulation.alphaDecay(getDecay());
   simulation.velocityDecay(getVelocityDecay());
 
-  // Apply forces based on the forceTracker state
-  if (isForceEnabled('link')) {
-    simulation.force(
-        'link',
-        forceLink()
-            .links(links)
-            .id(d => d.id)
-            .strength(l => l.strength ?? 1)
-    );
-  }
-
-  if (isForceEnabled('collide')) {
-    simulation.force(
-        'collide',
-        forceCollide(d => d.collisionRadius ?? d.r)
-    );
-  }
-
-  if (isForceEnabled('charge')) {
-    simulation.force('charge', null); // Clear existing charge force
-    simulation.force(
-        'charge',
-        forceManyBody()
-            .strength(getChargeStrength)
-    );
-  }
-
-  if (isForceEnabled('center')) {
-    simulation.force(
-        'center',
-        forceCenter(...getCenterPosition())
-            .strength(getCenterStrength())
-    );
-  }
-
-  if (isForceEnabled('boundingBox')) {
-    simulation.force('boundingBox', alpha => boundingBoxForce(nodes, alpha));
-  }
+  registerDefaultForces();
+  applyRegisteredForces(simulation);
 }
