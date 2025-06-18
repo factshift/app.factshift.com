@@ -4,10 +4,12 @@ import {initListeners}      from "./listeners/initListeners";
 import {pushHelpTopics}     from "../modes/input/spw/commands/help";
 import {setDocumentMode}    from "../modes/input";
 import {processSpwInput}    from "../modes/input/spw/process-spw-input";
+import { loadCssVars }      from "../services/style-state";
 
 export function initRoot() {
   initSimulationRoot();
   initRootSession();
+  loadCssVars(['--page-margin-y','--page-margin-x','--focal-x','--focal-y']);
   initCallbacks();
   initListeners();
   window.spwashi.counter   = 0;
