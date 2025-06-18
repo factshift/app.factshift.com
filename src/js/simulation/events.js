@@ -2,12 +2,13 @@ import {drag, extent, zoom} from "d3";
 import {forEachNode}        from "./nodes/data/operate";
 import {logMainEvent}       from "./nodes/ui/circle";
 import {selectNodesInRect}  from "./nodes/data/selectors/multiple";
-import {simulationElements} from "./basic";
+import {getSimulationElements} from "./basic";
 
 const nodeG_offset    = {x: 0, y: 0};
 const nodeG_transform = {x: 0, y: 0};
 
 export function initSvgEvents(svg) {
+  const simulationElements = getSimulationElements();
   if (window.spwashi.parameters.canzoom) {
     svg
       .call(zoom()
@@ -24,6 +25,7 @@ export function initSvgEvents(svg) {
                     node.r          = node.private._r * e.transform.k;
                   })
                 }
+                svg.node().dispatchEvent(new CustomEvent('simulation-zoomed', {detail: {k: e.transform.k}}));
               })
       )
       .on("dblclick.zoom", null)
@@ -44,6 +46,7 @@ export function initSvgEvents(svg) {
 
                 simulationElements.nodesWrapper.attr("transform", `translate(${nodeG_transform.x}, ${nodeG_transform.y})`);
                 simulationElements.edgesWrapper.attr("transform", `translate(${nodeG_transform.x}, ${nodeG_transform.y})`);
+                svg.node().dispatchEvent(new CustomEvent('simulation-panned', {detail: {x: nodeG_transform.x, y: nodeG_transform.y}}));
               })
               .on('end', (e) => {
                 svg.attr("cursor", "grab");
@@ -78,6 +81,7 @@ export function initSvgEvents(svg) {
         });
         window.spwashi.rects.splice(window.spwashi.rects.indexOf(rect), 1);
         window.spwashi.reinit();
+        svg.node().dispatchEvent(new CustomEvent('simulation-selection', {detail: {nodes: nodes.map(n => n.id)}}));
         rect = null;
         logMainEvent('mouseup:' + e.y + ' ' + e.x);
       });

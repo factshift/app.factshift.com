@@ -5,7 +5,7 @@ import { initRoot } from '../bootstrap/root';
 import { initSite } from '../bootstrap/site';
 import { loadParameters } from '../bootstrap/parameters/read';
 import { initSvgEvents } from '../simulation/events';
-import { simulationElements } from '../simulation/basic';
+import { getSimulationElements } from '../simulation/basic';
 import { hydrateUi } from '../bootstrap/hydrate-ui';
 
 export const analyticsStep = {
@@ -41,7 +41,7 @@ export const queryParamsStep = {
 };
 export const svgStep = {
   id: 'svg',
-  init: () => initSvgEvents(simulationElements.svg),
+  init: () => initSvgEvents(getSimulationElements().svg),
   priority: 5,
   phase: InitPhase.UI,
   dependsOn: [rootStep],
