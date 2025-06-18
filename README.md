@@ -56,6 +56,13 @@ preferences for reduced motion and light or dark color schemes. Set
 `data-theme="high-contrast"` or `data-theme="dark"` on the `<body>`
 element to override the system preference.
 
+## Responsive Design
+
+Viewport specific overrides live under `styles/scss/form-factors`.
+`style.scss` imports separate files for `mobile`, `tablet`, and `desktop`
+rules. Additional tweaks in `orientation.scss` adjust layouts when a
+device switches between portrait and landscape. These breakpoints keep
+the interface usable across a range of devices.
 Additional styles respond to modern accessibility APIs. The stylesheet
 now recognizes `prefers-contrast` and `prefers-reduced-transparency`
 media queries to accommodate users that request extra contrast or minimal

@@ -1,0 +1,19 @@
+@media (min-width: 601px) and (max-width: 900px) {
+    #main-log {
+        max-width: 15rem;
+    }
+    #mainmenu-shortcuts button {
+        width: 4rem;
+        height: 4rem;
+    }
+    #reflexes button {
+        width: 5rem;
+        height: 5rem;
+        font-size: 1rem;
+    }
+    #spw-parse-field {
+        font-size: 1.75rem;
+        width: 24rem;
+        height: 12rem;
+    }
+}

@@ -1,0 +1,12 @@
+/* Orientation tweaks */
+@media (max-width: 600px) and (orientation: landscape) {
+    #mainmenu-shortcuts ol {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px) and (orientation: portrait) {
+    #mainmenu-shortcuts ol {
+        flex-direction: column;
+    }
+}
