@@ -1,4 +1,5 @@
 import {select} from "d3";
+import { setCssVar } from "../services/style-state";
 
 let simulationElements = null;
 
@@ -34,7 +35,7 @@ export function initSvgProperties(svg) {
   const pageHeight = document.documentElement.clientHeight;
   const offsetX = (pageWidth - width) / 2;
   const offsetY = (pageHeight - height) / 2;
-  document.documentElement.style.setProperty('--page-margin-y', offsetY + 'px');
-  document.documentElement.style.setProperty('--page-margin-x', offsetX + 'px');
+  setCssVar('--page-margin-y', offsetY + 'px');
+  setCssVar('--page-margin-x', offsetX + 'px');
 }
 

@@ -1,5 +1,6 @@
 import { registerComponent } from "../component-registry";
 import { setDocumentMode } from "../../modes/input";
+import { setCssVar } from "../../services/style-state";
 
 let focalPointElement;
 
@@ -114,8 +115,8 @@ export function updateFocalPoint({ x, y }, fix = false) {
         focalPoint.fx = x;
         focalPoint.fy = y;
     }
-    document.documentElement.style.setProperty('--focal-x', `${x}px`);
-    document.documentElement.style.setProperty('--focal-y', `${y}px`);
+    setCssVar('--focal-x', `${x}px`);
+    setCssVar('--focal-y', `${y}px`);
     window.spwashi.setItem('focalPoint', { x, y, fx: x, fy: y }, 'focal.root');
 }
 
