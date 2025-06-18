@@ -1,5 +1,5 @@
-import { setDocumentMode } from "../input-modes";
 import { registerComponent } from "../component-registry";
+import { setDocumentMode } from "../../modes/input";
 
 let focalPointElement;
 

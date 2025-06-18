@@ -1,7 +1,7 @@
 import {mapNodes, pushNode} from "../../../js/simulation/nodes/data/operate";
 import {clearActiveNodes}   from "../../../js/ui/hotkeys/handlers/clear-active-nodes";
 import {gameState}          from "../state/state";
-import {processSpwInput}    from "../../../js/input-modes/spw/process-spw-input";
+import {processSpwInput}    from "../../../js/modes/input/spw/process-spw-input";
 import {pushLink}           from "../../../js/simulation/edges/data/pushLink";
 import {mainLoop}           from "./head";
 
