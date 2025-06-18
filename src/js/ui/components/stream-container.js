@@ -12,6 +12,7 @@ import { HonkModeHandler } from '../stream-modes/honk.js';
 import { LoreModeHandler } from '../stream-modes/lore.js';
 import { FocalModeHandler } from '../stream-modes/focal.js';
 import { PassiveModeHandler } from '../stream-modes/passive.js';
+import { registerComponent } from '../util/register-component.js';
 
 const BOON_ITEMS = [];
 const BANE_ITEMS = [];
@@ -426,9 +427,7 @@ class SpwashiStreamContainer extends HTMLElement {
  * Initializes and defines the custom stream container element.
 */
 export function initStreamContainer() {
-  if (!customElements.get('spwashi-stream-container')) {
-    customElements.define('spwashi-stream-container', SpwashiStreamContainer);
-  }
+  registerComponent('spwashi-stream-container', SpwashiStreamContainer);
   document
     .querySelectorAll('spwashi-stream-container')
     .forEach((el) => {

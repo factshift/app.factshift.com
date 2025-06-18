@@ -1,9 +1,10 @@
 import {select} from "d3";
 
+let simulationElements = null;
+
 function initSvg() {
   const svg    = select("svg#simulation");
   const g      = svg.select('g.simulation-content');
-  const rectsG = g.select('g.rects');
   const edges  = g.select('g.edges');
   const nodes  = g.select('g.nodes');
 
@@ -11,8 +12,15 @@ function initSvg() {
     svg,
     wrapper:      g,
     edgesWrapper: edges,
-    nodesWrapper: nodes
+    nodesWrapper: nodes,
   };
+}
+
+export function getSimulationElements() {
+  if (!simulationElements) {
+    simulationElements = initSvg();
+  }
+  return simulationElements;
 }
 
 export function initSvgProperties(svg) {
@@ -30,4 +38,3 @@ export function initSvgProperties(svg) {
   document.documentElement.style.setProperty('--page-margin-x', offsetX + 'px');
 }
 
-export const simulationElements = initSvg();

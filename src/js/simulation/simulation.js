@@ -2,8 +2,7 @@ import {NODE_MANAGER}                          from "./nodes/nodes";
 import {forceSimulation}                       from "d3";
 import {getNodeImageHref}                      from "./nodes/attr/href";
 import {getDefaultRects}                       from "./rects/data/default";
-import {initSvgProperties, simulationElements} from "./basic";
-import {initSvgEvents}                         from "./events";
+import {initSvgProperties, getSimulationElements} from "./basic";
 
 function initNodes() {
   window.spwashi.clearCachedNodes = () => {
@@ -27,7 +26,8 @@ export function initSimulationRoot() {
   window.spwashi.reinit = () => console.log('reinit not yet defined')
 
   // try to prevent FOUC
-  initSvgProperties(simulationElements.svg);
+  const { svg } = getSimulationElements();
+  initSvgProperties(svg);
 
   // initialize base simulation data
   initNodes();
