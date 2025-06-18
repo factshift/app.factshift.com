@@ -2,6 +2,29 @@
 
 import { NODE_MANAGER } from '../simulation/nodes/nodes';
 import { focalPoint, initFocalSquare } from './focal-point';
+import { DataManager } from '../services/data-manager.js';
+
+const BOON_ITEMS = [];
+const BANE_ITEMS = [];
+const BONE_ITEMS = [];
+const BONK_ITEMS = [];
+const HONK_ITEMS = [];
+const BOOF_ITEMS = [];
+const LORE_ITEMS = [];
+const FOCAL_ITEMS = [];
+const PASSIVE_ITEMS = [];
+
+const modeConfig = {
+  boon:  { strategy: 'static', staticItems: BOON_ITEMS },
+  bane:  { strategy: 'static', staticItems: BANE_ITEMS },
+  bone:  { strategy: 'static', staticItems: BONE_ITEMS },
+  bonk:  { strategy: 'static', staticItems: BONK_ITEMS },
+  honk:  { strategy: 'static', staticItems: HONK_ITEMS },
+  boof:  { strategy: 'static', staticItems: BOOF_ITEMS },
+  lore:  { strategy: 'static', staticItems: LORE_ITEMS },
+  focal: { strategy: 'static', staticItems: FOCAL_ITEMS },
+  passive: { strategy: 'static', staticItems: PASSIVE_ITEMS },
+};
 
 /**
  * Base class for different modes.
@@ -11,15 +34,129 @@ class ModeHandler {
     this.container = container;
   }
 
+  setupDataManager() {
+    if (!this.container.dataManager) return;
+    this.container.dataManager
+      .getAll()
+      .then((items) => {
+        if (typeof this.renderItems === 'function') {
+          this.renderItems(items);
+        }
+      });
+    if (typeof this.container.dataManager.onUpdate === 'function') {
+      this.updateCb = (item) => {
+        if (typeof this.renderItem === 'function') {
+          this.renderItem(item);
+        }
+      };
+      this.container.dataManager.onUpdate(this.updateCb);
+    }
+  }
+
   render() {
     return '';
   }
 
-  setupEventListeners() {}
+  setupEventListeners() {
+    this.setupDataManager();
+  }
 
   handleWebSocketMessage(data) {}
 
-  cleanup() {}
+  cleanup() {
+    if (this.updateCb && this.container.dataManager) {
+      this.container.dataManager.offUpdate(this.updateCb);
+    }
+  }
+}
+/**
+ * Generic configurable mode handler.
+ */
+class ConfigModeHandler extends ModeHandler {
+  constructor(container, mode) {
+    super(container);
+    this.mode = mode;
+    this.storageKey = `${mode}-settings`;
+  }
+
+  getDefaults() {
+    return { name: '', description: '', intensity: 5, active: false, visible: true };
+  }
+
+  loadSettings() {
+    try {
+      return JSON.parse(localStorage.getItem(this.storageKey)) || this.getDefaults();
+    } catch {
+      return this.getDefaults();
+    }
+  }
+
+  render() {
+    const vals = this.loadSettings();
+    return `
+      <form class="mode-form" data-mode="${this.mode}">
+        <h3>${this.mode.charAt(0).toUpperCase() + this.mode.slice(1)} Settings</h3>
+        <label>Name<input type="text" class="mode-name" value="${vals.name}"/></label>
+        <label>Description<input type="text" class="mode-description" value="${vals.description}"/></label>
+        <label>Intensity<input type="range" min="1" max="10" class="mode-intensity" value="${vals.intensity}"/></label>
+        <label><input type="checkbox" class="mode-active" ${vals.active ? 'checked' : ''}/>Active</label>
+        <label><input type="checkbox" class="mode-visible" ${vals.visible ? 'checked' : ''}/>Visible</label>
+        <div class="button-group">
+          <button type="button" class="save-settings">Save Settings</button>
+          <button type="button" class="send-settings">Send to Backend</button>
+        </div>
+      </form>
+    `;
+  }
+
+  setupEventListeners() {
+    this.form = this.container.shadow.querySelector(`form[data-mode="${this.mode}"]`);
+    if (!this.form) return;
+    this.nameField = this.form.querySelector('.mode-name');
+    this.descField = this.form.querySelector('.mode-description');
+    this.intensityField = this.form.querySelector('.mode-intensity');
+    this.activeField = this.form.querySelector('.mode-active');
+    this.visibleField = this.form.querySelector('.mode-visible');
+    this.saveBtn = this.form.querySelector('.save-settings');
+    this.sendBtn = this.form.querySelector('.send-settings');
+    this.saveBound = this.saveSettings.bind(this);
+    this.sendBound = this.sendSettings.bind(this);
+    this.saveBtn.addEventListener('click', this.saveBound);
+    this.sendBtn.addEventListener('click', this.sendBound);
+    super.setupEventListeners();
+  }
+
+  getSettings() {
+    return {
+      name: this.nameField.value.trim(),
+      description: this.descField.value.trim(),
+      intensity: parseInt(this.intensityField.value, 10),
+      active: this.activeField.checked,
+      visible: this.visibleField.checked,
+    };
+  }
+
+  saveSettings() {
+    const data = this.getSettings();
+    localStorage.setItem(this.storageKey, JSON.stringify(data));
+    this.container.displayMessage(`${this.mode} settings saved locally`, 'success');
+  }
+
+  sendSettings() {
+    const data = this.getSettings();
+    if (this.container.ws && this.container.ws.readyState === WebSocket.OPEN) {
+      this.container.ws.send(JSON.stringify({ type: `${this.mode}-settings`, data }));
+      this.container.displayMessage(`${this.mode} settings sent`, 'info');
+    } else {
+      this.container.displayMessage('WebSocket not connected. Settings stored locally.', 'warning');
+    }
+  }
+
+  cleanup() {
+    if (this.saveBtn) this.saveBtn.removeEventListener('click', this.saveBound);
+    if (this.sendBtn) this.sendBtn.removeEventListener('click', this.sendBound);
+    super.cleanup();
+  }
 }
 
 /**
@@ -41,6 +178,7 @@ class BoofModeHandler extends ModeHandler {
     this.boofButton = this.container.shadow.querySelector('.boof-submit');
     this.sendBoofMessageBound = this.sendBoofMessage.bind(this);
     this.boofButton.addEventListener('click', this.sendBoofMessageBound);
+    super.setupEventListeners();
   }
 
   handleWebSocketMessage(data) {
@@ -68,6 +206,15 @@ class BoofModeHandler extends ModeHandler {
     if (this.boofButton) {
       this.boofButton.removeEventListener('click', this.sendBoofMessageBound);
     }
+    super.cleanup();
+  }
+
+  renderItems(items) {
+    items.forEach((item) => this.renderItem(item));
+  }
+
+  renderItem(item) {
+    this.container.displayBoof(item);
   }
 }
 
@@ -135,6 +282,8 @@ class BoonModeHandler extends ModeHandler {
 
     this.sendBoonMessageBound = this.sendBoonMessage.bind(this);
     this.boonButton.addEventListener('click', this.sendBoonMessageBound);
+
+    super.setupEventListeners();
   }
 
   handleWebSocketMessage(data) {
@@ -194,6 +343,15 @@ class BoonModeHandler extends ModeHandler {
     if (this.boonButton) {
       this.boonButton.removeEventListener('click', this.sendBoonMessageBound);
     }
+    super.cleanup();
+  }
+
+  renderItems(items) {
+    items.forEach((item) => this.renderItem(item));
+  }
+
+  renderItem(item) {
+    this.container.processBoon(item);
   }
 }
 
@@ -212,6 +370,7 @@ class FocalModeHandler extends ModeHandler {
     this.setFocalPointBound = this.setFocalPoint.bind(this);
     this.focalButton.addEventListener('click', this.setFocalPointBound);
     initFocalSquare();
+    super.setupEventListeners();
   }
 
   handleWebSocketMessage(data) {
@@ -249,25 +408,71 @@ class FocalModeHandler extends ModeHandler {
     if (this.focalButton) {
       this.focalButton.removeEventListener('click', this.setFocalPointBound);
     }
+    super.cleanup();
+  }
+
+  renderItems(items) {
+    items.forEach((item) => this.renderItem(item));
+  }
+
+  renderItem(item) {
+    this.container.displayMessage(`[focal] ${JSON.stringify(item)}`);
   }
 }
 
+/**
+ * Handler for Passive mode.
+ */
+class PassiveModeHandler extends ModeHandler {
+  render() {
+    return `<div class="passive-message">Passive mode active. Waiting for updates…</div>`;
+  }
+
+  renderItems(items) {
+    items.forEach((item) => this.renderItem(item));
+  }
+
+  renderItem(item) {
+    this.container.displayMessage(`[passive] ${JSON.stringify(item)}`);
+  }
+}
+
+/**
+/** Generic handlers for additional modes **/
+class BaneModeHandler extends ConfigModeHandler {
+  constructor(container) { super(container, 'bane'); }
+}
+class BoneModeHandler extends ConfigModeHandler {
+  constructor(container) { super(container, 'bone'); }
+}
+class BonkModeHandler extends ConfigModeHandler {
+  constructor(container) { super(container, 'bonk'); }
+}
+class HonkModeHandler extends ConfigModeHandler {
+  constructor(container) { super(container, 'honk'); }
+}
+class LoreModeHandler extends ConfigModeHandler {
+  constructor(container) { super(container, "lore"); }
+}
 /**
  * Main WebSocket container class.
  */
 class SpwashiWebSocketContainer extends HTMLElement {
   constructor() {
     super();
-    this.currentMode = 'boof';
+    this.currentMode = 'boon';
+    this.initDataManager();
     this.modeHandlers = {
       boof: BoofModeHandler,
       boon: BoonModeHandler,
+      bane: BaneModeHandler,
+      bone: BoneModeHandler,
+      bonk: BonkModeHandler,
+      honk: HonkModeHandler,
+      lore: LoreModeHandler,
       focal: FocalModeHandler,
-      // Additional modes can be added here
+      passive: PassiveModeHandler,
     };
-    this.setupWebSocketContainer();
-  }
-
   /**
    * Initializes the WebSocket container and its event listeners.
    */
@@ -275,12 +480,16 @@ class SpwashiWebSocketContainer extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'open' });
     this.render(); // Render the initial UI
 
-    const room = document.getElementById('title-md5').innerText
-    console.log('ancient knowledge being used ... title-md5')
-    this.ws = new WebSocket(`ws://${window.location.host}/ws/${room}`);
-    this.setupWebSocket();
+    const room = document.getElementById("title-md5").innerText;
+    console.log("ancient knowledge being used ... title-md5");
+    try {
+      this.ws = new WebSocket(`ws://${window.location.host}/ws/${room}`);
+      this.setupWebSocket();
+    } catch (e) {
+      console.warn("WebSocket unavailable", e);
+      this.ws = { readyState: -1, send: () => {} };
+    }
   }
-
   /**
    * Renders the UI based on the current mode.
    */
@@ -320,7 +529,7 @@ class SpwashiWebSocketContainer extends HTMLElement {
    * Returns the HTML template for the component.
    */
   getTemplateHtml() {
-    const modes = ['passive', 'boof', 'boon', 'focal'];
+    const modes = ['boon', 'bane', 'bone', 'bonk', 'honk', 'boof', 'lore', 'focal', 'passive'];
     const optionsHtml = modes
         .map(
             (mode) =>
@@ -448,6 +657,11 @@ class SpwashiWebSocketContainer extends HTMLElement {
     };
   }
 
+  initDataManager() {
+    const cfg = modeConfig[this.currentMode] || modeConfig.boon;
+    this.dataManager = new DataManager({ mode: this.currentMode, ...cfg });
+  }
+
   /**
    * Sets up event listeners for user input interactions.
    */
@@ -467,6 +681,7 @@ class SpwashiWebSocketContainer extends HTMLElement {
    */
   handleModeChange() {
     this.currentMode = this.modeSelector.value;
+    this.initDataManager();
     this.render(); // Re-render the UI based on the new mode
     // Emit custom event
     this.dispatchEvent(new CustomEvent('mode-changed', { detail: { mode: this.currentMode } }));
