@@ -96,3 +96,17 @@
 #keystroke-options li:focus, #keystroke-options li:has(button:hover) {
   background: var(--keystroke-options-hover-background);
 }
+
+body[data-phase="boot"] {
+  #hotkey-container,
+  #hotkey-menu-toggle {
+    opacity: .5;
+  }
+}
+
+body[data-phase="ui"] {
+  #hotkey-container,
+  #hotkey-menu-toggle {
+    opacity: 1;
+  }
+}
