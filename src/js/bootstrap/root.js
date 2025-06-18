@@ -1,9 +1,9 @@
 import {initSimulationRoot} from "../simulation/simulation";
 import {initCallbacks}      from "./callbacks/initCallbacks";
 import {initListeners}      from "./listeners/initListeners";
-import {pushHelpTopics}     from "../input-modes/spw/commands/help";
-import {setDocumentMode}    from "../input-modes";
-import {processSpwInput}    from "../input-modes/spw/process-spw-input";
+import {pushHelpTopics}     from "../modes/input/spw/commands/help";
+import {setDocumentMode}    from "../modes/input";
+import {processSpwInput}    from "../modes/input/spw/process-spw-input";
 
 export function initRoot() {
   initSimulationRoot();

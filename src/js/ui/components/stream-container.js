@@ -3,16 +3,15 @@
 import { NODE_MANAGER } from '../../simulation/nodes/nodes';
 import { DataManager } from '../../services/data-manager.js';
 import { MODE_DOCS } from '../config/mode-docs.js';
-import { BoofModeHandler } from '../stream-modes/boof.js';
-import { BoonModeHandler } from '../stream-modes/boon.js';
-import { BaneModeHandler } from '../stream-modes/bane.js';
-import { BoneModeHandler } from '../stream-modes/bone.js';
-import { BonkModeHandler } from '../stream-modes/bonk.js';
-import { HonkModeHandler } from '../stream-modes/honk.js';
-import { LoreModeHandler } from '../stream-modes/lore.js';
-import { FocalModeHandler } from '../stream-modes/focal.js';
-import { PassiveModeHandler } from '../stream-modes/passive.js';
-import { registerComponent } from '../util/register-component.js';
+import { BoofModeHandler } from '../../modes/stream/boof.js';
+import { BoonModeHandler } from '../../modes/stream/boon.js';
+import { BaneModeHandler } from '../../modes/stream/bane.js';
+import { BoneModeHandler } from '../../modes/stream/bone.js';
+import { BonkModeHandler } from '../../modes/stream/bonk.js';
+import { HonkModeHandler } from '../../modes/stream/honk.js';
+import { LoreModeHandler } from '../../modes/stream/lore.js';
+import { FocalModeHandler } from '../../modes/stream/focal.js';
+import { PassiveModeHandler } from '../../modes/stream/passive.js';
 
 const BOON_ITEMS = [];
 const BANE_ITEMS = [];
