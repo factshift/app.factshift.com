@@ -6,6 +6,7 @@ import {initParameters} from "./bootstrap/parameters/init";
 import {loadParameters} from "./bootstrap/parameters/read";
 import {initSite} from "./bootstrap/site";
 import {initAnalytics} from "./meta/analytics";
+import {addInitSteps, runInitPipeline} from "./bootstrap/init-pipeline";
 
 const versions = {
   'v0.0.1': {
@@ -36,19 +37,20 @@ export async function app() {
 
   window.spwashi = {};
 
-  initAnalytics();
-  initParameters();
-  initRoot();
-  initSite();
+  addInitSteps([
+    ['analytics', initAnalytics],
+    ['parameters', initParameters],
+    ['root', initRoot],
+    ['site', initSite],
+    [
+      'queryParams',
+      () => loadParameters(new URLSearchParams(window.location.search)),
+    ],
+    ['svg', () => initSvgEvents(simulationElements.svg)],
+    ['ui', () => hydrateUi(window.spwashi.initialMode)],
+  ]);
 
-  // initialize context-sensitive parameters
-  loadParameters(new URLSearchParams(window.location.search));
-
-  // primary interactive elements
-  initSvgEvents(simulationElements.svg);
-
-  // progressive enhancement
-  hydrateUi(window.spwashi.initialMode);
+  await runInitPipeline();
 
   return Promise.all([serviceWorkerRegistered])
     .then(() => {
