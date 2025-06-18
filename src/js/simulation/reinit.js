@@ -1,5 +1,5 @@
 import { initializeForces } from "./forces";
-import { initSvgProperties, simulationElements } from "./basic";
+import { initSvgProperties, getSimulationElements } from "./basic";
 
 // Dynamically import managers if needed
 async function loadManagers() {
@@ -14,6 +14,7 @@ async function loadManagers() {
 export async function reinit() {
   try {
     // Initialize SVG properties
+    const simulationElements = getSimulationElements();
     initSvgProperties(simulationElements.svg);
 
     window.spwashi.counter = 0;
