@@ -13,3 +13,15 @@ body:not([data-mode=null]) {
     right: var(--page-margin-x);
   }
 }
+
+body[data-phase="boot"] {
+  #title-md5 {
+    opacity: .5;
+  }
+}
+
+body[data-phase="ui"] {
+  #title-md5 {
+    opacity: 1;
+  }
+}

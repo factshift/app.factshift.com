@@ -20,3 +20,23 @@
     display: inline-block;
   }
 }
+
+[data-mode=debug] {
+  #main-log {
+    display: flex;
+  }
+}
+
+body[data-phase="boot"] {
+  #main-log,
+  #events-log {
+    opacity: .5;
+  }
+}
+
+body[data-phase="ui"] {
+  #main-log,
+  #events-log {
+    opacity: 1;
+  }
+}
