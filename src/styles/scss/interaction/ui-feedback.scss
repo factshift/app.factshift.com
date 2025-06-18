@@ -1,0 +1,50 @@
+/* General interactive feedback styles */
+
+$interactive-elements: (
+  button,
+  input[type="button"],
+  input[type="submit"],
+  #hotkey-menu-toggle,
+  #main-wonder-button,
+  #focal-square,
+  #main-stream-container
+);
+
+@each $el in $interactive-elements {
+  #{$el} {
+    transition: transform 0.1s ease-in-out,
+                background-color 0.2s ease-in-out,
+                box-shadow 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.05);
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 222, 179, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 0.5rem rgba(245, 222, 179, 0);
+  }
+}
+
+#focal-square[data-focal-status=active] {
+  animation: pulse 1.5s infinite;
+}
+
+[data-interface-element="main-menu"], [data-interface-element="hotkey-menu"] {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+body[data-interface-depth="main-menu"] [data-interface-element="main-menu"],
+body[data-interface-depth="hotkey-menu"] [data-interface-element="hotkey-menu"] {
+  opacity: 1;
+}
