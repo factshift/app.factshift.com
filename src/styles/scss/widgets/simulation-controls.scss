@@ -1,0 +1,28 @@
+#controls {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  & > section {
+    margin-right: 1rem;
+  }
+  label {
+    color: var(--mainmenu-text-color);
+    font-weight: bold;
+  }
+  .button-container {
+    display: flex;
+    flex-direction: column;
+  }
+  button {
+    padding: .5rem;
+    font-family: var(--font-family);
+  }
+}
+body[data-phase="boot"] {
+  #controls { opacity: .5; }
+}
+[data-interface-depth="minimalism"] {
+  #controls { display: none; }
+}
