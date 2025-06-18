@@ -36,3 +36,9 @@ yarn serve
 
 For details on how the initialization pipeline works, see [docs/init-pipeline.md](docs/init-pipeline.md).
 
+## QA
+
+Quality assurance checklists live under [docs/qa](docs/qa). See the
+[Ace Editor Styling QA Checklist](docs/qa/ace-editor-style.md) for
+testing the new code editor styles.
+
