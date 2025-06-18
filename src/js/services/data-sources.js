@@ -96,4 +96,15 @@ export class LiveDataSource extends DataSource {
   unsubscribeUpdates(cb) {
     this.callbacks.delete(cb);
   }
+
+  close() {
+    if (this.ws && this.ws.readyState !== WebSocket.CLOSED) {
+      try {
+        this.ws.close();
+      } catch (err) {
+        console.warn('Failed to close WebSocket', err);
+      }
+    }
+    this.callbacks.clear();
+  }
 }

@@ -6,4 +6,6 @@ Each mode's settings are stored locally in `localStorage` and may be transmitted
 
 The container uses a `DataManager` abstraction to source data either from static arrays or from a live WebSocket feed. Extend `modeConfig` in `stream-container.js` to point a mode at a live URL when the backend is available.
 
+`LiveDataSource` now exposes a `close()` method. `ModeHandler.cleanup()` invokes this when present so switching modes or stream strategies cleans up the previous connection and callbacks.
+
 For detailed message formats see [Stream Mode Web APIs](api/modes.md).
