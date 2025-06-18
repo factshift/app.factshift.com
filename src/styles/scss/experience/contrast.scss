@@ -1,0 +1,10 @@
+/* Support high contrast preferences */
+@media (prefers-contrast: more) {
+  body {
+    --body-background: #000000;
+    --mainmenu-background: #000000;
+    --mainmenu-text-color: #ffffff;
+    --accent-color-main: #ffbf00;
+    --standard-outline: #ffbf00;
+  }
+}

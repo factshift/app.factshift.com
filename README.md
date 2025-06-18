@@ -56,3 +56,8 @@ preferences for reduced motion and light or dark color schemes. Set
 `data-theme="high-contrast"` or `data-theme="dark"` on the `<body>`
 element to override the system preference.
 
+Additional styles respond to modern accessibility APIs. The stylesheet
+now recognizes `prefers-contrast` and `prefers-reduced-transparency`
+media queries to accommodate users that request extra contrast or minimal
+translucency.
+
