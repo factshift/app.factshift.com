@@ -1,0 +1,47 @@
+/* Accessibility and theme enhancements */
+
+/* Focus style for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent-color-main);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Light theme based on system preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    --html-background: #ffffff;
+    --body-background: #f5f5f5;
+    --form-background: #ffffff;
+    --mainmenu-background: #e5e5e5;
+    --mainmenu-text-color: #222222;
+  }
+}
+
+/* Explicit theme toggles */
+body[data-theme="dark"] {
+  --html-background: #4c1d1d;
+  --body-background: #707070;
+  --form-background: #222222;
+  --mainmenu-background: #222222;
+  --mainmenu-text-color: #f5deb3;
+}
+
+body[data-theme="high-contrast"] {
+  --html-background: #000000;
+  --body-background: #000000;
+  --form-background: #000000;
+  --mainmenu-background: #000000;
+  --mainmenu-text-color: #ffffff;
+  --accent-color-main: #00ffff;
+  --standard-outline: #00ffff;
+  --link-stroke-color: #00ffff;
+}
