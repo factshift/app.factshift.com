@@ -1,12 +1,12 @@
-import {processNode}  from "../../simulation/nodes/data/process";
-import {NODE_MANAGER} from "../../simulation/nodes/nodes";
+import {processNode}  from "../../../simulation/nodes/data/process";
+import {NODE_MANAGER} from "../../../simulation/nodes/nodes";
 
 
 import {extendMenu}            from "../spw/commands/extended-menu";
-import {forEachNode, pushNode} from "../../simulation/nodes/data/operate";
+import {forEachNode, pushNode} from "../../../simulation/nodes/data/operate";
 
-import {clearActiveNodes} from "../../ui/hotkeys/handlers/clear-active-nodes";
-import {loadParameters}   from "../../bootstrap/parameters/read";
+import {clearActiveNodes} from "../../../ui/hotkeys/handlers/clear-active-nodes";
+import {loadParameters}   from "../../../bootstrap/parameters/read";
 
 const clearFxFy = d => d.fx = d.fy = undefined;
 const fixX      = (d, i) => d.fy = 75 * (i + 1);

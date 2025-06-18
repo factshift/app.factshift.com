@@ -1,4 +1,4 @@
-import {toggleHotkeyMenu} from "../ui/hotkeys/handlers/toggle-hotkey-menu";
+import {toggleHotkeyMenu} from "../hotkeys/handlers/toggle-hotkey-menu";
 import { registerComponent } from "../component-registry";
 
 export function initHotkeyButtons() {

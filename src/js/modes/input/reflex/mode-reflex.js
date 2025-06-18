@@ -1,9 +1,9 @@
 import {setDocumentMode}       from "../index";
-import {linkBySpwParts}        from "../../simulation/edges/data/link-spw";
-import {pushLink}              from "../../simulation/edges/data/pushLink";
-import {forEachNode, pushNode} from "../../simulation/nodes/data/operate";
-import {getAllNodes}           from "../../simulation/nodes/data/selectors/multiple";
-import {linkToCenter}          from "../../simulation/edges/data/link-center";
+import {linkBySpwParts}        from "../../../simulation/edges/data/link-spw";
+import {pushLink}              from "../../../simulation/edges/data/pushLink";
+import {forEachNode, pushNode} from "../../../simulation/nodes/data/operate";
+import {getAllNodes}           from "../../../simulation/nodes/data/selectors/multiple";
+import {linkToCenter}          from "../../../simulation/edges/data/link-center";
 import {getDocumentDataIndex}  from "../dataindex/util";
 import {boonConcept, boonNode} from "../spw/commands/boon";
 

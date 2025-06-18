@@ -1,5 +1,5 @@
 import {scaleOrdinal, scaleSequential, schemeCategory10} from "d3";
-import {getAllNodes}                                     from "../../../simulation/nodes/data/selectors/multiple";
+import {getAllNodes}                                     from "../../../../simulation/nodes/data/selectors/multiple";
 
 export const colorHandler = {
   regex:   /^color=(-?\d+)/,

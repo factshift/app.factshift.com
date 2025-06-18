@@ -1,5 +1,5 @@
 import {scaleSequential} from "d3";
-import {getAllNodes}     from "../../../simulation/nodes/data/selectors/multiple";
+import {getAllNodes}     from "../../../../simulation/nodes/data/selectors/multiple";
 
 export const sizeHandler = {
   regex:   /^size=(\d+)/,

@@ -1,12 +1,12 @@
 import { InitPhase } from '../init-pipeline';
-import { initAnalytics } from '../meta/analytics';
-import { initParameters } from '../bootstrap/parameters/init';
-import { initRoot } from '../bootstrap/root';
-import { initSite } from '../bootstrap/site';
-import { loadParameters } from '../bootstrap/parameters/read';
-import { initSvgEvents } from '../simulation/events';
-import { getSimulationElements } from '../simulation/basic';
-import { hydrateUi } from '../bootstrap/hydrate-ui';
+import { initAnalytics } from '../../meta/analytics';
+import { initParameters } from '../parameters/init';
+import { initRoot } from '../root';
+import { initSite } from '../site';
+import { loadParameters } from '../parameters/read';
+import { initSvgEvents } from '../../simulation/events';
+import { getSimulationElements } from '../../simulation/basic';
+import { hydrateUi } from '../hydrate-ui';
 import { initRouter } from '../../services/router';
 
 export const analyticsStep = {

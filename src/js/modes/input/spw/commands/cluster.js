@@ -1,7 +1,7 @@
-import {removeClusterNodes} from "../../../simulation/nodes/data/set";
-import {pushNode}           from "../../../simulation/nodes/data/operate";
-import {pushLink}           from "../../../simulation/edges/data/pushLink";
-import {getAllNodes}        from "../../../simulation/nodes/data/selectors/multiple";
+import {removeClusterNodes} from "../../../../simulation/nodes/data/set";
+import {pushNode}           from "../../../../simulation/nodes/data/operate";
+import {pushLink}           from "../../../../simulation/edges/data/pushLink";
+import {getAllNodes}        from "../../../../simulation/nodes/data/selectors/multiple";
 
 function getCluster(node) {
   return 'cluster:' + node.colorindex;
