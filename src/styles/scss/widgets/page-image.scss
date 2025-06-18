@@ -2,9 +2,28 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  display: none;
   img {
     max-width: 20rem;
     max-height: 20rem;
     border: thin solid var(--accent-color-main);
+  }
+}
+
+[data-mode=spw] {
+  #main-image-container {
+    display: block;
+  }
+}
+
+body[data-phase="boot"] {
+  #main-image-container {
+    opacity: .5;
+  }
+}
+
+body[data-phase="ui"] {
+  #main-image-container {
+    opacity: 1;
   }
 }
