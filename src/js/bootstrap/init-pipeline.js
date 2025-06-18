@@ -81,8 +81,14 @@ export function sortSteps(steps) {
 
 export async function runInitPipeline() {
   const ordered = sortSteps(initSteps);
-  for (const { init } of ordered) {
+  for (const { init, phase } of ordered) {
+    if (phase && document.body) {
+      document.body.dataset.phase = phase;
+    }
     await init();
+  }
+  if (document.body) {
+    document.body.dataset.phase = 'ready';
   }
 }
 
