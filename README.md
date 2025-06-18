@@ -42,3 +42,10 @@ Quality assurance checklists live under [docs/qa](docs/qa). See the
 [Ace Editor Styling QA Checklist](docs/qa/ace-editor-style.md) for
 testing the new code editor styles.
 
+## Accessibility
+
+The SCSS includes an optional high‑contrast theme and obeys user
+preferences for reduced motion and light or dark color schemes. Set
+`data-theme="high-contrast"` or `data-theme="dark"` on the `<body>`
+element to override the system preference.
+
