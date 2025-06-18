@@ -1,4 +1,5 @@
 import { setDocumentMode } from "../input-modes";
+import { registerComponent } from "../component-registry";
 
 let focalPointElement;
 
@@ -126,3 +127,6 @@ export function attachFocalPointToElementPosition(element) {
         updateFocalPoint({ x: focalX, y: focalY });
     }
 }
+
+registerComponent('focal-square', { init: initFocalSquare });
+

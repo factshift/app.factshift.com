@@ -1,3 +1,5 @@
+import { registerComponent } from "../component-registry";
+
 export function initStreamConfig() {
   const container = document.querySelector('#debug-mode-container');
   if (!container) return;
@@ -22,3 +24,6 @@ export function initStreamConfig() {
 
   window.spwashi.streamStrategy = 'static';
 }
+
+registerComponent('stream-config', { init: initStreamConfig });
+

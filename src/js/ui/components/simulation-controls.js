@@ -1,5 +1,6 @@
-import {generateNodes} from "../simulation/nodes/data/generate";
-import {forEachNode}   from "../simulation/nodes/data/operate";
+import { generateNodes } from "../simulation/nodes/data/generate";
+import { forEachNode } from "../simulation/nodes/data/operate";
+import { registerComponent } from "../component-registry";
 
 export function initializeForceSimulationControls() {
   const forceSimulation = window.spwashi.simulation;
@@ -46,3 +47,7 @@ export function initializeForceSimulationControls() {
   const generateNodesButton   = controls.querySelector('.generate-nodes');
   generateNodesButton.onclick = generateNodes;
 }
+
+registerComponent('simulation-controls', {
+  init: initializeForceSimulationControls
+});

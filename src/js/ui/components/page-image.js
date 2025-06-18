@@ -1,3 +1,5 @@
+import { registerComponent } from "../component-registry";
+
 export function setPageImage(base64) {
   const img = new Image();
   img.src   = base64;
@@ -19,3 +21,5 @@ export function initPageImage() {
     mainImageContainer.appendChild(img);
   }
 }
+
+registerComponent('page-image', { init: initPageImage });

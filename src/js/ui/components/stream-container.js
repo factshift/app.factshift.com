@@ -12,6 +12,7 @@ import { HonkModeHandler } from '../stream-modes/honk.js';
 import { LoreModeHandler } from '../stream-modes/lore.js';
 import { FocalModeHandler } from '../stream-modes/focal.js';
 import { PassiveModeHandler } from '../stream-modes/passive.js';
+import { registerComponent } from '../component-registry.js';
 
 const BOON_ITEMS = [];
 const BANE_ITEMS = [];
@@ -437,3 +438,6 @@ export function initStreamContainer() {
       }
     });
 }
+
+registerComponent('stream-container', { init: initStreamContainer });
+

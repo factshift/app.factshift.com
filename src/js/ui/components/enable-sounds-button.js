@@ -1,4 +1,5 @@
-import {runDisableSoundsCommand, runEnableSoundsCommand} from "../input-modes/spw/commands/sounds";
+import { runDisableSoundsCommand, runEnableSoundsCommand } from "../input-modes/spw/commands/sounds";
+import { registerComponent } from "../component-registry";
 
 export function initEnableSoundsButton() {
   const enableSoundsButton = document.querySelector('.enable-sounds');
@@ -16,3 +17,8 @@ export function initEnableSoundsButton() {
     runDisableSoundsCommand();
   });
 }
+
+registerComponent('enable-sounds-button', {
+  init: initEnableSoundsButton
+});
+
