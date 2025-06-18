@@ -1,16 +1,22 @@
+export const InitPhase = {
+  BOOT: 'boot',
+  UI: 'ui',
+  DEFERRED: 'deferred',
+};
+
 const initSteps = [];
 const map = new Map();
 
 export function addInitStep(step) {
   if (!step) return;
-  const { id, init, priority = 0, dependsOn = [] } = step;
+  const { id, init, priority = 0, phase, dependsOn = [] } = step;
   if (!id || typeof init !== 'function') {
     throw new Error('init step requires {id, init}');
   }
   if (map.has(id)) {
     throw new Error(`init step with id "${id}" already exists`);
   }
-  const entry = { id, init, priority, dependsOn };
+  const entry = { id, init, priority, phase, dependsOn };
   map.set(id, entry);
   initSteps.push(entry);
 }
@@ -33,6 +39,11 @@ export function addInitSteps(steps) {
 
 export function sortSteps(steps) {
   const stepsMap = new Map(steps.map(s => [s.id, s]));
+  const phaseOrder = [InitPhase.BOOT, InitPhase.UI, InitPhase.DEFERRED];
+  const phaseRank = phase => {
+    const idx = phaseOrder.indexOf(phase);
+    return idx === -1 ? phaseOrder.length : idx;
+  };
   const ordered = [];
   const visited = new Set();
   const visiting = new Set();
@@ -48,7 +59,8 @@ export function sortSteps(steps) {
     visiting.add(step.id);
     path.push(step.id);
     (step.dependsOn || []).forEach(dep => {
-      const depStep = stepsMap.get(dep);
+      const depId = typeof dep === 'string' ? dep : dep.id;
+      const depStep = stepsMap.get(depId);
       if (depStep) visit(depStep);
     });
     visiting.delete(step.id);
@@ -57,7 +69,11 @@ export function sortSteps(steps) {
     ordered.push(step);
   }
 
-  const sorted = [...steps].sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
+  const sorted = [...steps].sort((a, b) => {
+    const phaseDiff = phaseRank(a.phase) - phaseRank(b.phase);
+    if (phaseDiff !== 0) return phaseDiff;
+    return (a.priority ?? 0) - (b.priority ?? 0);
+  });
   sorted.forEach(visit);
   return ordered;
 }
