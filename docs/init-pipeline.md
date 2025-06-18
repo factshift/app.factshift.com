@@ -27,3 +27,7 @@ addInitSteps([
 ```
 
 Here `c` runs after `a` and `b` despite not specifying a priority. Lower priority values run earlier.
+
+Duplicate step ids are not allowed and will throw an error when added. The
+pipeline also detects circular dependencies between steps and throws an error if
+a cycle is found during sorting.
