@@ -1,4 +1,4 @@
-// websocket-container.js
+// stream-container.js
 
 import { NODE_MANAGER } from '../simulation/nodes/nodes';
 import { focalPoint, initFocalSquare } from './focal-point';
@@ -15,15 +15,15 @@ const FOCAL_ITEMS = [];
 const PASSIVE_ITEMS = [];
 
 const modeConfig = {
-  boon:  { strategy: 'static', staticItems: BOON_ITEMS },
-  bane:  { strategy: 'static', staticItems: BANE_ITEMS },
-  bone:  { strategy: 'static', staticItems: BONE_ITEMS },
-  bonk:  { strategy: 'static', staticItems: BONK_ITEMS },
-  honk:  { strategy: 'static', staticItems: HONK_ITEMS },
-  boof:  { strategy: 'static', staticItems: BOOF_ITEMS },
-  lore:  { strategy: 'static', staticItems: LORE_ITEMS },
-  focal: { strategy: 'static', staticItems: FOCAL_ITEMS },
-  passive: { strategy: 'static', staticItems: PASSIVE_ITEMS },
+  boon:  { strategy: 'static', staticItems: BOON_ITEMS, allowedStreams: ['static', 'live'] },
+  bane:  { strategy: 'static', staticItems: BANE_ITEMS, allowedStreams: ['static'] },
+  bone:  { strategy: 'static', staticItems: BONE_ITEMS, allowedStreams: ['static'] },
+  bonk:  { strategy: 'static', staticItems: BONK_ITEMS, allowedStreams: ['static'] },
+  honk:  { strategy: 'static', staticItems: HONK_ITEMS, allowedStreams: ['static'] },
+  boof:  { strategy: 'static', staticItems: BOOF_ITEMS, allowedStreams: ['static', 'live'] },
+  lore:  { strategy: 'static', staticItems: LORE_ITEMS, allowedStreams: ['static'] },
+  focal: { strategy: 'static', staticItems: FOCAL_ITEMS, allowedStreams: ['static', 'live'] },
+  passive: { strategy: 'static', staticItems: PASSIVE_ITEMS, allowedStreams: ['static', 'live'] },
 };
 
 /**
@@ -61,7 +61,7 @@ class ModeHandler {
     this.setupDataManager();
   }
 
-  handleWebSocketMessage(data) {}
+  handleStreamMessage(data) {}
 
   cleanup() {
     if (this.updateCb && this.container.dataManager) {
@@ -144,8 +144,8 @@ class ConfigModeHandler extends ModeHandler {
 
   sendSettings() {
     const data = this.getSettings();
-    if (this.container.ws && this.container.ws.readyState === WebSocket.OPEN) {
-      this.container.ws.send(JSON.stringify({ type: `${this.mode}-settings`, data }));
+    if (this.container.stream && this.container.stream.readyState === WebSocket.OPEN) {
+      this.container.stream.send(JSON.stringify({ type: `${this.mode}-settings`, data }));
       this.container.displayMessage(`${this.mode} settings sent`, 'info');
     } else {
       this.container.displayMessage('WebSocket not connected. Settings stored locally.', 'warning');
@@ -181,7 +181,7 @@ class BoofModeHandler extends ModeHandler {
     super.setupEventListeners();
   }
 
-  handleWebSocketMessage(data) {
+  handleStreamMessage(data) {
     if (data.content) {
       this.container.displayBoof(data);
       // Emit custom event
@@ -192,7 +192,7 @@ class BoofModeHandler extends ModeHandler {
   sendBoofMessage() {
     const message = this.boofInputField.value.trim();
     if (message) {
-      this.container.ws.send(message);
+      this.container.stream.send(message);
       this.boofInputField.value = ''; // Clear the input field after sending
       this.container.displayMessage('Boof message sent', 'success');
       // Emit custom event
@@ -286,7 +286,7 @@ class BoonModeHandler extends ModeHandler {
     super.setupEventListeners();
   }
 
-  handleWebSocketMessage(data) {
+  handleStreamMessage(data) {
     if (data.id && data.name && data.boonhonk) {
       this.container.processBoon(data);
       // Emit custom event
@@ -323,7 +323,7 @@ class BoonModeHandler extends ModeHandler {
     }
 
     // Send the Boon as a JSON string
-    this.container.ws.send(JSON.stringify(boon));
+    this.container.stream.send(JSON.stringify(boon));
 
     // Clear the form fields
     this.boonNameField.value = '';
@@ -373,7 +373,7 @@ class FocalModeHandler extends ModeHandler {
     super.setupEventListeners();
   }
 
-  handleWebSocketMessage(data) {
+  handleStreamMessage(data) {
     if (data.type === 'focal-point') {
       this.container.displayMessage(`Focal point updated: ${JSON.stringify(data.position)}`);
       // Emit custom event
@@ -395,7 +395,7 @@ class FocalModeHandler extends ModeHandler {
       bounds,
     };
 
-    this.container.ws.send(JSON.stringify(focalData));
+    this.container.stream.send(JSON.stringify(focalData));
     this.container.displayMessage(
         `Focal point sent with position (${focalData.position.x}, ${focalData.position.y}) and bounds (${bounds.x1}, ${bounds.y1}, ${bounds.x2}, ${bounds.y2})`,
         'success'
@@ -455,9 +455,9 @@ class LoreModeHandler extends ConfigModeHandler {
   constructor(container) { super(container, "lore"); }
 }
 /**
- * Main WebSocket container class.
+ * Main stream container class.
  */
-class SpwashiWebSocketContainer extends HTMLElement {
+class SpwashiStreamContainer extends HTMLElement {
   constructor() {
     super();
     this.currentMode = 'boon';
@@ -474,20 +474,20 @@ class SpwashiWebSocketContainer extends HTMLElement {
       passive: PassiveModeHandler,
     };
   /**
-   * Initializes the WebSocket container and its event listeners.
+   * Initializes the stream container and its event listeners.
    */
-  setupWebSocketContainer() {
+  setupStreamContainer() {
     this.shadow = this.attachShadow({ mode: 'open' });
     this.render(); // Render the initial UI
 
     const room = document.getElementById("title-md5").innerText;
     console.log("ancient knowledge being used ... title-md5");
     try {
-      this.ws = new WebSocket(`ws://${window.location.host}/ws/${room}`);
-      this.setupWebSocket();
+      this.stream = new WebSocket(`ws://${window.location.host}/ws/${room}`);
+      this.setupStream();
     } catch (e) {
       console.warn("WebSocket unavailable", e);
-      this.ws = { readyState: -1, send: () => {} };
+      this.stream = { readyState: -1, send: () => {} };
     }
   }
   /**
@@ -639,27 +639,31 @@ class SpwashiWebSocketContainer extends HTMLElement {
   }
 
   /**
-   * Sets up WebSocket event listeners for message handling and error reporting.
+   * Sets up stream event listeners for message handling and error reporting.
    */
-  setupWebSocket() {
-    this.ws.onmessage = (event) => this.handleWebSocketMessage(event);
-    this.ws.onopen = () => {
-      this.displayMessage('WebSocket connection opened', 'success');
-      this.dispatchEvent(new Event('ws-open'));
+  setupStream() {
+    this.stream.onmessage = (event) => this.handleStreamMessage(event);
+    this.stream.onopen = () => {
+      this.displayMessage('Stream connection opened', 'success');
+      this.dispatchEvent(new Event('stream-open'));
     };
-    this.ws.onclose = () => {
-      this.displayMessage('WebSocket connection closed', 'warning');
-      this.dispatchEvent(new Event('ws-close'));
+    this.stream.onclose = () => {
+      this.displayMessage('Stream connection closed', 'warning');
+      this.dispatchEvent(new Event('stream-close'));
     };
-    this.ws.onerror = () => {
-      this.displayMessage('WebSocket error', 'error');
-      this.dispatchEvent(new Event('ws-error'));
+    this.stream.onerror = () => {
+      this.displayMessage('Stream error', 'error');
+      this.dispatchEvent(new Event('stream-error'));
     };
   }
 
   initDataManager() {
     const cfg = modeConfig[this.currentMode] || modeConfig.boon;
-    this.dataManager = new DataManager({ mode: this.currentMode, ...cfg });
+    const strategy =
+      (cfg.allowedStreams || [cfg.strategy]).includes(window.spwashi.streamStrategy)
+        ? window.spwashi.streamStrategy
+        : cfg.strategy;
+    this.dataManager = new DataManager({ mode: this.currentMode, ...cfg, strategy });
   }
 
   /**
@@ -671,9 +675,16 @@ class SpwashiWebSocketContainer extends HTMLElement {
       this.modeSelector.removeEventListener('change', this.handleModeChangeBound);
     }
 
+    if (this.streamStrategyChangeBound) {
+      document.removeEventListener('stream-strategy-change', this.streamStrategyChangeBound);
+    }
+
     // Mode selector event listener
     this.handleModeChangeBound = this.handleModeChange.bind(this);
     this.modeSelector.addEventListener('change', this.handleModeChangeBound);
+
+    this.streamStrategyChangeBound = this.handleStreamStrategyChange.bind(this);
+    document.addEventListener('stream-strategy-change', this.streamStrategyChangeBound);
   }
 
   /**
@@ -687,17 +698,21 @@ class SpwashiWebSocketContainer extends HTMLElement {
     this.dispatchEvent(new CustomEvent('mode-changed', { detail: { mode: this.currentMode } }));
   }
 
+  handleStreamStrategyChange() {
+    this.initDataManager();
+  }
+
   /**
-   * Handles incoming WebSocket messages, delegating to the current mode handler.
+   * Handles incoming stream messages, delegating to the current mode handler.
    *
-   * @param {MessageEvent} event - The WebSocket message event.
+   * @param {MessageEvent} event - The stream message event.
    */
-  handleWebSocketMessage(event) {
+  handleStreamMessage(event) {
     try {
       const data = JSON.parse(event.data);
 
-      if (this.currentModeHandler && typeof this.currentModeHandler.handleWebSocketMessage === 'function') {
-        this.currentModeHandler.handleWebSocketMessage(data);
+      if (this.currentModeHandler && typeof this.currentModeHandler.handleStreamMessage === 'function') {
+        this.currentModeHandler.handleStreamMessage(data);
       } else {
         // Default handling for messages not processed by mode handlers
         if (data.image_id) {
@@ -707,8 +722,8 @@ class SpwashiWebSocketContainer extends HTMLElement {
         }
       }
     } catch (error) {
-      console.error('Error processing WebSocket message:', error);
-      this.displayMessage('Failed to process WebSocket data.', 'error');
+      console.error('Error processing stream message:', error);
+      this.displayMessage('Failed to process stream data.', 'error');
     }
   }
 
@@ -773,8 +788,8 @@ class SpwashiWebSocketContainer extends HTMLElement {
 }
 
 /**
- * Initializes and defines the custom WebSocket container element.
- */
-export function initWebSocketContainer() {
-  customElements.define('spwashi-websocket-container', SpwashiWebSocketContainer);
+ * Initializes and defines the custom stream container element.
+*/
+export function initStreamContainer() {
+  customElements.define('spwashi-stream-container', SpwashiStreamContainer);
 }
