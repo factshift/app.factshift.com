@@ -36,6 +36,13 @@ yarn serve
 
 For details on how the initialization pipeline works, see [docs/init-pipeline.md](docs/init-pipeline.md).
 
+### Routing and Query Parameters
+
+The app exposes a lightweight routing integration service that notifies
+listeners when the browser path changes. Query parameter handlers can be
+registered via `services/query-params.js` and will be applied during the
+initial parameter loading step.
+
 ## QA
 
 Quality assurance checklists live under [docs/qa](docs/qa). See the

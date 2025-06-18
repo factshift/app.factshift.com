@@ -1,6 +1,7 @@
 export const InitPhase = {
   BOOT: 'boot',
   UI: 'ui',
+  REFRESH: 'refresh',
   DEFERRED: 'deferred',
 };
 
@@ -39,7 +40,7 @@ export function addInitSteps(steps) {
 
 export function sortSteps(steps) {
   const stepsMap = new Map(steps.map(s => [s.id, s]));
-  const phaseOrder = [InitPhase.BOOT, InitPhase.UI, InitPhase.DEFERRED];
+  const phaseOrder = [InitPhase.BOOT, InitPhase.UI, InitPhase.REFRESH, InitPhase.DEFERRED];
   const phaseRank = phase => {
     const idx = phaseOrder.indexOf(phase);
     return idx === -1 ? phaseOrder.length : idx;

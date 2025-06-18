@@ -36,8 +36,8 @@ a cycle is found during sorting.
 ### Phases
 
 Steps can optionally specify a `phase` that groups them into broad buckets of work.
-Phases are defined in the exported `InitPhase` enum with the values `BOOT`, `UI` and `DEFERRED`.
-The sorter runs all `boot` phase steps before `ui` steps, followed by `deferred` steps.
+Phases are defined in the exported `InitPhase` enum with the values `BOOT`, `UI`, `REFRESH` and `DEFERRED`.
+The sorter runs all `boot` phase steps before `ui` steps, then any `refresh` work and finally `deferred` steps.
 Any step without a known phase is treated as `deferred`.
 
 Phases are useful for keeping lightweight initialization logic (`boot`) separate
