@@ -8,7 +8,8 @@ import {initParameters} from "./init/parameters/init";
 import {loadParameters} from "./init/parameters/read";
 import {initSite} from "./init/site";
 import {initAnalytics} from "./meta/analytics";
-import {initWebSocketContainer} from "./ui/websocket-container";
+import {initStreamContainer} from "./ui/stream-container";
+import {initStreamConfig} from "./ui/stream-config";
 
 const versions = {
   'v0.0.1': {
@@ -54,7 +55,8 @@ export async function app() {
 
   // progressive enhancement
   initUi(window.spwashi.initialMode);
-  initWebSocketContainer();
+  initStreamContainer();
+  initStreamConfig();
 
   return Promise.all([serviceWorkerRegistered])
     .then(() => {
