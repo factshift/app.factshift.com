@@ -381,5 +381,14 @@ class SpwashiStreamContainer extends HTMLElement {
  * Initializes and defines the custom stream container element.
 */
 export function initStreamContainer() {
-  customElements.define('spwashi-stream-container', SpwashiStreamContainer);
+  if (!customElements.get('spwashi-stream-container')) {
+    customElements.define('spwashi-stream-container', SpwashiStreamContainer);
+  }
+  document
+    .querySelectorAll('spwashi-stream-container')
+    .forEach((el) => {
+      if (typeof el.setupStreamContainer === 'function') {
+        el.setupStreamContainer();
+      }
+    });
 }
