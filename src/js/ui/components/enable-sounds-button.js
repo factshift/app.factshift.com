@@ -1,4 +1,4 @@
-import {runDisableSoundsCommand, runEnableSoundsCommand} from "../input-modes/spw/commands/sounds";
+import {runDisableSoundsCommand, runEnableSoundsCommand} from "../../modes/input/spw/commands/sounds";
 
 export function initEnableSoundsButton() {
   const enableSoundsButton = document.querySelector('.enable-sounds');

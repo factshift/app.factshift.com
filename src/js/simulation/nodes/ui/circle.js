@@ -2,7 +2,7 @@
 
 import { cacheNode } from "../data/store";
 import { drag } from "d3";
-import { CLICKED_NODES } from "../../../input-modes/spw/commands/clicked";
+import { CLICKED_NODES } from "../../../modes/input/spw/commands/clicked";
 import { removeNodeEdges } from "../../edges/data/set";
 import { sortNodes } from "../data/sort";
 import { getAllNodes } from "../data/selectors/multiple";
