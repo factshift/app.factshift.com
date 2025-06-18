@@ -1,0 +1,14 @@
+#debug-mode-container fieldset {
+  border: 1px solid var(--accent-color-main);
+  padding: 0.5rem;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+body[data-phase="boot"] {
+  #debug-mode-container fieldset { opacity: .5; }
+}
+[data-interface-depth="minimalism"] {
+  #debug-mode-container fieldset { display: none; }
+}
