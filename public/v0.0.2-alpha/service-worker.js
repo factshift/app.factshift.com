@@ -1,4 +1,4 @@
-const appVersion = 'v0.0.1';
+const appVersion = 'v0.0.2-alpha';
 const cacheName  = `serviceworker@${appVersion}`;
 
 const staticAssets =
