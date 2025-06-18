@@ -1,4 +1,4 @@
-import {initSimulationRoot} from "../simulation/simulation";
+import { initSimulationRoot } from "../services/simulation";
 import {initCallbacks}      from "./callbacks/initCallbacks";
 import {initListeners}      from "./listeners/initListeners";
 import {pushHelpTopics}     from "../modes/input/spw/commands/help";

@@ -1,5 +1,8 @@
 import { initializeForces } from "./forces";
 import { initSvgProperties, getSimulationElements } from "./basic";
+import { updateSimulationLinks } from "../ui/components/simulation/links";
+import { updateSimulationNodes } from "../ui/components/simulation/nodes";
+import { updateSimulationRects } from "../ui/components/simulation/rects";
 
 // Dynamically import managers if needed
 async function loadManagers() {
@@ -44,10 +47,10 @@ export async function reinit() {
       window.spwashi.counter += 1;
       rects.forEach(d => d.calc(d)); // Update rects
 
-      // Update edges, nodes, and rects
-      EDGE_MANAGER.updateLinks(simulationElements.wrapper, edges);
-      NODE_MANAGER.updateNodes(simulationElements.wrapper, nodes);
-      RECT_MANAGER.updateRects(simulationElements.wrapper, rects);
+      // Update edges, nodes, and rects via UI components
+      updateSimulationLinks(edges);
+      updateSimulationNodes(nodes);
+      updateSimulationRects(rects);
     };
 
     // Attach the ticker to the simulation's 'tick' event
