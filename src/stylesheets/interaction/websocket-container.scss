@@ -10,3 +10,19 @@
   font-size: 2rem;
   outline: thin solid var(--accent-color-main);
 }
+form.mode-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 1rem;
+}
+form.mode-form h3 {
+  margin: 0 0 0.5rem 0;
+}
+form.mode-form .button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+form.mode-form button {
+  flex: 1 1 auto;
+}
