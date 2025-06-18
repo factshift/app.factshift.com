@@ -16,3 +16,12 @@ const steps = [
 await runInitPipeline(steps);
 ```
 
+Instrumentation hooks can be passed via a second parameter:
+
+```javascript
+await runInitPipeline(steps, {
+  onStepStart(step) { console.time(step.name); },
+  onStepEnd(step) { console.timeEnd(step.name); }
+});
+```
+
