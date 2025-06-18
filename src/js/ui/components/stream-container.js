@@ -295,6 +295,13 @@ class SpwashiStreamContainer extends HTMLElement {
    * Handles the mode change event.
    */
   handleModeChange() {
+    if (this.currentModeHandler) {
+      this.currentModeHandler.cleanup();
+      this.currentModeHandler = null;
+    }
+    if (this.dataManager && this.dataManager.source && typeof this.dataManager.source.close === 'function') {
+      this.dataManager.source.close();
+    }
     this.currentMode = this.modeSelector.value;
     this.initDataManager();
     this.render(); // Re-render the UI based on the new mode
@@ -303,6 +310,13 @@ class SpwashiStreamContainer extends HTMLElement {
   }
 
   handleStreamStrategyChange() {
+    if (this.currentModeHandler) {
+      this.currentModeHandler.cleanup();
+      this.currentModeHandler = null;
+    }
+    if (this.dataManager && this.dataManager.source && typeof this.dataManager.source.close === 'function') {
+      this.dataManager.source.close();
+    }
     this.initDataManager();
     this.render();
   }

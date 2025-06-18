@@ -54,6 +54,10 @@ export class ModeHandler {
     if (this.updateCb && this.container.dataManager) {
       this.container.dataManager.offUpdate(this.updateCb);
     }
+    const src = this.container.dataManager && this.container.dataManager.source;
+    if (src && typeof src.close === 'function') {
+      src.close();
+    }
   }
 }
 
