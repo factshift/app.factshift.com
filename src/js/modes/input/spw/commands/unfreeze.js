@@ -1,4 +1,4 @@
-import {forEachNode} from "../../../simulation/nodes/data/operate";
+import {forEachNode} from "../../../../simulation/nodes/data/operate";
 
 export function runUnfreezeCommand() {
   forEachNode(node => {

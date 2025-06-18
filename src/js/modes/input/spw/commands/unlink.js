@@ -1,4 +1,4 @@
-import {removeAllLinks} from "../../../simulation/edges/data/set";
+import {removeAllLinks} from "../../../../simulation/edges/data/set";
 
 export function runUnlinkCommand(sideEffects) {
   removeAllLinks();

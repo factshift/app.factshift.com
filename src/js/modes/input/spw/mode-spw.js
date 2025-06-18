@@ -1,11 +1,11 @@
-import {CharacterCursor} from "../../vendor/spw/core/node/cursor.mjs";
-import {parse}           from "../../vendor/spw/parser/parse.mjs";
-import {NODE_MANAGER}    from "../../simulation/nodes/nodes";
-import {initFocalSquare}                    from "../../ui/components/focal-point";
+import {CharacterCursor} from "../../../vendor/spw/core/node/cursor.mjs";
+import {parse}           from "../../../vendor/spw/parser/parse.mjs";
+import {NODE_MANAGER}    from "../../../simulation/nodes/nodes";
+import {initFocalSquare}                    from "../../../ui/components/focal-point";
 import {setDocumentMode}                    from "../index";
 import {initSpwParseField, processSpwInput} from "./process-spw-input";
-import {initPageImage}                      from "../../ui/components/page-image";
-import {mapNodes, pushNode}                 from "../../simulation/nodes/data/operate";
+import {initPageImage}                      from "../../../ui/components/page-image";
+import {mapNodes, pushNode}                 from "../../../simulation/nodes/data/operate";
 import {getDocumentDataIndex}               from "../dataindex/util";
 
 const parseSpw = (text) => {

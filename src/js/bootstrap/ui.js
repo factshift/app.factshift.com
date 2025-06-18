@@ -4,7 +4,7 @@ import {initializeReflexMode}              from "../modes/input/reflex/mode-refl
 import {initializeStoryMode}               from "../modes/input/story/mode-story";
 import {initializeModeSelection}           from "../modes/input";
 import {initializeDataindexMode}           from "../modes/input/dataindex/mode-dataindex";
-import {initKeystrokes}                    from "./hotkeys/_";
+import {initKeystrokes}                    from "../ui/hotkeys/_";
 import {initializeSpwParseField}           from "../modes/input/spw/mode-spw";
 
 

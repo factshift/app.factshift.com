@@ -1,5 +1,5 @@
-import { generateNodes } from "../simulation/nodes/data/generate";
-import { forEachNode } from "../simulation/nodes/data/operate";
+import { generateNodes } from "../../simulation/nodes/data/generate";
+import { forEachNode } from "../../simulation/nodes/data/operate";
 import { registerComponent } from "../component-registry";
 
 export function initializeForceSimulationControls() {

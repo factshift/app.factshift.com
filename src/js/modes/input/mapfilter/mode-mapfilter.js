@@ -2,10 +2,10 @@ import ace, {createEditSession} from 'ace-builds/src-noconflict/ace';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/mode-javascript';
 import {setDocumentMode}        from "../index";
-import {removeAllNodes}         from "../../simulation/nodes/data/set";
-import {mapNodes, pushNode}     from "../../simulation/nodes/data/operate";
-import {selectOppositeNodes}    from "../../simulation/nodes/data/selectors/multiple";
-import {removeObsoleteEdges}    from "../../simulation/edges/data/set";
+import {removeAllNodes}         from "../../../simulation/nodes/data/set";
+import {mapNodes, pushNode}     from "../../../simulation/nodes/data/operate";
+import {selectOppositeNodes}    from "../../../simulation/nodes/data/selectors/multiple";
+import {removeObsoleteEdges}    from "../../../simulation/edges/data/set";
 
 function hardResetNodes(nodes) {
   removeAllNodes();

@@ -1,4 +1,4 @@
-import {pushNode} from "../../../simulation/nodes/data/operate";
+import {pushNode} from "../../../../simulation/nodes/data/operate";
 
 export const urlHandler = {
   regex:   /^https:\/\/(.+)/,

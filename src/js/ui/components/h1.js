@@ -1,10 +1,10 @@
 import {processSpwInput}        from "../../modes/input/spw/process-spw-input";
 import {setDocumentMode} from "../../modes/input";
-import {parse}           from "../vendor/spw/parser/parse.mjs";
-import {getIdentityPath} from "../simulation/nodes/data/process";
+import {parse}           from "../../vendor/spw/parser/parse.mjs";
+import {getIdentityPath} from "../../simulation/nodes/data/process";
 import md5                      from "md5";
-import {processPastedText}      from "../ui/hotkeys/handlers/pasted-text";
-import {getNextUrlSearchParams} from "../util/next-url";
+import {processPastedText}      from "../hotkeys/handlers/pasted-text";
+import {getNextUrlSearchParams} from "../../util/next-url";
 import { registerComponent } from "../component-registry";
 
 function getHeaderSideEffects(input, sideEffects = {}) {

@@ -1,9 +1,9 @@
-import {NODE_MANAGER}          from "../../simulation/nodes/nodes";
+import {NODE_MANAGER}          from "../../../simulation/nodes/nodes";
 import {setDocumentMode}       from "../index";
-import {removeAllNodes}        from "../../simulation/nodes/data/set";
-import {forEachNode, pushNode} from "../../simulation/nodes/data/operate";
-import {processNode}           from "../../simulation/nodes/data/process";
-import {getAllNodes}           from "../../simulation/nodes/data/selectors/multiple";
+import {removeAllNodes}        from "../../../simulation/nodes/data/set";
+import {forEachNode, pushNode} from "../../../simulation/nodes/data/operate";
+import {processNode}           from "../../../simulation/nodes/data/process";
+import {getAllNodes}           from "../../../simulation/nodes/data/selectors/multiple";
 
 export function duplicateNode(d) {
   return {

@@ -1,5 +1,5 @@
 import {setDocumentMode}    from "../../modes/input";
-import { initHotkeyButtons } from "../../ui/components/hotkey-buttons";
+import { initHotkeyButtons } from "../components/hotkey-buttons";
 import {processPastedText}  from "./handlers/pasted-text";
 
 function initKeystrokeHandlers(options) {

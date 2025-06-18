@@ -1,4 +1,4 @@
-import {initPageImage} from "../../../ui/components/page-image";
+import {initPageImage} from "../../../../ui/components/page-image";
 
 export function runClearPageImageCommand() {
   {

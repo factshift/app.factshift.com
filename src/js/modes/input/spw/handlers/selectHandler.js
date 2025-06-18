@@ -1,4 +1,4 @@
-import {getAllNodes}   from "../../../simulation/nodes/data/selectors/multiple";
+import {getAllNodes}   from "../../../../simulation/nodes/data/selectors/multiple";
 import {CLICKED_NODES} from "../commands/clicked";
 
 function getNodeGroup(node) {
