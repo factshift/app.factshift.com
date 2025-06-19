@@ -1,6 +1,8 @@
 /**
  * Safely retrieve the global `spwashi` object, initializing if not present.
  */
+import { registerData } from "../../data/registry";
+
 function getSpwashiGlobal() {
   if (!window.spwashi) {
     window.spwashi = { nodes: [], links: [] };
@@ -14,6 +16,9 @@ function getSpwashiNodes() {
 
 function setSpwashiNodes(nodes) {
   getSpwashiGlobal().nodes = nodes;
+  const mode  = window.spwashi?.parameters?.mode || 'default';
+  const phase = document.body?.dataset?.phase || 'default';
+  registerData('nodes', nodes, { mode, phase });
 }
 
 function getSpwashiLinks() {

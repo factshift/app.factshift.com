@@ -1,5 +1,7 @@
+import { registerData } from "../../data/registry";
+
 export function getDefaultRects() {
-  return [
+  const rects = [
     {
       title: 'Counter',
       x:     0,
@@ -66,4 +68,8 @@ export function getDefaultRects() {
     r.y      = i * 20;
     return r;
   });
+  const mode  = window.spwashi?.parameters?.mode || 'default';
+  const phase = document.body?.dataset?.phase || 'default';
+  registerData('rects', rects, { mode, phase });
+  return rects;
 }
