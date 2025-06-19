@@ -1,4 +1,5 @@
 // services/cache.js
+import * as storage from './storage.js';
 
 export const UI_CACHE_CATEGORY = 'ui.cache';
 
@@ -7,8 +8,8 @@ export const UI_CACHE_CATEGORY = 'ui.cache';
  * Logs the action when debug mode is enabled.
  */
 export function cacheItem(key, value, category = UI_CACHE_CATEGORY) {
-  if (window.spwashi && window.spwashi.setItem) {
-    window.spwashi.setItem(key, value, category);
+  if (window.spwashi) {
+    storage.setItem(key, value, category);
     if (window.spwashi.parameters?.debug) {
       console.log(`[cache] set ${key} ->`, value);
     }
@@ -22,8 +23,8 @@ export function cacheItem(key, value, category = UI_CACHE_CATEGORY) {
  * Logs the result when debug mode is enabled.
  */
 export function loadCachedItem(key, category = UI_CACHE_CATEGORY) {
-  if (!window.spwashi || !window.spwashi.getItem) return undefined;
-  const value = window.spwashi.getItem(key, category);
+  if (!window.spwashi) return undefined;
+  const value = storage.getItem(key, category);
   if (window.spwashi.parameters?.debug) {
     console.log(`[cache] load ${key} ->`, value);
   }

@@ -1,4 +1,5 @@
-import {getNextUrlSearchParams} from "../../../util/next-url";
+import { getNextUrlSearchParams } from "../../../util/next-url";
+import { clearAll } from "../../../services/storage.js";
 
 function getNextHref(nextParams) {
   const href = window.location.href.split('?')[0];
@@ -6,7 +7,7 @@ function getNextHref(nextParams) {
 }
 
 export function resetInterface() {
-  window.localStorage.clear();
+  clearAll();
   const nextParams     = getNextUrlSearchParams();
   window.location.href = getNextHref(nextParams);
 }
