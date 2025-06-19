@@ -2,6 +2,7 @@
 
 import { processNode } from "./data/process.js";
 import { cacheNode, readNodePosition } from "./data/store.js";
+import { debug } from "../../services/logger.js";
 import { makeText, updateNodeTextSvg } from "./ui/text.js";
 import { makeRect } from "./ui/rect.js";
 import { makeCircle, updateCircle } from "./ui/circle.js";
@@ -52,12 +53,14 @@ function init(nodes, isMutable = false) {
  * @param {Array} nodes - The list of nodes to update.
  */
 function update(g, nodes) {
+  debug(`[nodes] update called with ${nodes.length} nodes`);
   const wrapperSelection = g
       .select('.nodes')
       .selectAll('g.wrapper')
       .data(nodes, d => d.id);
 
   wrapperSelection.join(enterNodes, updateNodes, removeNodes);
+  debug(`[nodes] selection after join: ${wrapperSelection.size()}`);
 }
 
 /**
