@@ -5,6 +5,7 @@ import { getDefaultRects } from '../../simulation/rects/data/default';
 import { initSvgProperties, getSimulationElements } from '../../simulation/basic';
 import DataManager from '../../simulation/data';
 import { getCurrentQuery } from '../query-state';
+import { debug } from '../logger.js';
 
 function initNodes() {
   window.spwashi.clearCachedNodes = () => {
@@ -13,6 +14,7 @@ function initNodes() {
   window.spwashi.getNodeImageHref = getNodeImageHref;
   window.spwashi.getNode = NODE_MANAGER.getNode;
   window.spwashi.nodes = [];
+  debug('[sim] init nodes');
   const { mode, phase } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('nodes', {
@@ -26,6 +28,7 @@ function initNodes() {
 
 function initEdges() {
   window.spwashi.links = [];
+  debug('[sim] init edges');
   const { mode, phase } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('links', {
@@ -39,6 +42,7 @@ function initEdges() {
 
 function initRects() {
   window.spwashi.rects = getDefaultRects();
+  debug('[sim] init rects');
   const { mode, phase } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('rects', {
@@ -56,9 +60,13 @@ export function initSimulationRoot() {
   const { svg } = getSimulationElements();
   initSvgProperties(svg);
 
+  debug('[sim] initializing simulation root');
+
   initNodes();
   initEdges();
   initRects();
+
+  debug('[sim] registered data slices');
 
   window.spwashi.simulation = forceSimulation();
   const { mode, phase } = getCurrentQuery();
@@ -71,6 +79,7 @@ export function initSimulationRoot() {
 
   import('../../simulation/reinit').then(({ reinit }) => {
     window.spwashi.reinit = reinit;
+    debug('[sim] calling reinit');
     reinit();
   });
 }

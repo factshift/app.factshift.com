@@ -1,5 +1,6 @@
 import { initializeForces } from "./physics";
 import { initSvgProperties, getSimulationElements } from "./basic";
+import { debug } from "../services/logger.js";
 import {
   updateSimulationLinks,
   updateSimulationNodes,
@@ -22,15 +23,21 @@ export async function reinit() {
     const simulationElements = getSimulationElements();
     initSvgProperties(simulationElements.svg);
 
+    debug('[sim] reinitializing simulation');
+
     window.spwashi.counter = 0;
 
     // Dynamically load node, edge, and rect managers
     const { NODE_MANAGER, EDGE_MANAGER, RECT_MANAGER } = await loadManagers();
 
+    debug('[sim] managers loaded');
+
     // Initialize nodes, edges, and rects
     const nodes = NODE_MANAGER.initNodes(window.spwashi.nodes);
     const edges = EDGE_MANAGER.initLinks(nodes);
     const rects = RECT_MANAGER.initRects(window.spwashi.rects);
+
+    debug(`[sim] nodes:${nodes.length} edges:${edges.length} rects:${rects.length}`);
 
     const simulation = window.spwashi.simulation;
     simulation.nodes(nodes);
@@ -65,6 +72,9 @@ export async function reinit() {
       return;
     }
     outputElement.innerHTML = JSON.stringify(window.spwashi.parameters, null, 2);
+
+    debug('[sim] reinit complete');
+    document.dispatchEvent(new CustomEvent('simulation-ready'));
 
   } catch (error) {
     console.error('Error during reinit:', error);
