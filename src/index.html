@@ -50,11 +50,20 @@
         <div class="button-container"></div>
     </section>
     <section id="map-mode-container" aria-label="Map Mode">
-        <div id="node-mapper" class="code-editor"></div>
+        <fieldset>
+            <legend>Map Function</legend>
+            <label><input type="radio" name="map-option" value="random" checked>Random radius</label>
+            <label><input type="radio" name="map-option" value="increase">Increase radius</label>
+            <label><input type="radio" name="map-option" value="identity">Identity</label>
+        </fieldset>
         <button id="submit-node-mapper">submit</button>
     </section>
     <section id="filter-mode-container" aria-label="Filter Mode">
-        <div id="node-filter" class="code-editor"></div>
+        <fieldset>
+            <legend>Filter Function</legend>
+            <label><input type="radio" name="filter-option" value="nominal" checked>Nominal only</label>
+            <label><input type="radio" name="filter-option" value="all">All nodes</label>
+        </fieldset>
         <button id="submit-node-filter">submit</button>
     </section>
     <section id="querymod-mode-container" aria-label="Query Mode">

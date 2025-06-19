@@ -1,11 +1,8 @@
-import ace, {createEditSession} from 'ace-builds/src-noconflict/ace';
-import 'ace-builds/src-noconflict/theme-monokai';
-import 'ace-builds/src-noconflict/mode-javascript';
-import {setDocumentMode}        from "../index";
-import {removeAllNodes}         from "../../../simulation/nodes/data/set";
-import {mapNodes, pushNode}     from "../../../simulation/nodes/data/operate";
-import {selectOppositeNodes}    from "../../../simulation/nodes/data/selectors/multiple";
-import {removeObsoleteEdges}    from "../../../simulation/edges/data/set";
+import {setDocumentMode} from "../index";
+import {removeAllNodes} from "../../../simulation/nodes/data/set";
+import {mapNodes, pushNode} from "../../../simulation/nodes/data/operate";
+import {selectOppositeNodes} from "../../../simulation/nodes/data/selectors/multiple";
+import {removeObsoleteEdges} from "../../../simulation/edges/data/set";
 
 function hardResetNodes(nodes) {
   removeAllNodes();
@@ -14,75 +11,58 @@ function hardResetNodes(nodes) {
   window.spwashi.reinit();
 }
 
-function initMapEditor() {
-  const nodeMapper = document.querySelector('#node-mapper');
-  if (!nodeMapper) {
-    window.spwashi.callbacks.acknowledgeLonging('wondering about node mapper');
-    return;
-  }
-  return ace.edit('node-mapper');
-}
+const mapFunctions = {
+  random: d => { d.r = (Math.random() * 30) + (Math.random() * 50); return d; },
+  increase: d => { d.r += 10; return d; },
+  identity: d => d,
+};
+
+const filterFunctions = {
+  nominal: d => d.kind === 'nominal',
+  all: () => true,
+};
 
 export function initializeMapFilterMode() {
-  const mapEditor = initMapEditor();
-  if (!mapEditor) {
-    window.spwashi.callbacks.acknowledgeLonging('wondering about map editor');
-    return;
-  }
-  const mapKey   = 'map-nodes-fn';
-  const mapValue = window.spwashi.getItem(mapKey) || `d => {
-  d.r = (Math.random() * 30) + (Math.random() * 50);
-  return d;
-}`;
-  mapEditor.setSession(createEditSession(mapValue, 'ace/mode/javascript'));
+  const mapKey = 'map-nodes-option';
+  const filterKey = 'filter-nodes-option';
+
+  const storedMap = window.spwashi.getItem(mapKey) || 'random';
+  const storedFilter = window.spwashi.getItem(filterKey) || 'nominal';
+
+  const mapRadio = document.querySelector(`input[name="map-option"][value="${storedMap}"]`);
+  if (mapRadio) mapRadio.checked = true;
+  const filterRadio = document.querySelector(`input[name="filter-option"][value="${storedFilter}"]`);
+  if (filterRadio) filterRadio.checked = true;
+
   window.spwashi.callbacks.onMapMode = () => {
-    const mapModeContainer    = document.querySelector('#map-mode-container');
+    const mapModeContainer = document.querySelector('#map-mode-container');
     mapModeContainer.tabIndex = 0;
     mapModeContainer.focus();
-  }
+  };
 
-  const filterEditor = ace.edit('node-filter');
-  const filterKey    = 'filter-nodes-fn';
-  const filterValue  = window.spwashi.getItem(filterKey) || `d => d.kind === 'nominal'`;
-  filterEditor.setSession(createEditSession(filterValue, 'ace/mode/javascript'));
   window.spwashi.callbacks.onFilterMode = () => {
-    const filterModeContainer    = document.querySelector('#filter-mode-container');
+    const filterModeContainer = document.querySelector('#filter-mode-container');
     filterModeContainer.tabIndex = 0;
     filterModeContainer.focus();
-  }
+  };
 
-
-  [filterEditor, mapEditor].forEach((editor) => {
-    editor.setOptions({useWorker: false})
-    editor.setTheme('ace/theme/monokai');
-    editor.session.setMode('ace/mode/javascript');
-    // ignore tab key
-    editor.commands.bindKey('Tab', null);
-  })
-
-  const mapSubmit   = document.querySelector('#submit-node-mapper');
-  mapSubmit.onclick = submitMapper;
-
-  const filterSubmit   = document.querySelector('#submit-node-filter');
-  filterSubmit.onclick = submitFilter;
-
-  function submitMapper() {
-    const mapFnString = mapEditor.getValue();
-    const mapFunction = mapFnString ? eval(mapFnString) : d => d;
-    const nodes       = mapNodes(mapFunction);
+  const mapSubmit = document.querySelector('#submit-node-mapper');
+  mapSubmit.onclick = () => {
+    const selected = document.querySelector('input[name="map-option"]:checked')?.value || 'identity';
+    const mapFn = mapFunctions[selected] || mapFunctions.identity;
+    const nodes = mapNodes(mapFn);
     hardResetNodes(nodes);
-    window.spwashi.setItem(mapKey, mapFnString);
-    setDocumentMode('')
-  }
+    window.spwashi.setItem(mapKey, selected);
+    setDocumentMode('');
+  };
 
-  function submitFilter() {
-    const filterFnString = filterEditor.getValue();
-    const fn             = filterFnString ? eval(filterFnString) : d => true;
-
-    const nodes = selectOppositeNodes(fn);
-
+  const filterSubmit = document.querySelector('#submit-node-filter');
+  filterSubmit.onclick = () => {
+    const selected = document.querySelector('input[name="filter-option"]:checked')?.value || 'all';
+    const filterFn = filterFunctions[selected] || filterFunctions.all;
+    const nodes = selectOppositeNodes(filterFn);
     hardResetNodes(nodes);
-    window.spwashi.setItem(filterKey, filterFnString);
-    setDocumentMode('')
-  }
+    window.spwashi.setItem(filterKey, selected);
+    setDocumentMode('');
+  };
 }

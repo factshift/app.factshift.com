@@ -26,3 +26,15 @@
   background: var(--mainmenu-background);
   color: var(--mainmenu-text-color);
 }
+
+fieldset {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  legend {
+    font-weight: bold;
+    margin-bottom: .5rem;
+  }
+}
