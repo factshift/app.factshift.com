@@ -291,6 +291,12 @@ class SpwashiStreamContainer extends HTMLElement {
 
     this.streamStrategyChangeBound = this.handleStreamStrategyChange.bind(this);
     document.addEventListener('stream-strategy-change', this.streamStrategyChangeBound);
+
+    if (this.streamModeChangeBound) {
+      document.removeEventListener('stream-mode-change', this.streamModeChangeBound);
+    }
+    this.streamModeChangeBound = this.handleExternalModeChange.bind(this);
+    document.addEventListener('stream-mode-change', this.streamModeChangeBound);
   }
 
   /**
@@ -321,6 +327,15 @@ class SpwashiStreamContainer extends HTMLElement {
     }
     this.initDataManager();
     this.render();
+  }
+
+  handleExternalModeChange(e) {
+    const mode = e?.detail?.mode;
+    if (!mode || mode === this.currentMode) return;
+    if (this.modeSelector) {
+      this.modeSelector.value = mode;
+    }
+    this.handleModeChange();
   }
 
   /**
