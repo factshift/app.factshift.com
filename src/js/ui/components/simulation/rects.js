@@ -6,15 +6,15 @@ import { getCurrentQuery } from '../../../services/query-state';
 
 export function updateSimulationRects(rects) {
   const { wrapper } = getSimulationElements();
-  const { mode, phase } = getCurrentQuery();
-  if (DataManager.isDisplayEnabled('rects', { mode, phase })) {
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
+  if (DataManager.isDisplayEnabled('rects', { mode, phase, sliceName })) {
     RECT_MANAGER.updateRects(wrapper, rects);
   }
 }
 
 export function initSimulationRects() {
-  const { mode, phase } = getCurrentQuery();
-  const rects = DataManager.getData('rects', { mode, phase }) || [];
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
+  const rects = DataManager.getData('rects', { mode, phase, sliceName }) || [];
   updateSimulationRects(rects);
 }
 

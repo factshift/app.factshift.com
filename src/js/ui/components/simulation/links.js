@@ -6,15 +6,15 @@ import { getCurrentQuery } from '../../../services/query-state';
 
 export function updateSimulationLinks(links) {
   const { wrapper } = getSimulationElements();
-  const { mode, phase } = getCurrentQuery();
-  if (DataManager.isDisplayEnabled('links', { mode, phase })) {
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
+  if (DataManager.isDisplayEnabled('links', { mode, phase, sliceName })) {
     EDGE_MANAGER.updateLinks(wrapper, links);
   }
 }
 
 export function initSimulationLinks() {
-  const { mode, phase } = getCurrentQuery();
-  const links = DataManager.getData('links', { mode, phase }) || [];
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
+  const links = DataManager.getData('links', { mode, phase, sliceName }) || [];
   updateSimulationLinks(links);
 }
 
