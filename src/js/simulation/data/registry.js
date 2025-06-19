@@ -17,7 +17,16 @@ export function registerSlice(key, { initialData = [], dataSlice, aggregator = '
 
 export function getSlice(key, { mode = 'default', phase = 'default', sliceName = '' } = {}) {
   const regKey = makeKey(key, mode, phase, sliceName);
-  return registry.get(regKey)?.slice;
+  if (registry.has(regKey)) {
+    return registry.get(regKey).slice;
+  }
+  for (const [k, { slice }] of registry.entries()) {
+    const [m, p, s, kKey] = k.split(':');
+    if (kKey === key && m === mode && s === sliceName) {
+      return slice;
+    }
+  }
+  return undefined;
 }
 
 export function getData(key, opts = {}) {
@@ -34,7 +43,16 @@ export function toggleDisplay(key, { mode = 'default', phase = 'default', sliceN
 
 export function isDisplayEnabled(key, { mode = 'default', phase = 'default', sliceName = '' } = {}) {
   const regKey = makeKey(key, mode, phase, sliceName);
-  return registry.get(regKey)?.display ?? false;
+  if (registry.has(regKey)) {
+    return registry.get(regKey).display ?? false;
+  }
+  for (const [k, entry] of registry.entries()) {
+    const [m, p, s, kKey] = k.split(':');
+    if (kKey === key && m === mode && s === sliceName) {
+      return entry.display;
+    }
+  }
+  return false;
 }
 
 export function clearData(key, opts = {}) {
