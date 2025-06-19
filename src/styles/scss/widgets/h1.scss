@@ -2,8 +2,8 @@ h1 {
   position: fixed;
   top: 0;
   right: 0;
-  background: #222;
-  color: var(--accent-color-main);
+  background: var(--button-background);
+  color: var(--button-text-color);
   padding: 1rem;
   margin: 1rem;
   line-height: 1;
@@ -14,8 +14,8 @@ h1 {
   }
 }
 #h1-input {
-  background: #222;
-  color: var(--accent-color-main);
+  background: var(--button-background);
+  color: var(--button-text-color);
   padding: 1rem;
   margin: 1rem;
   line-height: 1;
@@ -23,8 +23,8 @@ h1 {
   outline: thin solid var(--accent-color-main);
   font-family: monospace;
   & + button {
-    background: #222;
-    color: var(--accent-color-main);
+    background: var(--button-background);
+    color: var(--button-text-color);
     padding: 1rem;
     margin: 1rem;
     line-height: 1;

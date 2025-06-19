@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   color: var(--spw-container-text-color);
-  background: #222;
+  background: var(--form-background);
   padding: 1rem;
   position: absolute;
   &:focus {
@@ -33,7 +33,7 @@
   overflow: visible;
   width: 35rem;
   color: var(--mainmenu-text-color);
-  background: #222;
+  background: var(--form-background);
   padding: 2rem;
   &:focus {
     outline: thin solid var(--accent-color-main);

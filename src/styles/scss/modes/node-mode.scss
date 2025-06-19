@@ -39,8 +39,8 @@
     }
   }
   input {
-    background: #222;
-    color: var(--accent-color-main);
+    background: var(--form-background);
+    color: var(--button-text-color);
     padding: 1rem;
     width: 10rem;
     line-height: 1;

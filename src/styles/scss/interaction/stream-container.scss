@@ -2,13 +2,14 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  background: #222;
-  color: var(--accent-color-main);
+  background: var(--stream-container-background);
+  color: var(--button-text-color);
   padding: 1rem;
   margin: 1rem;
   line-height: 1;
   font-size: 2rem;
   outline: thin solid var(--accent-color-main);
+  container-type: inline-size;
 }
 form.mode-form {
   display: flex;
@@ -25,4 +26,18 @@ form.mode-form .button-group {
 }
 form.mode-form button {
   flex: 1 1 auto;
+}
+
+@container (min-width: 30rem) {
+  form.mode-form {
+    flex-direction: row;
+    align-items: center;
+  }
+  form.mode-form h3 {
+    flex: 0 0 10rem;
+    margin: 0 1rem 0 0;
+  }
+  form.mode-form .button-group {
+    flex-direction: row;
+  }
 }
