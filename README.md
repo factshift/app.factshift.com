@@ -36,6 +36,7 @@ yarn serve
 
 For details on how the initialization pipeline works, see [docs/init-pipeline.md](docs/init-pipeline.md).
 Metadata about registered data slices lives in [docs/api/data-meta.md](docs/api/data-meta.md).
+An overview of available features is provided in [docs/features.md](docs/features.md). You can import the `AppFeatures` object or individual constants like `INIT_PHASES` and `STREAM_MODES` from `src/js/app/features.js`.
 
 ### Routing and Query Parameters
 
