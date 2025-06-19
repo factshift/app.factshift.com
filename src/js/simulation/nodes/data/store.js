@@ -1,4 +1,4 @@
-import {getAllNodes} from "./selectors/multiple";
+import {getAllNodes} from "./selectors/multiple.js";
 
 export const cacheNode        = node => {
   window.spwashi.setItem('nodes', getAllNodes());

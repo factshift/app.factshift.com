@@ -1,6 +1,6 @@
-import { simulationLinks, initSimulationLinks, updateSimulationLinks } from './links';
-import { simulationNodes, initSimulationNodes, updateSimulationNodes } from './nodes';
-import { simulationRects, initSimulationRects, updateSimulationRects } from './rects';
+import { simulationLinks, initSimulationLinks, updateSimulationLinks } from './links.js';
+import { simulationNodes, initSimulationNodes, updateSimulationNodes } from './nodes.js';
+import { simulationRects, initSimulationRects, updateSimulationRects } from './rects.js';
 
 export { simulationLinks, initSimulationLinks, updateSimulationLinks };
 export { simulationNodes, initSimulationNodes, updateSimulationNodes };

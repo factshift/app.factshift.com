@@ -1,4 +1,4 @@
-import { getDocumentDataIndex } from "../../../modes/input/dataindex/util";
+import { getDocumentDataIndex } from "../../../modes/input/dataindex/util.js";
 
 /**
  * @typedef {Object} Node

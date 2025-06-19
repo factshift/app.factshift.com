@@ -1,17 +1,18 @@
-import { initializeForces } from "./physics";
-import { initSvgProperties, getSimulationElements } from "./basic";
+// Node's ES module resolver requires explicit filenames in tests
+import { initializeForces } from "./physics/index.js";
+import { initSvgProperties, getSimulationElements } from "./basic.js";
 import { debug } from "../services/logger.js";
 import {
   updateSimulationLinks,
   updateSimulationNodes,
   updateSimulationRects,
-} from "../ui/components/simulation";
+} from "../ui/components/simulation/index.js";
 
 // Dynamically import managers if needed
 async function loadManagers() {
-  const NODE_MANAGER = (await import('./nodes/nodes')).NODE_MANAGER;
-  const EDGE_MANAGER = (await import('./edges/edges')).EDGE_MANAGER;
-  const RECT_MANAGER = (await import('./rects/rects')).RECT_MANAGER;
+  const NODE_MANAGER = (await import('./nodes/nodes.js')).NODE_MANAGER;
+  const EDGE_MANAGER = (await import('./edges/edges.js')).EDGE_MANAGER;
+  const RECT_MANAGER = (await import('./rects/rects.js')).RECT_MANAGER;
 
   return { NODE_MANAGER, EDGE_MANAGER, RECT_MANAGER };
 }
@@ -64,6 +65,9 @@ export async function reinit() {
 
     // Attach the ticker to the simulation's 'tick' event
     simulation.on('tick', window.spwashi.internalTicker);
+
+    // Kick off the first tick so that the SVG renders immediately
+    window.spwashi.tick();
 
     // Update the output element with current parameters
     const outputElement = document.querySelector('#output');

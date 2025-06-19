@@ -1,4 +1,4 @@
-import {pushLink} from "./pushLink";
+import {pushLink} from "./pushLink.js";
 
 export function linkBySpwParts(nodesFromSpw) {
   const links        = [];

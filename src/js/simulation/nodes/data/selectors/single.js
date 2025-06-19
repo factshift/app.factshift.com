@@ -1,4 +1,4 @@
-import { getAllNodes } from "./multiple";
+import { getAllNodes } from "./multiple.js";
 
 export function getNode(id, perspective = undefined) {
   let fallback;

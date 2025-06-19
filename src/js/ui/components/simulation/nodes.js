@@ -1,8 +1,8 @@
-import { NODE_MANAGER } from '../../../simulation/nodes/nodes';
-import { getSimulationElements } from '../../../simulation/basic';
-import { registerComponent } from '../../component-registry';
-import DataManager from '../../../simulation/data';
-import { getCurrentQuery } from '../../../services/query-state';
+import { NODE_MANAGER } from '../../../simulation/nodes/nodes.js';
+import { getSimulationElements } from '../../../simulation/basic.js';
+import { registerComponent } from '../../component-registry.js';
+import DataManager from '../../../simulation/data/index.js';
+import { getCurrentQuery } from '../../../services/query-state.js';
 
 export function updateSimulationNodes(nodes) {
   const { wrapper } = getSimulationElements();

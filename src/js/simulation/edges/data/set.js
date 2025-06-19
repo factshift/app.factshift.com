@@ -1,5 +1,5 @@
-import { getSlice } from "../../data";
-import { getCurrentQuery } from "../../../services/query-state";
+import { getSlice } from "../../data/index.js";
+import { getCurrentQuery } from "../../../services/query-state.js";
 
 export function removeAllLinks() {
   window.spwashi.links.length = 0;
