@@ -4,7 +4,8 @@ export {
   getData,
   toggleDisplay,
   isDisplayEnabled,
-  clearData
+  clearData,
+  getMeta
 } from './registry';
 
 export { createDataSlice, createArraySlice, getAggregator } from './slice';
