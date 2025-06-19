@@ -15,12 +15,13 @@ function initNodes() {
   window.spwashi.getNode = NODE_MANAGER.getNode;
   window.spwashi.nodes = [];
   debug('[sim] init nodes');
-  const { mode, phase } = getCurrentQuery();
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('nodes', {
     initialData: window.spwashi.nodes,
     mode,
     phase,
+    sliceName,
     aggregator,
   });
   window.spwashi.nodesSlice = slice;
@@ -29,12 +30,13 @@ function initNodes() {
 function initEdges() {
   window.spwashi.links = [];
   debug('[sim] init edges');
-  const { mode, phase } = getCurrentQuery();
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('links', {
     initialData: window.spwashi.links,
     mode,
     phase,
+    sliceName,
     aggregator,
   });
   window.spwashi.linksSlice = slice;
@@ -43,12 +45,13 @@ function initEdges() {
 function initRects() {
   window.spwashi.rects = getDefaultRects();
   debug('[sim] init rects');
-  const { mode, phase } = getCurrentQuery();
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('rects', {
     initialData: window.spwashi.rects,
     mode,
     phase,
+    sliceName,
     aggregator,
   });
   window.spwashi.rectsSlice = slice;
@@ -69,11 +72,12 @@ export function initSimulationRoot() {
   debug('[sim] registered data slices');
 
   window.spwashi.simulation = forceSimulation();
-  const { mode, phase } = getCurrentQuery();
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
   DataManager.registerSlice('simulation', {
     initialData: window.spwashi.simulation,
     mode,
     phase,
+    sliceName,
     aggregator: 'array',
   });
 

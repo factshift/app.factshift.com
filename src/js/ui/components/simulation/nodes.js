@@ -6,15 +6,15 @@ import { getCurrentQuery } from '../../../services/query-state';
 
 export function updateSimulationNodes(nodes) {
   const { wrapper } = getSimulationElements();
-  const { mode, phase } = getCurrentQuery();
-  if (DataManager.isDisplayEnabled('nodes', { mode, phase })) {
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
+  if (DataManager.isDisplayEnabled('nodes', { mode, phase, sliceName })) {
     NODE_MANAGER.updateNodes(wrapper, nodes);
   }
 }
 
 export function initSimulationNodes() {
-  const { mode, phase } = getCurrentQuery();
-  const nodes = DataManager.getData('nodes', { mode, phase }) || [];
+  const { mode, phase, slice: sliceName } = getCurrentQuery();
+  const nodes = DataManager.getData('nodes', { mode, phase, sliceName }) || [];
   updateSimulationNodes(nodes);
 }
 
