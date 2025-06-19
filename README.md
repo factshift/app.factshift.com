@@ -42,7 +42,11 @@ Metadata about registered data slices lives in [docs/api/data-meta.md](docs/api/
 The app exposes a lightweight routing integration service that notifies
 listeners when the browser path changes. Query parameter handlers can be
 registered via `services/query-params.js` and will be applied during the
-initial parameter loading step.
+initial parameter loading step. A small `QueryState` service surfaces the
+current `{mode, phase, slice}` selection for convenience when accessing
+registered data slices. Use `getCurrentQuery()` or its alias
+`getCurrentStatus()` to retrieve these values. The optional `?slice=<name>` query
+parameter now selects a named data slice at startup.
 
 ## QA
 

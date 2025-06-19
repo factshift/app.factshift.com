@@ -18,6 +18,7 @@ import {intent}         from "./options/intent";
 import {linkStrength}   from "./options/linkStrength";
 import {linkStyle}      from "./options/linkStyle";
 import {mode}           from "./options/mode";
+import {slice}          from "./options/slice";
 import {nodeQueue}      from "./options/nodeCount";
 import {perspective}    from "./options/perspective";
 import {r}              from "./options/r";
@@ -51,6 +52,7 @@ export const parameterList = [
   linkStrength,
   linkStyle,
   mode,
+  slice,
   nodeQueue,
   perspective,
   r,

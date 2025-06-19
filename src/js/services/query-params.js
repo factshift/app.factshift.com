@@ -25,3 +25,11 @@ export function applyQueryParams(searchParams) {
 export function registeredParamNames() {
   return [...handlers.keys()];
 }
+
+export const QueryParams = {
+  register: registerQueryParam,
+  apply: applyQueryParams,
+  names: registeredParamNames,
+};
+
+export default QueryParams;

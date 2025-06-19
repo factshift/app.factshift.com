@@ -2,19 +2,18 @@ import { NODE_MANAGER } from '../../../simulation/nodes/nodes';
 import { getSimulationElements } from '../../../simulation/basic';
 import { registerComponent } from '../../component-registry';
 import DataManager from '../../../simulation/data';
+import { getCurrentQuery } from '../../../services/query-state';
 
 export function updateSimulationNodes(nodes) {
   const { wrapper } = getSimulationElements();
-  const mode  = window.spwashi.parameters.mode;
-  const phase = document.body?.dataset.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   if (DataManager.isDisplayEnabled('nodes', { mode, phase })) {
     NODE_MANAGER.updateNodes(wrapper, nodes);
   }
 }
 
 export function initSimulationNodes() {
-  const mode  = window.spwashi.parameters.mode;
-  const phase = document.body?.dataset.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   const nodes = DataManager.getData('nodes', { mode, phase }) || [];
   updateSimulationNodes(nodes);
 }

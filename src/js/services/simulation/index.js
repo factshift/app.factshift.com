@@ -4,6 +4,7 @@ import { getNodeImageHref } from '../../simulation/nodes/attr/href';
 import { getDefaultRects } from '../../simulation/rects/data/default';
 import { initSvgProperties, getSimulationElements } from '../../simulation/basic';
 import DataManager from '../../simulation/data';
+import { getCurrentQuery } from '../query-state';
 
 function initNodes() {
   window.spwashi.clearCachedNodes = () => {
@@ -12,8 +13,7 @@ function initNodes() {
   window.spwashi.getNodeImageHref = getNodeImageHref;
   window.spwashi.getNode = NODE_MANAGER.getNode;
   window.spwashi.nodes = [];
-  const mode  = window.spwashi.parameters.mode;
-  const phase = document.body?.dataset.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('nodes', {
     initialData: window.spwashi.nodes,
@@ -26,8 +26,7 @@ function initNodes() {
 
 function initEdges() {
   window.spwashi.links = [];
-  const mode  = window.spwashi.parameters.mode;
-  const phase = document.body?.dataset.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('links', {
     initialData: window.spwashi.links,
@@ -40,8 +39,7 @@ function initEdges() {
 
 function initRects() {
   window.spwashi.rects = getDefaultRects();
-  const mode  = window.spwashi.parameters.mode;
-  const phase = document.body?.dataset.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
   const slice = DataManager.registerSlice('rects', {
     initialData: window.spwashi.rects,
@@ -63,10 +61,11 @@ export function initSimulationRoot() {
   initRects();
 
   window.spwashi.simulation = forceSimulation();
+  const { mode, phase } = getCurrentQuery();
   DataManager.registerSlice('simulation', {
     initialData: window.spwashi.simulation,
-    mode:  window.spwashi.parameters.mode,
-    phase: document.body?.dataset.phase || 'default',
+    mode,
+    phase,
     aggregator: 'array',
   });
 
@@ -75,3 +74,7 @@ export function initSimulationRoot() {
     reinit();
   });
 }
+
+export default {
+  initSimulationRoot,
+};
