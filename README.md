@@ -80,3 +80,6 @@ translucency.
 - Press **1** through **9** to switch between the available input modes.
 - Stream modes are under development and currently disabled.
 
+Hotkeys for other features can be customized in `src/js/config/hotkeys.js`. The
+default configuration maps keys to interface actions and force toggles.
+

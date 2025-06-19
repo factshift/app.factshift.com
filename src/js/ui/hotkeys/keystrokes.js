@@ -16,6 +16,7 @@ import { moreNodes } from "./handlers/more-nodes";
 import { resetInterface } from "./handlers/reset-interface";
 import { toggleMainMenu } from "./handlers/toggle-main-menu";
 import { toggleForce } from "../../simulation/active-forces";  // Assuming this manages force toggling
+import { HOTKEYS } from "../../config/hotkeys";
 
 // Helper function for 'yoink' action
 function handleYoink() {
@@ -66,34 +67,34 @@ function handleYoink() {
 // KeyStroke options definition
 export const initialKeyStrokeOptions = [
   // Force toggles
-  { revealOrder: 0, shortcut: 'l', categories: ['forces'], title: 'Toggle Link Force', callback: () => toggleForce('link') },
-  { revealOrder: 0, shortcut: 'c', categories: ['forces'], title: 'Toggle Collide Force', callback: () => toggleForce('collide') },
-  { revealOrder: 0, shortcut: 'h', categories: ['forces'], title: 'Toggle Charge Force', callback: () => toggleForce('charge') },
-  { revealOrder: 0, shortcut: 'n', categories: ['forces'], title: 'Toggle Center Force', callback: () => toggleForce('center') },
-  { revealOrder: 0, shortcut: 'b', categories: ['forces'], title: 'Toggle Bounding Box Force', callback: () => toggleForce('boundingBox') },
+  { revealOrder: 0, shortcut: HOTKEYS.toggleLinkForce, categories: ['forces'], title: 'Toggle Link Force', callback: () => toggleForce('link') },
+  { revealOrder: 0, shortcut: HOTKEYS.toggleCollideForce, categories: ['forces'], title: 'Toggle Collide Force', callback: () => toggleForce('collide') },
+  { revealOrder: 0, shortcut: HOTKEYS.toggleChargeForce, categories: ['forces'], title: 'Toggle Charge Force', callback: () => toggleForce('charge') },
+  { revealOrder: 0, shortcut: HOTKEYS.toggleCenterForce, categories: ['forces'], title: 'Toggle Center Force', callback: () => toggleForce('center') },
+  { revealOrder: 0, shortcut: HOTKEYS.toggleBoundingBoxForce, categories: ['forces'], title: 'Toggle Bounding Box Force', callback: () => toggleForce('boundingBox') },
 
   // Node actions
-  { revealOrder: 0, shortcut: 'ArrowUp', categories: ['nodes'], shortcutName: '↑', title: 'More Nodes', callback: moreNodes },
-  { revealOrder: 1, shortcut: 'ArrowDown', categories: ['nodes'], shortcutName: '↓', title: 'Fewer Nodes', callback: lessNodes },
-  { revealOrder: 1, shortcut: '.', categories: ['nodes'], title: 'Fix Position', callback: fixPositions },
-  { revealOrder: 1, shortcut: ',', categories: ['nodes'], title: 'Unfix Position', callback: clearFixedPositions },
-  { revealOrder: 0, shortcut: 's', categories: ['nodes'], title: 'Save Nodes', callback: saveActiveNodes },
+  { revealOrder: 0, shortcut: HOTKEYS.moreNodes, categories: ['nodes'], shortcutName: '↑', title: 'More Nodes', callback: moreNodes },
+  { revealOrder: 1, shortcut: HOTKEYS.lessNodes, categories: ['nodes'], shortcutName: '↓', title: 'Fewer Nodes', callback: lessNodes },
+  { revealOrder: 1, shortcut: HOTKEYS.fixPositions, categories: ['nodes'], title: 'Fix Position', callback: fixPositions },
+  { revealOrder: 1, shortcut: HOTKEYS.clearFixedPositions, categories: ['nodes'], title: 'Unfix Position', callback: clearFixedPositions },
+  { revealOrder: 0, shortcut: HOTKEYS.saveActiveNodes, categories: ['nodes'], title: 'Save Nodes', callback: saveActiveNodes },
 
   // Interface toggles
-  { revealOrder: 0, shortcut: '[', categories: ['interface'], title: 'Toggle Main Menu', callback: toggleMainMenu },
-  { revealOrder: 0, shortcut: ']', categories: ['interface'], title: 'Toggle Focal Point', callback: toggleFocalPoint },
-  { revealOrder: 1, shortcut: '/', categories: ['interface'], title: 'Toggle Hotkey Menu', callback: toggleHotkeyMenu },
+  { revealOrder: 0, shortcut: HOTKEYS.toggleMainMenu, categories: ['interface'], title: 'Toggle Main Menu', callback: toggleMainMenu },
+  { revealOrder: 0, shortcut: HOTKEYS.toggleFocalPoint, categories: ['interface'], title: 'Toggle Focal Point', callback: toggleFocalPoint },
+  { revealOrder: 1, shortcut: HOTKEYS.toggleHotkeyMenu, categories: ['interface'], title: 'Toggle Hotkey Menu', callback: toggleHotkeyMenu },
 
   // Velocity and forces actions
-  { revealOrder: 1, shortcut: ';', categories: ['forces', 'velocity decay'], shortcutName: ';', title: 'Bonk Velocity Decay', callback: bonkVelocityDecay },
+  { revealOrder: 1, shortcut: HOTKEYS.bonkVelocityDecay, categories: ['forces', 'velocity decay'], shortcutName: ';', title: 'Bonk Velocity Decay', callback: bonkVelocityDecay },
 
   // Data actions
-  { revealOrder: 1, shortcut: 'k', categories: ['data'], title: 'Clear Nodes', callback: clearActiveNodes },
-  { revealOrder: 1, shortcut: '-', categories: ['data', 'cache'], title: 'Clear Node Cache', callback: clearCachedNodes },
-  { revealOrder: 1, shortcut: '\\', categories: ['data', 'cache'], title: 'Reset Interface', callback: resetInterface },
+  { revealOrder: 1, shortcut: HOTKEYS.clearActiveNodes, categories: ['data'], title: 'Clear Nodes', callback: clearActiveNodes },
+  { revealOrder: 1, shortcut: HOTKEYS.clearCachedNodes, categories: ['data', 'cache'], title: 'Clear Node Cache', callback: clearCachedNodes },
+  { revealOrder: 1, shortcut: HOTKEYS.resetInterface, categories: ['data', 'cache'], title: 'Reset Interface', callback: resetInterface },
 
   // Special actions
-  { revealOrder: 0, shortcut: 'y', categories: ['this'], title: 'Yoink', callback: handleYoink },
+  { revealOrder: 0, shortcut: HOTKEYS.handleYoink, categories: ['this'], title: 'Yoink', callback: handleYoink },
 
   // Placeholder for spacing
   { revealOrder: 1, shortcut: '<space>' }
