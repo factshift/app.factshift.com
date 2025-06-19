@@ -4,3 +4,4 @@ export { QueryParams } from '../services/query-params';
 export { default as QueryState, getCurrentQuery, getCurrentStatus } from '../services/query-state';
 export { default as DataManager } from '../simulation/data';
 export { initSimulationRoot } from '../services/simulation';
+export { default as AppFeatures, INIT_PHASES, STREAM_MODES } from './features.js';

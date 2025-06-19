@@ -4,6 +4,7 @@ import { NODE_MANAGER } from '../../simulation/nodes/nodes';
 import { DataManager } from '../../services/data-manager.js';
 import { MODE_DOCS } from '../config/mode-docs.js';
 import { registerComponent } from '../component-registry.js';
+import { STREAM_MODES } from '../../app/features.js';
 import { BoofModeHandler } from '../../modes/stream/boof.js';
 import { BoonModeHandler } from '../../modes/stream/boon.js';
 import { BaneModeHandler } from '../../modes/stream/bane.js';
@@ -41,7 +42,7 @@ const modeConfig = {
 class SpwashiStreamContainer extends HTMLElement {
   constructor() {
     super();
-    this.currentMode = 'boon';
+    this.currentMode = STREAM_MODES[0];
     this.loading = true;
     this.error = null;
     this.initDataManager();
@@ -112,7 +113,7 @@ class SpwashiStreamContainer extends HTMLElement {
    * Returns the HTML template for the component.
    */
   getTemplateHtml() {
-    const modes = ['boon', 'bane', 'bone', 'bonk', 'honk', 'boof', 'lore', 'focal', 'passive'];
+    const modes = STREAM_MODES;
     const optionsHtml = modes
         .map(
             (mode) =>

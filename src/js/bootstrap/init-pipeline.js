@@ -1,9 +1,6 @@
-export const InitPhase = {
-  BOOT: 'boot',
-  UI: 'ui',
-  REFRESH: 'refresh',
-  DEFERRED: 'deferred',
-};
+import { INIT_PHASES } from '../app/features.js';
+
+export const InitPhase = INIT_PHASES;
 
 const initSteps = [];
 const map = new Map();
