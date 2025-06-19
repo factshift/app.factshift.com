@@ -31,6 +31,12 @@ export async function reinit() {
     // Dynamically load node, edge, and rect managers
     const { NODE_MANAGER, EDGE_MANAGER, RECT_MANAGER } = await loadManagers();
 
+    // Generate a default set of nodes when none are present
+    if (window.spwashi.nodes.length === 0) {
+      const { generateNodes } = await import('./nodes/data/generate.js');
+      generateNodes(window.spwashi.parameters.nodes.count);
+    }
+
     debug('[sim] managers loaded');
 
     // Initialize nodes, edges, and rects

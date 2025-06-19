@@ -1,10 +1,10 @@
-import { NODE_MANAGER } from '../../simulation/nodes/nodes';
+import { NODE_MANAGER } from '../../simulation/nodes/nodes.js';
 import { forceSimulation } from 'd3';
-import { getNodeImageHref } from '../../simulation/nodes/attr/href';
-import { getDefaultRects } from '../../simulation/rects/data/default';
-import { initSvgProperties, getSimulationElements } from '../../simulation/basic';
-import DataManager from '../../simulation/data';
-import { getCurrentQuery } from '../query-state';
+import { getNodeImageHref } from '../../simulation/nodes/attr/href.js';
+import { getDefaultRects } from '../../simulation/rects/data/default.js';
+import { initSvgProperties, getSimulationElements } from '../../simulation/basic.js';
+import DataManager from '../../simulation/data/index.js';
+import { getCurrentQuery } from '../query-state.js';
 import { debug } from '../logger.js';
 
 function initNodes() {
@@ -81,10 +81,13 @@ export function initSimulationRoot() {
     aggregator: 'array',
   });
 
-  import('../../simulation/reinit').then(({ reinit }) => {
+  import('../../simulation/reinit.js').then(({ reinit }) => {
     window.spwashi.reinit = reinit;
     debug('[sim] calling reinit');
-    reinit();
+    reinit().then(() => {
+      const count = document.querySelectorAll('g.nodes g.wrapper').length;
+      debug(`[sim] svg has ${count} node wrappers after reinit`);
+    });
   });
 }
 
