@@ -1,6 +1,7 @@
 import { createDataSlice } from './slice.js';
 
 const registry = new Map();
+const meta = new Map();
 
 function makeKey(key, mode = 'default', phase = 'default') {
   return `${mode}:${phase}:${key}`;
@@ -10,6 +11,7 @@ export function registerSlice(key, { initialData = [], slice, aggregator = 'arra
   const regKey = makeKey(key, mode, phase);
   const finalSlice = slice || createDataSlice(initialData, aggregator);
   registry.set(regKey, { slice: finalSlice, display });
+  meta.set(regKey, { query: { mode, phase }, data: finalSlice });
   return finalSlice;
 }
 
@@ -38,4 +40,9 @@ export function isDisplayEnabled(key, { mode = 'default', phase = 'default' } = 
 export function clearData(key, opts = {}) {
   const slice = getSlice(key, opts);
   slice?.clear();
+}
+
+export function getMeta(key, { mode = 'default', phase = 'default' } = {}) {
+  const regKey = makeKey(key, mode, phase);
+  return meta.get(regKey);
 }
