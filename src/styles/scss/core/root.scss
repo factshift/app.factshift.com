@@ -20,6 +20,12 @@
 
   --link-stroke-color: rgba(127, 255, 255, .3);
 
+  /* component specific colors */
+  --button-background: #222222;
+  --button-text-color: var(--accent-color-main);
+  --log-background: rgba(127, 137, 137, .9);
+  --stream-container-background: #222222;
+
   --node-input-container-background: #222222;
   --show-keystroke-options-background: #222222;
   --keystroke-options-hover-background: #333333;

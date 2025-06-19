@@ -2,8 +2,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: #222;
-  color: var(--accent-color-main);
+  background: var(--button-background);
+  color: var(--button-text-color);
   border: thin solid var(--standard-outline);
   padding: 0.5rem 1rem;
   font-family: var(--font-family);

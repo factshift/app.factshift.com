@@ -10,7 +10,7 @@
   align-items: flex-start;
 }
 :is(#map-mode-container, #filter-mode-container) {
-  background-color: #222;
+  background-color: var(--form-background);
   padding: 1rem;
   margin: 2rem;
 }

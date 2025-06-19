@@ -8,7 +8,7 @@
 [data-mode=query] [data-mode-action=query],
 [data-mode=story] [data-mode-action=story],
 [data-mode=debug] [data-mode-action=debug] {
-  outline: thick solid #222;
+  outline: thick solid var(--button-background);
   background: var(--accent-color-main);
   display: flex;
 }

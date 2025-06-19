@@ -5,8 +5,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: #222;
-  color: var(--accent-color-main);
+  background: var(--button-background);
+  color: var(--button-text-color);
   border: thin solid var(--standard-outline);
   padding: 0rem;
   width: 6rem;

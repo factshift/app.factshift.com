@@ -14,8 +14,8 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  background: #222;
-  color: var(--accent-color-main);
+  background: var(--button-background);
+  color: var(--button-text-color);
   border: thin solid var(--standard-outline);
   padding: 0rem;
   width: 6rem;
@@ -44,7 +44,7 @@
     font-weight: bold;
     transition: background-color .1s;
     &:hover {
-      background: rgba(245, 222, 179, 0.3);
+      background: var(--keystroke-options-hover-background);
     }
     &:focus {
       background: var(--accent-color-main);
