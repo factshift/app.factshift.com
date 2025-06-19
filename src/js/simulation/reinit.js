@@ -65,6 +65,9 @@ export async function reinit() {
     // Attach the ticker to the simulation's 'tick' event
     simulation.on('tick', window.spwashi.internalTicker);
 
+    // Kick off the first tick so that the SVG renders immediately
+    window.spwashi.tick();
+
     // Update the output element with current parameters
     const outputElement = document.querySelector('#output');
     if (!outputElement) {
