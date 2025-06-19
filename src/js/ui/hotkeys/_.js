@@ -9,6 +9,7 @@ function initKeystrokeHandlers(options) {
 
 export function initKeystrokes() {
   window.spwashi.keystrokeRevealOrder = window.spwashi.keystrokeRevealOrder || 0;
+  window.spwashi.keystrokeOptions = window.spwashi.keystrokeOptions || [];
 
   function plainKeyHandler(key, e) {
     const shortKeyEntries = window.spwashi.modeOrder.map((reflex, i) => [i + 1, () => setDocumentMode(reflex, true, true)]);

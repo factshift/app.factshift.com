@@ -12,8 +12,10 @@ export function initHotkeyButtons() {
   hotkeyMenuToggle.onclick   = e => {
     toggleHotkeyMenu();
   }
+  const options              = window.spwashi.keystrokeOptions || [];
+  if (!options.length) return;
   const optionList           = keystrokeOptions.appendChild(document.createElement('UL'));
-  window.spwashi.keystrokeOptions
+  options
         .filter(option => option.revealOrder <= window.spwashi.keystrokeRevealOrder)
         .forEach(({shortcut, categories = [], title, callback, shortcutName}) => {
           const handler = () => {
