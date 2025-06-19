@@ -1,8 +1,10 @@
-import { initializeForces } from "./forces";
+import { initializeForces } from "./physics";
 import { initSvgProperties, getSimulationElements } from "./basic";
-import { updateSimulationLinks } from "../ui/components/simulation/links";
-import { updateSimulationNodes } from "../ui/components/simulation/nodes";
-import { updateSimulationRects } from "../ui/components/simulation/rects";
+import {
+  updateSimulationLinks,
+  updateSimulationNodes,
+  updateSimulationRects,
+} from "../ui/components/simulation";
 
 // Dynamically import managers if needed
 async function loadManagers() {
