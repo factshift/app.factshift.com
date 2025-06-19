@@ -1,9 +1,6 @@
 import { ModeHandler } from './base.js';
 
 export class BoonModeHandler extends ModeHandler {
-  fallback() {
-    return `<div class="boon-loading">Loading Boons...</div>`;
-  }
   render() {
     const defaultValues = {
       name: 'Default Boon Name',

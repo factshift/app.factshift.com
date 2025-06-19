@@ -4,7 +4,9 @@ export class ModeHandler {
   }
 
   fallback() {
-    return `<div class="mode-loading">Loading...</div>`;
+    const mode = this.mode || this.container.currentMode || 'mode';
+    const label = mode.charAt(0).toUpperCase() + mode.slice(1);
+    return `<div class="${mode}-loading">Loading ${label}...</div>`;
   }
 
   setupDataManager() {

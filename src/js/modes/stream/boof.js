@@ -1,9 +1,6 @@
 import { ModeHandler } from './base.js';
 
 export class BoofModeHandler extends ModeHandler {
-  fallback() {
-    return `<div class="boof-loading">Loading Boof...</div>`;
-  }
   render() {
     return `
       <div class="input-wrapper">
