@@ -1,4 +1,4 @@
-import { registerData } from "../../data/registry";
+import { getSlice } from "../../data";
 
 export function getDefaultRects() {
   const rects = [
@@ -70,6 +70,7 @@ export function getDefaultRects() {
   });
   const mode  = window.spwashi?.parameters?.mode || 'default';
   const phase = document.body?.dataset?.phase || 'default';
-  registerData('rects', rects, { mode, phase });
+  const slice = getSlice('rects', { mode, phase });
+  slice?.set(rects);
   return rects;
 }

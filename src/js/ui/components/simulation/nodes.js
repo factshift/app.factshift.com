@@ -1,7 +1,7 @@
 import { NODE_MANAGER } from '../../../simulation/nodes/nodes';
 import { getSimulationElements } from '../../../simulation/basic';
 import { registerComponent } from '../../component-registry';
-import { isDisplayEnabled } from '../../../simulation/data';
+import { isDisplayEnabled, getData } from '../../../simulation/data';
 
 export function updateSimulationNodes(nodes) {
   const { wrapper } = getSimulationElements();
@@ -13,7 +13,10 @@ export function updateSimulationNodes(nodes) {
 }
 
 export function initSimulationNodes() {
-  updateSimulationNodes(window.spwashi.nodes || []);
+  const mode  = window.spwashi.parameters.mode;
+  const phase = document.body?.dataset.phase || 'default';
+  const nodes = getData('nodes', { mode, phase }) || [];
+  updateSimulationNodes(nodes);
 }
 
 export const simulationNodes = { init: initSimulationNodes, update: updateSimulationNodes };

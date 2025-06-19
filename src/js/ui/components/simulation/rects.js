@@ -1,7 +1,7 @@
 import { RECT_MANAGER } from '../../../simulation/rects/rects';
 import { getSimulationElements } from '../../../simulation/basic';
 import { registerComponent } from '../../component-registry';
-import { isDisplayEnabled } from '../../../simulation/data';
+import { isDisplayEnabled, getData } from '../../../simulation/data';
 
 export function updateSimulationRects(rects) {
   const { wrapper } = getSimulationElements();
@@ -13,7 +13,10 @@ export function updateSimulationRects(rects) {
 }
 
 export function initSimulationRects() {
-  updateSimulationRects(window.spwashi.rects || []);
+  const mode  = window.spwashi.parameters.mode;
+  const phase = document.body?.dataset.phase || 'default';
+  const rects = getData('rects', { mode, phase }) || [];
+  updateSimulationRects(rects);
 }
 
 export const simulationRects = { init: initSimulationRects, update: updateSimulationRects };

@@ -1,6 +1,4 @@
-// registry.js
-// Centralized registry for simulation data keyed by app mode and phase.
-// Allows optional display control and memory management for snapshots.
+import { createDataSlice } from './slice.js';
 
 const registry = new Map();
 
@@ -8,14 +6,20 @@ function makeKey(key, mode = 'default', phase = 'default') {
   return `${mode}:${phase}:${key}`;
 }
 
-export function registerData(key, data, { mode = 'default', phase = 'default', display = true } = {}) {
+export function registerSlice(key, { initialData = [], slice, aggregator = 'array', mode = 'default', phase = 'default', display = true } = {}) {
   const regKey = makeKey(key, mode, phase);
-  registry.set(regKey, { data, display });
+  const finalSlice = slice || createDataSlice(initialData, aggregator);
+  registry.set(regKey, { slice: finalSlice, display });
+  return finalSlice;
 }
 
-export function getData(key, { mode = 'default', phase = 'default' } = {}) {
+export function getSlice(key, { mode = 'default', phase = 'default' } = {}) {
   const regKey = makeKey(key, mode, phase);
-  return registry.get(regKey)?.data;
+  return registry.get(regKey)?.slice;
+}
+
+export function getData(key, opts = {}) {
+  return getSlice(key, opts)?.get();
 }
 
 export function toggleDisplay(key, { mode = 'default', phase = 'default', display } = {}) {
@@ -31,6 +35,7 @@ export function isDisplayEnabled(key, { mode = 'default', phase = 'default' } = 
   return registry.get(regKey)?.display ?? false;
 }
 
-export function clearData(key, { mode = 'default', phase = 'default' } = {}) {
-  registry.delete(makeKey(key, mode, phase));
+export function clearData(key, opts = {}) {
+  const slice = getSlice(key, opts);
+  slice?.clear();
 }
