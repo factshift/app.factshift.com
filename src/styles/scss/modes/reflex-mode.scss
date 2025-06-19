@@ -4,11 +4,12 @@
 #reflexes {
   margin: 1rem;
   border: thin solid var(--standard-outline);
-  display: flex;
-  flex-direction: column-reverse;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
   .card-body {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
   }

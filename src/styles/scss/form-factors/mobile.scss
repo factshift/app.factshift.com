@@ -16,6 +16,9 @@
     #mainmenu-shortcuts li:before {
         content: none;
     }
+    #reflexes {
+        grid-template-columns: 1fr;
+    }
     #reflexes button {
         text-align: center;
         width: 4rem;

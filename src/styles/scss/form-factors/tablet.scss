@@ -6,6 +6,9 @@
         width: 4rem;
         height: 4rem;
     }
+    #reflexes {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
     #reflexes button {
         width: 5rem;
         height: 5rem;
