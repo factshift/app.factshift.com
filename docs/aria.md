@@ -38,5 +38,8 @@ understand the purpose of each feature.
 - **Hotkey Options** (`#hotkey-container`)
   - `aria-label="Hotkey Options"`
   - Contains configurable shortcut buttons rendered by `hotkey-buttons`.
+- **Query Parameter Documentation** (`#query-param-docs`)
+  - `aria-label="Query Parameter Documentation"`
+  - Populated at runtime by `src/js/ui/components/query-param-docs.js`.
 
 These attributes clarify the purpose of the markup and show where each feature's interactive logic originates.

@@ -6,6 +6,7 @@ import {initializeModeSelection}           from "../modes/input";
 import {initializeDataindexMode}           from "../modes/input/dataindex/mode-dataindex";
 import {initKeystrokes}                    from "../ui/hotkeys/_";
 import {initializeSpwParseField}           from "../modes/input/spw/mode-spw";
+import '../ui/components/query-param-docs.js';
 
 
 export function initUi(mode) {
