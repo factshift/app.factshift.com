@@ -1,8 +1,8 @@
 import {drag, extent, zoom} from "d3";
-import {forEachNode}        from "./nodes/data/operate";
-import {logMainEvent}       from "./nodes/ui/circle";
-import {selectNodesInRect}  from "./nodes/data/selectors/multiple";
-import {getSimulationElements} from "./basic";
+import {forEachNode}        from "./nodes/data/operate.js";
+import {logMainEvent}       from "./nodes/ui/circle.js";
+import {selectNodesInRect}  from "./nodes/data/selectors/multiple.js";
+import {getSimulationElements} from "./basic.js";
 
 const nodeG_offset    = {x: 0, y: 0};
 const nodeG_transform = {x: 0, y: 0};

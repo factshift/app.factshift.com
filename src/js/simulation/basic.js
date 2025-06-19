@@ -1,5 +1,5 @@
 import {select} from "d3";
-import { setCssVar } from "../services/style-state";
+import { setCssVar } from "../services/style-state.js";
 
 let simulationElements = null;
 

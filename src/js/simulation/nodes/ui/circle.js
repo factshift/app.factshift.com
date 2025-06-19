@@ -1,11 +1,11 @@
 // simulation/nodes/ui/circle.js
 
-import { cacheNode } from "../data/store";
+import { cacheNode } from "../data/store.js";
 import { drag } from "d3";
-import { CLICKED_NODES } from "../../../modes/input/spw/commands/clicked";
-import { removeNodeEdges } from "../../edges/data/set";
-import { sortNodes } from "../data/sort";
-import { getAllNodes } from "../data/selectors/multiple";
+import { CLICKED_NODES } from "../../../modes/input/spw/commands/clicked.js";
+import { removeNodeEdges } from "../../edges/data/set.js";
+import { sortNodes } from "../data/sort.js";
+import { getAllNodes } from "../data/selectors/multiple.js";
 
 // Utility function to handle superpower-related actions
 function handleSuperpowerAction(d, intent) {

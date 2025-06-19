@@ -6,9 +6,9 @@ import {
   updateForceOptions,
   forceNames,
   applyRegisteredForces
-} from '../force-registry';
+} from '../force-registry.js';
 
-import { initializeForces } from '../forces';
+import { initializeForces } from '../forces.js';
 
 export const Physics = {
   registerForce,

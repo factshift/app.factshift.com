@@ -1,8 +1,8 @@
-import { RECT_MANAGER } from '../../../simulation/rects/rects';
-import { getSimulationElements } from '../../../simulation/basic';
-import { registerComponent } from '../../component-registry';
-import DataManager from '../../../simulation/data';
-import { getCurrentQuery } from '../../../services/query-state';
+import { RECT_MANAGER } from '../../../simulation/rects/rects.js';
+import { getSimulationElements } from '../../../simulation/basic.js';
+import { registerComponent } from '../../component-registry.js';
+import DataManager from '../../../simulation/data/index.js';
+import { getCurrentQuery } from '../../../services/query-state.js';
 
 export function updateSimulationRects(rects) {
   const { wrapper } = getSimulationElements();

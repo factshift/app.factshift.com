@@ -1,6 +1,6 @@
-import { getAllNodes } from './nodes/data/selectors/multiple';
+import { getAllNodes } from './nodes/data/selectors/multiple.js';
 import { forceCenter, forceCollide, forceLink, forceManyBody } from 'd3';
-import { registerForce, applyRegisteredForces } from './force-registry';
+import { registerForce, applyRegisteredForces } from './force-registry.js';
 
 // Fetch simulation parameters with fallbacks for magic constants
 function getAlpha() {

@@ -1,5 +1,5 @@
-import {linkBySpwParts} from "./data/link-spw";
-import {pushLink}       from "./data/pushLink";
+import {linkBySpwParts} from "./data/link-spw.js";
+import {pushLink}       from "./data/pushLink.js";
 
 function init(nodes) {
   return pushLink(window.spwashi.links, ...linkBySpwParts(nodes));

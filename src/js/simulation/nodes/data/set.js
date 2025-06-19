@@ -1,8 +1,8 @@
 /**
  * Safely retrieve the global `spwashi` object, initializing if not present.
  */
-import { getSlice } from "../../data";
-import { getCurrentQuery } from "../../../services/query-state";
+import { getSlice } from "../../data/index.js";
+import { getCurrentQuery } from "../../../services/query-state.js";
 
 function getSpwashiGlobal() {
   if (!window.spwashi) {
