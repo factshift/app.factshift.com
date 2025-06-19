@@ -61,6 +61,10 @@ preferences for reduced motion and light or dark color schemes. Set
 `data-theme="high-contrast"` or `data-theme="dark"` on the `<body>`
 element to override the system preference.
 
+Additional ARIA guidance for the markup is available in
+[docs/aria.md](docs/aria.md), which now maps elements to their
+corresponding JavaScript modules.
+
 ## Responsive Design
 
 Viewport specific overrides live under `styles/scss/form-factors`.
