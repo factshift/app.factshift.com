@@ -1,5 +1,7 @@
+import { getSlice } from "../../data";
+
 export function getDefaultRects() {
-  return [
+  const rects = [
     {
       title: 'Counter',
       x:     0,
@@ -66,4 +68,9 @@ export function getDefaultRects() {
     r.y      = i * 20;
     return r;
   });
+  const mode  = window.spwashi?.parameters?.mode || 'default';
+  const phase = document.body?.dataset?.phase || 'default';
+  const slice = getSlice('rects', { mode, phase });
+  slice?.set(rects);
+  return rects;
 }
