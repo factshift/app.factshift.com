@@ -6,7 +6,8 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "serve -l 5050 dist"
+    "serve": "serve -l 5050 dist",
+    "test": "node --experimental-specifier-resolution=node tests/svg-render.test.mjs"
   },
   "dependencies": {
     "ace-builds": "^1.31.2",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@types/d3": "7.4.3",
+    "jsdom": "^26.1.0",
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.2"

@@ -1,5 +1,5 @@
-import * as registry from './registry';
-import { createDataSlice, createArraySlice, getAggregator } from './slice';
+import * as registry from './registry.js';
+import { createDataSlice, createArraySlice, getAggregator } from './slice.js';
 
 export const DataManager = {
   registerSlice: registry.registerSlice,
@@ -24,6 +24,6 @@ export const {
   getMeta,
 } = registry;
 
-export { createDataSlice, createArraySlice, getAggregator } from './slice';
+export { createDataSlice, createArraySlice, getAggregator } from './slice.js';
 
 export default DataManager;

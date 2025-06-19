@@ -1,5 +1,5 @@
-import { getNodeText } from "../attr/colors";
-import { logMainEvent } from "./circle";
+import { getNodeText } from "../attr/colors.js";
+import { logMainEvent } from "./circle.js";
 import { drag } from "d3";
 
 // Event handler for dragging text

@@ -1,5 +1,5 @@
-import { cacheNode } from "../data/store";
-import { getNodeStrokeColor } from "../attr/colors";
+import { cacheNode } from "../data/store.js";
+import { getNodeStrokeColor } from "../attr/colors.js";
 import { drag } from "d3";
 
 // Helper function to handle dragging nodes

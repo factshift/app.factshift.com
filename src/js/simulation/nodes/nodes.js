@@ -1,18 +1,18 @@
 // simulation/nodes/nodes.js
 
 import { processNode } from "./data/process.js";
-import { cacheNode, readNodePosition } from "./data/store";
-import { makeText, updateNodeTextSvg } from "./ui/text";
-import { makeRect } from "./ui/rect";
-import { makeCircle, updateCircle } from "./ui/circle";
-import { makeImage, updateNodeImage } from "./ui/image";
-import { getNodeColor, getNodeStrokeColor } from "./attr/colors";
-import {pushNodeData, setNodeData} from "./data/set";
-import { sortNodes } from "./data/sort";
-import { normalize } from "./data/normalize";
-import { getNode } from "./data/selectors/single";
-import { getNodeId } from "./attr/id";
-import { filterNode } from "./data/filter";
+import { cacheNode, readNodePosition } from "./data/store.js";
+import { makeText, updateNodeTextSvg } from "./ui/text.js";
+import { makeRect } from "./ui/rect.js";
+import { makeCircle, updateCircle } from "./ui/circle.js";
+import { makeImage, updateNodeImage } from "./ui/image.js";
+import { getNodeColor, getNodeStrokeColor } from "./attr/colors.js";
+import {pushNodeData, setNodeData} from "./data/set.js";
+import { sortNodes } from "./data/sort.js";
+import { normalize } from "./data/normalize.js";
+import { getNode } from "./data/selectors/single.js";
+import { getNodeId } from "./attr/id.js";
+import { filterNode } from "./data/filter.js";
 
 export const NODE_MANAGER = {
   getNode,

@@ -1,4 +1,4 @@
-import Physics from './physics';
+import Physics from './physics/index.js';
 
 // Toggle the status of a specific force registered in the force registry.
 export function toggleForce(forceName) {

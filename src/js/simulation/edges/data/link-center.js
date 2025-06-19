@@ -1,5 +1,5 @@
-import {initCenterNode} from "../../nodes/data/initCenterNode";
-import {pushLink}       from "./pushLink";
+import {initCenterNode} from "../../nodes/data/initCenterNode.js";
+import {pushLink}       from "./pushLink.js";
 
 export function linkToCenter(nodes) {
   const id = initCenterNode();

@@ -1,4 +1,4 @@
-import {pushNode} from "./operate";
+import {pushNode} from "./operate.js";
 
 const id = 'center';
 

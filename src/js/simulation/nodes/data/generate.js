@@ -1,5 +1,5 @@
-import {pushNode} from "./operate";
-import {processNode} from "./process";
+import {pushNode} from "./operate.js";
+import {processNode} from "./process.js";
 
 export const generateNodes = (n) => {
   const count = n || window.spwashi.parameters.nodes.count;
