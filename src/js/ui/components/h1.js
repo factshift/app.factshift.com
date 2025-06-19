@@ -1,6 +1,6 @@
 import {processSpwInput}        from "../../modes/input/spw/process-spw-input";
 import {setDocumentMode} from "../../modes/input";
-import {parse}           from "../../vendor/spw/parser/parse.mjs";
+import {parse}           from "../../../vendor/spw/parser/parse.mjs";
 import {getIdentityPath} from "../../simulation/nodes/data/process";
 import md5                      from "md5";
 import {processPastedText}      from "../hotkeys/handlers/pasted-text";
