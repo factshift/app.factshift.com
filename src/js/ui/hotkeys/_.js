@@ -1,6 +1,7 @@
 import {setDocumentMode}    from "../../modes/input";
 import { initHotkeyButtons } from "../components/hotkey-buttons";
 import {processPastedText}  from "./handlers/pasted-text";
+import {toggleMainMenu}    from "./handlers/toggle-main-menu";
 
 function initKeystrokeHandlers(options) {
   window.spwashi.keystrokeOptions = options;
@@ -16,6 +17,10 @@ export function initKeystrokes() {
     const shortKeys       = Object.fromEntries(shortKeyEntries);
 
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+    if (key === '`') {
+      toggleMainMenu();
+      return;
+    }
     if (key === '/') {
       e.preventDefault();
       const h1 = document.querySelector('h1');

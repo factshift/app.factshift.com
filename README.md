@@ -73,3 +73,10 @@ now recognizes `prefers-contrast` and `prefers-reduced-transparency`
 media queries to accommodate users that request extra contrast or minimal
 translucency.
 
+
+## Keyboard Shortcuts
+
+- Press the **backtick** (`\``) to toggle the main menu.
+- Press **1** through **9** to switch between the available input modes.
+- Stream modes are under development and currently disabled.
+
