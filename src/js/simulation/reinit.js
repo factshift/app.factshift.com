@@ -47,10 +47,18 @@ export async function reinit() {
     debug(`[sim] nodes:${nodes.length} edges:${edges.length} rects:${rects.length}`);
 
     const simulation = window.spwashi.simulation;
+    // Clear any existing tick handlers and stop the previous run
+    simulation.on('tick', null);
+    simulation.stop();
+
+    // Update simulation nodes
     simulation.nodes(nodes);
 
     // Initialize forces for the simulation
     initializeForces();
+
+    // Restart the simulation with fresh alpha so forces take effect
+    simulation.alpha(1).restart();
 
     // Define the tick function
     window.spwashi.tick = () => {
