@@ -1,5 +1,7 @@
 import { addInitSteps, runInitPipeline } from "./bootstrap/init-pipeline";
 import { defaultInitSteps } from "./bootstrap/init-steps";
+import { expectEvent } from "./services/events.js";
+import { debug } from "./services/logger.js";
 
 const versions = {
   'v0.0.1': {
@@ -34,10 +36,11 @@ export async function app() {
 
   await runInitPipeline();
 
-  return Promise.all([serviceWorkerRegistered])
+  const readyPromise = expectEvent(document, 'simulation-ready', 5000)
+    .catch(() => {});
+
+  return Promise.all([serviceWorkerRegistered, readyPromise])
     .then(() => {
-      setTimeout(() => {
-        console.log('app is ready');
-      }, 1000);
+      debug('app is ready');
     });
 }
