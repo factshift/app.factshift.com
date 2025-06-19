@@ -15,14 +15,14 @@
 <body data-mode="nothing" data-interface-depth="standard" data-phase="initial">
 <button id="main-wonder-button">?</button>
 <h1>&lt;concept&gt;</h1>
-<section id="main-stream-container">
+<section id="main-stream-container" role="region" aria-label="Live Stream">
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
-    <spwashi-stream-container></spwashi-stream-container>
+    <spwashi-stream-container role="feed"></spwashi-stream-container>
 </section>
 <a id="title-md5"></a>
 <main>
     <div id="content">
-        <svg id="simulation">
+<svg id="simulation" aria-label="Simulation">
             <g class="simulation-content">
                 <g class="rects"></g>
                 <g class="edges"></g>
@@ -31,13 +31,13 @@
         </svg>
     </div>
 </main>
-<aside id="main-log">
+<aside id="main-log" role="log" aria-live="polite" aria-label="Event Log">
     <ul class="events-log"></ul>
 </aside>
-<section id="main-image-container"></section>
-<button id="focal-square" data-focal-status="inactive"></button>
-<aside id="mode-container">
-    <section id="spw-mode-container">
+<section id="main-image-container" aria-label="Image Viewer"></section>
+<button id="focal-square" data-focal-status="inactive" aria-label="Focus Target"></button>
+<aside id="mode-container" aria-label="Mode Controls">
+    <section id="spw-mode-container" aria-label="SPW Mode">
         <div id="spw-container">
             <label>
                 <span>input</span>
@@ -46,18 +46,18 @@
             <button id="parse-spw">parse</button>
         </div>
     </section>
-    <section id="story-mode-container">
+    <section id="story-mode-container" aria-label="Story Mode">
         <div class="button-container"></div>
     </section>
-    <section id="map-mode-container">
+    <section id="map-mode-container" aria-label="Map Mode">
         <div id="node-mapper" class="code-editor"></div>
         <button id="submit-node-mapper">submit</button>
     </section>
-    <section id="filter-mode-container">
+    <section id="filter-mode-container" aria-label="Filter Mode">
         <div id="node-filter" class="code-editor"></div>
         <button id="submit-node-filter">submit</button>
     </section>
-    <section id="querymod-mode-container">
+    <section id="querymod-mode-container" aria-label="Query Mode">
         <div id="query-parameters">
             <label>
                 <span>Query Parameters</span>
@@ -66,7 +66,7 @@
             <button class="go">go</button>
         </div>
     </section>
-    <section id="node-mode-container">
+    <section id="node-mode-container" aria-label="Node Mode">
         <div id="node-input-container">
             <label><span>Nodes Input</span><input id="nodes-input"/></label>
             <div class="button-container">
@@ -100,7 +100,7 @@
             </section>
         </div>
     </section>
-    <section id="color-mode-container">
+    <section id="color-mode-container" aria-label="Color Mode">
         <section id="colors">
             <button data-dataindex="spwashi-datum-0" class="color cls-0"></button>
             <button data-dataindex="spwashi-datum-1" class="color cls-1"></button>
@@ -117,20 +117,20 @@
             <button data-dataindex="spwashi-datum-12" class="color cls-12"></button>
         </section>
     </section>
-    <section id="reflex-mode-container">
+    <section id="reflex-mode-container" aria-label="Reflex Mode">
         <section id="reflexes"></section>
     </section>
-    <section id="debug-mode-container">
+    <section id="debug-mode-container" aria-label="Debug Mode">
         <section>
             <output id="output"></output>
         </section>
     </section>
 </aside>
-<section id="mainmenu-shortcuts">
+<section id="mainmenu-shortcuts" aria-label="Keyboard Shortcuts">
     <ol></ol>
 </section>
-<button id="hotkey-menu-toggle">[...]</button>
-<section id="hotkey-container" data-interface-element="hotkey-menu">
+<button id="hotkey-menu-toggle" aria-label="Toggle Hotkey Menu">[...]</button>
+<section id="hotkey-container" data-interface-element="hotkey-menu" aria-label="Hotkey Options">
     <section id="keystroke-options"></section>
 </section>
 </body>
