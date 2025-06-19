@@ -3,7 +3,7 @@ import { forceSimulation } from 'd3';
 import { getNodeImageHref } from '../../simulation/nodes/attr/href';
 import { getDefaultRects } from '../../simulation/rects/data/default';
 import { initSvgProperties, getSimulationElements } from '../../simulation/basic';
-import { registerSlice } from '../../simulation/data';
+import DataManager from '../../simulation/data';
 
 function initNodes() {
   window.spwashi.clearCachedNodes = () => {
@@ -15,7 +15,7 @@ function initNodes() {
   const mode  = window.spwashi.parameters.mode;
   const phase = document.body?.dataset.phase || 'default';
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
-  const slice = registerSlice('nodes', {
+  const slice = DataManager.registerSlice('nodes', {
     initialData: window.spwashi.nodes,
     mode,
     phase,
@@ -29,7 +29,7 @@ function initEdges() {
   const mode  = window.spwashi.parameters.mode;
   const phase = document.body?.dataset.phase || 'default';
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
-  const slice = registerSlice('links', {
+  const slice = DataManager.registerSlice('links', {
     initialData: window.spwashi.links,
     mode,
     phase,
@@ -43,7 +43,7 @@ function initRects() {
   const mode  = window.spwashi.parameters.mode;
   const phase = document.body?.dataset.phase || 'default';
   const aggregator = window.spwashi.parameters.dataAggregator || 'array';
-  const slice = registerSlice('rects', {
+  const slice = DataManager.registerSlice('rects', {
     initialData: window.spwashi.rects,
     mode,
     phase,
@@ -63,7 +63,7 @@ export function initSimulationRoot() {
   initRects();
 
   window.spwashi.simulation = forceSimulation();
-  registerSlice('simulation', {
+  DataManager.registerSlice('simulation', {
     initialData: window.spwashi.simulation,
     mode:  window.spwashi.parameters.mode,
     phase: document.body?.dataset.phase || 'default',
