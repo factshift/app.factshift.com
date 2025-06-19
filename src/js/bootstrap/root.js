@@ -1,10 +1,11 @@
 import { initSimulationRoot } from "../services/simulation";
-import {initCallbacks}      from "./callbacks/initCallbacks";
-import {initListeners}      from "./listeners/initListeners";
-import {pushHelpTopics}     from "../modes/input/spw/commands/help";
-import {setDocumentMode}    from "../modes/input";
-import {processSpwInput}    from "../modes/input/spw/process-spw-input";
-import { loadCssVars }      from "../services/style-state";
+import { initCallbacks } from "./callbacks/initCallbacks";
+import { initListeners } from "./listeners/initListeners";
+import { pushHelpTopics } from "../modes/input/spw/commands/help";
+import { setDocumentMode } from "../modes/input";
+import { processSpwInput } from "../modes/input/spw/process-spw-input";
+import { loadCssVars } from "../services/style-state";
+import * as storage from "../services/storage.js";
 
 export function initRoot() {
   initSimulationRoot();
@@ -71,24 +72,6 @@ export function initRoot() {
 
 function initRootSession() {
   window.spwashi.__session = window.spwashi.__session || {i: 0};
-  window.spwashi.setItem   = (key, item, category = null) => {
-    try {
-      window.localStorage.setItem(getItemKey(key, category), JSON.stringify(item || null));
-    } catch (e) {
-      console.error({e, item});
-    }
-  }
-  window.spwashi.getItem   = (key, category = null) => {
-    const out = window.localStorage.getItem(getItemKey(key, category))
-    if (out) return JSON.parse(out || '{}')
-    return undefined;
-  }
-}
-
-function getItemKey(key, category = null) {
-  if (!category) {
-    category = window.spwashi.parameterKey
-  }
-
-  return category + '@' + key;
+  window.spwashi.setItem = storage.setItem;
+  window.spwashi.getItem = storage.getItem;
 }

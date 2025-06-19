@@ -1,6 +1,8 @@
+import { clearAll } from '../../../services/storage.js';
+
 export function reset(searchParameters) {
   if (searchParameters.has('reset')) {
-    window.localStorage.clear();
+    clearAll();
   }
-  return ['reset', false]
+  return ['reset', false];
 }

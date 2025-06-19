@@ -1,3 +1,5 @@
+import * as storage from '../../services/storage.js';
+
 export class ModeHandler {
   constructor(container) {
     this.container = container;
@@ -76,7 +78,7 @@ export class ConfigModeHandler extends ModeHandler {
 
   loadSettings() {
     try {
-      return JSON.parse(localStorage.getItem(this.storageKey)) || this.getDefaults();
+      return storage.getItem(this.storageKey) || this.getDefaults();
     } catch {
       return this.getDefaults();
     }
@@ -129,7 +131,7 @@ export class ConfigModeHandler extends ModeHandler {
 
   saveSettings() {
     const data = this.getSettings();
-    localStorage.setItem(this.storageKey, JSON.stringify(data));
+    storage.setItem(this.storageKey, data);
     this.container.displayMessage(`${this.mode} settings saved locally`, 'success');
   }
 
