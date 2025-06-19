@@ -1,4 +1,5 @@
 import { getSlice } from "../../data";
+import { getCurrentQuery } from "../../../services/query-state";
 
 export function getDefaultRects() {
   const rects = [
@@ -68,8 +69,7 @@ export function getDefaultRects() {
     r.y      = i * 20;
     return r;
   });
-  const mode  = window.spwashi?.parameters?.mode || 'default';
-  const phase = document.body?.dataset?.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   const slice = getSlice('rects', { mode, phase });
   slice?.set(rects);
   return rects;

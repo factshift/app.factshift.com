@@ -2,6 +2,7 @@
  * Safely retrieve the global `spwashi` object, initializing if not present.
  */
 import { getSlice } from "../../data";
+import { getCurrentQuery } from "../../../services/query-state";
 
 function getSpwashiGlobal() {
   if (!window.spwashi) {
@@ -16,8 +17,7 @@ function getSpwashiNodes() {
 
 function setSpwashiNodes(nodes) {
   getSpwashiGlobal().nodes = nodes;
-  const mode  = window.spwashi?.parameters?.mode || 'default';
-  const phase = document.body?.dataset?.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   const slice = getSlice('nodes', { mode, phase });
   slice?.set(nodes);
 }
@@ -28,8 +28,7 @@ function getSpwashiLinks() {
 
 function setSpwashiLinks(links) {
   getSpwashiGlobal().links = links;
-  const mode  = window.spwashi?.parameters?.mode || 'default';
-  const phase = document.body?.dataset?.phase || 'default';
+  const { mode, phase } = getCurrentQuery();
   const slice = getSlice('links', { mode, phase });
   slice?.set(links);
 }
