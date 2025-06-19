@@ -1,5 +1,5 @@
-import {CharacterCursor} from "../../../vendor/spw/core/node/cursor.mjs";
-import {parse}           from "../../../vendor/spw/parser/parse.mjs";
+import {CharacterCursor} from "../../../../vendor/spw/core/node/cursor.mjs";
+import {parse}           from "../../../../vendor/spw/parser/parse.mjs";
 import {NODE_MANAGER}    from "../../../simulation/nodes/nodes";
 import {initFocalSquare}                    from "../../../ui/components/focal-point";
 import {setDocumentMode}                    from "../index";
